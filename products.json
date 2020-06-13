@@ -1,3 +1,70 @@
 {
-
+  "xbox": {
+    "icon": "./images/xbox/icon.png",
+    "parts": {
+      "body": {
+        "icon": "./images/xbox/body/icon.png",
+        "options": {
+          "default": {
+            "icon": "./images/xbox/body/default/icon.png",
+            "front": "./images/xbox/body/default/front.png",
+            "back": "./images/xbox/body/default/back.png",
+            "price": 0
+          }
+        }
+      },
+      "stickLeft": {
+        "icon": "./images/xbox/body/icon.png",
+        "options": {
+          "black": {
+            "icon": "./images/xbox/stickLeft/black/icon.png",
+            "front": "./images/xbox/stickLeft/black/front.png",
+            "price": 0
+          },
+          "red": {
+            "front": {
+              "icon": "./images/xbox/stickLeft/red/icon.png",
+              "front": "./images/xbox/stickLeft/red/front.png"
+            },
+            "price": 10,
+            "category": "Colored"
+          }
+        }
+      }
+    }
+  },
+  "playstation": {
+    "icon": "./images/playstation/icon.png",
+    "parts": {
+      "body": {
+        "icon": "./images/playstation/body/icon.png",
+        "options": {
+          "default": {
+            "icon": "./images/playstation/body/default/icon.png",
+            "front": "./images/playstation/body/default/image.png",
+            "back": "./images/playstation/body/default/image.png",
+            "price": 0
+          }
+        }
+      },
+      "stickLeft": {
+        "icon": "./images/playstation/body/icon.png",
+        "options": {
+          "black": {
+            "icon": "./images/playstation/stickLeft/black/icon.png",
+            "front": "./images/playstation/stickLeft/black/image.png",
+            "price": 0
+          },
+          "red": {
+            "front": {
+              "icon": "./images/playstation/stickLeft/red/icon.png",
+              "front": "./images/playstation/stickLeft/red/image.png"
+            },
+            "price": 10,
+            "category": "Colored"
+          }
+        }
+      }
+    }
+  }
 }

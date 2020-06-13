@@ -1,20 +1,18 @@
-import '../shared/util.js'
+import './util.js'
 
 class Product {
-    constructor(name, parts) {
+    constructor(name, parts, icon) {
         this.name = name
         this.parts = parts
+        this.icon = icon
     }
 }
 
 class Part {
-    constructor(name, options) {
+    constructor(name, options, icon) {
         this.name = name
         this.options = options
-    }
-
-    price() {
-        return this.options.map(o => o.price).reduce((a, b) => a + b, 0)
+        this.icon = icon
     }
 
     groupedOptions() {
@@ -37,11 +35,12 @@ class Part {
 }
 
 class Option {
-    constructor(name, price, icon, image, category) {
+    constructor(name, price, icon, front, back, category) {
         this.name = name
         this.price = price
         this.icon = icon
-        this.image = image
+        this.front = front
+        this.back = back
         this.category = category
     }
 }
@@ -53,7 +52,13 @@ class Configuration {
     }
 
     price() {
-        return this.partOptions.map(po => po.option.price).reduce((a, b) => a + b, 0)
+        return Object.values(this.partOptions).map(o => o.price).sum()
+    }
+
+    copy() {
+        const partOptions = {}
+        Object.entries(this.partOptions).forEach(([partName, option]) => partOptions[partName] = option)
+        return new Configuration(this.product, partOptions)
     }
 }
 
@@ -63,6 +68,8 @@ class Cart {
     }
 
     price() {
-        return this.configurations.map(c => c.price()).reduce((a, b) => a + b, 0)
+        return this.configurations.map(c => c.price()).sum()
     }
 }
+
+export {Product, Part, Option, Configuration, Cart};
