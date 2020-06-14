@@ -35,13 +35,15 @@ class Part {
 }
 
 class Option {
-    constructor(name, price, icon, front, back, category) {
+    constructor(name, option) {
         this.name = name
-        this.price = price
-        this.icon = icon
-        this.front = front
-        this.back = back
-        this.category = category
+        this.price = option.price
+        this.icon = option.icon
+        this.front = option.front
+        this.back = option.back
+        this.category = option.category
+        this.boundsFront = option.boundsFront
+        this.boundsBack = option.boundsBack
     }
 }
 

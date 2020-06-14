@@ -29,7 +29,7 @@ async function initialize() {
 
                 const dataOption = dataOptions[optionName]
 
-                const option = new Option(optionName, dataOption.price, dataOption.icon, dataOption.front, dataOption.back, dataOption.category)
+                const option = new Option(optionName, dataOption)
                 options.push(option)
             }
 
@@ -76,6 +76,7 @@ function currentConfigLabel(productName) {
     if (index < 0) return "Not in cart"
     return (index + 1) + ordinal_suffix_of(index + 1) + " in cart"
 }
+
 
 cart.price = function () {
     return cart.map(config => config.price()).sum()

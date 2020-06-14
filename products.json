@@ -9,7 +9,19 @@
             "icon": "./images/xbox/body/default/icon.png",
             "front": "./images/xbox/body/default/front.png",
             "back": "./images/xbox/body/default/back.png",
-            "price": 0
+            "price": 0,
+            "boundsFront": [
+              0,
+              0,
+              1,
+              1
+            ],
+            "boundsBack": [
+              0,
+              0,
+              1,
+              1
+            ]
           }
         }
       },
@@ -19,7 +31,13 @@
           "black": {
             "icon": "./images/xbox/stickLeft/black/icon.png",
             "front": "./images/xbox/stickLeft/black/front.png",
-            "price": 0
+            "price": 0,
+            "boundsFront": [
+              0.8,
+              0.8,
+              1,
+              1
+            ]
           },
           "red": {
             "front": {
@@ -27,7 +45,13 @@
               "front": "./images/xbox/stickLeft/red/front.png"
             },
             "price": 10,
-            "category": "Colored"
+            "category": "Colored",
+            "boundsFront": [
+              0.8,
+              0.8,
+              1,
+              1
+            ]
           }
         }
       }
@@ -43,7 +67,19 @@
             "icon": "./images/playstation/body/default/icon.png",
             "front": "./images/playstation/body/default/image.png",
             "back": "./images/playstation/body/default/image.png",
-            "price": 0
+            "price": 0,
+            "boundsFront": [
+              0,
+              0,
+              100,
+              100
+            ],
+            "boundsBack": [
+              0,
+              0,
+              100,
+              100
+            ]
           }
         }
       },
@@ -53,7 +89,13 @@
           "black": {
             "icon": "./images/playstation/stickLeft/black/icon.png",
             "front": "./images/playstation/stickLeft/black/image.png",
-            "price": 0
+            "price": 0,
+            "boundsFront": [
+              80,
+              80,
+              100,
+              100
+            ]
           },
           "red": {
             "front": {
@@ -61,7 +103,13 @@
               "front": "./images/playstation/stickLeft/red/image.png"
             },
             "price": 10,
-            "category": "Colored"
+            "category": "Colored",
+            "boundsFront": [
+              80,
+              80,
+              100,
+              100
+            ]
           }
         }
       }
