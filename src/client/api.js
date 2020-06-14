@@ -9,7 +9,7 @@ const currentConfigurations = {};
 const cart = new Cart();
 
 async function initialize() {
-    const data = JSON.parse(await util.asyncHttp("http://localhost:8080/products"))
+    const data = JSON.parse(await util.asyncHttp("http://192.168.0.31:8080/products"))
 
     for (const productName in data) {
         if (!data.hasOwnProperty(productName)) continue

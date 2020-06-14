@@ -26,3 +26,8 @@ export function asyncHttp(url) {
         xhr.send(null);
     });
 }
+
+export function walkDOM(node, callback) {
+    callback(node);
+    [...node.children].forEach(n => walkDOM(n, callback))
+}

@@ -1,11 +1,35 @@
 import * as api from './api.js'
+import {walkDOM} from "./util.js"
 
+const dom = {}
 
-(async function initialize() {
+walkDOM(document.body, function (node) {
+    if (node.hasAttribute("id"))
+        dom[node.id] = node
+})
+
+;(async function initialize() {
     await api.initialize()
     initConfigurators()
-    console.log(api.newConfiguration('xbox'))
 
+    const logo = dom['logo']
+    const margin = logo.offsetTop
+    let top = 2 * margin + logo.offsetHeight
+
+    const frontConfig = dom['configurator-front']
+    frontConfig.style.top = top + "px"
+
+    top += frontConfig.offsetHeight + 2 * margin
+
+    const backConfig = dom['configurator-back']
+    backConfig.style.top = top + "px"
+
+    top += backConfig.offsetHeight + margin
+
+    const modificationCount = dom['modification-count']
+    modificationCount.style.top = top + "px"
+
+    // modificationCount.style.top = backConfig.offsetHeight + backConfig.offsetTop + "px"
 })()
 
 function onButtonClicked() {
