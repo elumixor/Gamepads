@@ -6,31 +6,52 @@ class Product {
         this.parts = parts
         this.icon = icon
     }
+
+    getClickedPart(point) {
+        return Object.values(this.parts)
+            .filter(p => p.bounds.contain(point))
+            .sort((a, b) => a.z() < b.z() ? -1 : 1)[0]
+    }
+}
+
+class Bounds {
+    z() {
+        // todo
+    }
+
+    center() {
+        // todo
+    }
+
+    radius() {
+        // todo
+    }
+
+    contain(point) {
+        // todo
+    }
 }
 
 class Part {
-    constructor(name, options, icon) {
+    constructor(name, options, icon, bounds) {
         this.name = name
         this.options = options
         this.icon = icon
-    }
+        this.bounds = bounds
 
-    groupedOptions() {
-        const groups = {}
+        this.groupedOptions = {}
 
         this.options.forEach(o => {
-            if (!(o.category in groups))
-                groups[o.category] = {}
+            if (!(o.category in this.groupedOptions))
+                this.groupedOptions[o.category] = {}
 
-            let category = groups[o.category];
+            let category = this.groupedOptions[o.category];
 
             if (!(o.price in category))
                 category[o.price] = []
 
             category[o.price].push(o)
         })
-
-        return groups
     }
 }
 
@@ -67,6 +88,10 @@ class Configuration {
 class Cart {
     constructor(configurations) {
         this.configurations = configurations
+    }
+
+    indexOf(configuration) {
+        return this.configurations.indexOf(configuration)
     }
 
     price() {

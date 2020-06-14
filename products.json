@@ -3,6 +3,7 @@
     "icon": "./images/xbox/icon.png",
     "parts": {
       "body": {
+
         "icon": "./images/xbox/body/icon.png",
         "options": {
           "default": {

@@ -1,3 +1,8 @@
+body {
+    background-color: #818181;
+    margin: 0;
+}
+
 .part-image {
     width: 100%;
 }

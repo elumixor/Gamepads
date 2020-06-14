@@ -1,4 +1,4 @@
-import {Configuration, Option, Part, Product} from './domain.js'
+import {Configuration, Option, Part, Product, Cart} from './domain.js'
 import * as util from './util.js'
 
 
@@ -6,7 +6,7 @@ const products = {};
 const defaultConfigurations = {};
 const currentConfigurations = {};
 
-const cart = [];
+const cart = new Cart();
 
 async function initialize() {
     const data = JSON.parse(await util.asyncHttp("http://localhost:8080/products"))
@@ -75,11 +75,6 @@ function currentConfigLabel(productName) {
     const index = configCartIndex(productName)
     if (index < 0) return "Not in cart"
     return (index + 1) + ordinal_suffix_of(index + 1) + " in cart"
-}
-
-
-cart.price = function () {
-    return cart.map(config => config.price()).sum()
 }
 
 function saveInCart(productName) {
