@@ -10,14 +10,14 @@ function parseCommand(command) {
 }
 
 function applyCommand(command, x, y, last) {
-    if (command === "L") return {x, y}
-    if (command === "V") return {x, y: last.y}
-    if (command === "H") return {x: last.x, y: x}
+    if (command === "L") return [x, y]
+    if (command === "V") return [x, last[1]]
+    if (command === "H") return [last.x, x]
 }
 
 function processCommands(commands) {
     const {x, y} = parseCommand(commands[0])
-    let last = {x, y}
+    let last = [x, y]
     const points = [last]
 
     for (let i = 1; i < commands.length; i++) {
@@ -45,17 +45,18 @@ const parts_back = {
     '#FF067E': 'battery pack'
 }
 
-const parts = parts_front
 
 const regions_front = {}
 const regions_back = {}
 
-const regions = regions_front
+const product = 'xbox'
+const name = 'back'
+
+const parts = name === 'front' ? parts_front : parts_back
+const regions = name === 'front' ? regions_front : regions_back
 
 Object.values(parts).forEach(p => regions[p] = [])
 
-const name = 'front'
-const product = 'xbox'
 const src = `./${product}_${name}.svg`
 const target = `./${product}_${name}.json`
 
