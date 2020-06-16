@@ -246,3 +246,14 @@ button.floating {
     color: var(--accent-color);
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
+
+
+#configurator {
+    position: relative;
+    width: 80vw;
+    margin: 2vw 10vw;
+}
+
+#configurator > img {
+    width: 100%;
+}

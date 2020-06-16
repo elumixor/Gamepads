@@ -5,11 +5,18 @@ import * as util from './util.js'
 const products = {};
 const defaultConfigurations = {};
 const currentConfigurations = {};
-
+let data;
 const cart = new Cart();
 
 async function initialize() {
-    const data = JSON.parse(await util.asyncHttp("http://192.168.0.31:8080/products"))
+    data = JSON.parse(await util.asyncHttp("http://192.168.0.31:8080/products"))
+
+    const bounds = {
+        xbox: {
+            front: JSON.parse(await util.asyncHttp("http://192.168.0.31:8080/bounds/xbox_front.json")),
+            back: JSON.parse(await util.asyncHttp("http://192.168.0.31:8080/bounds/xbox_back.json"))
+        }
+    }
 
     for (const productName in data) {
         if (!data.hasOwnProperty(productName)) continue
@@ -19,6 +26,11 @@ async function initialize() {
         const dataParts = data[productName].parts
         for (const partName in dataParts) {
             if (!dataParts.hasOwnProperty(partName)) continue
+
+            const partBounds = {
+                front: bounds[productName].front[partName],
+                back: bounds[productName].back[partName]
+            }
 
             const dataPart = dataParts[partName]
             const dataOptions = dataPart.options
@@ -33,7 +45,7 @@ async function initialize() {
                 options.push(option)
             }
 
-            const part = new Part(partName, options, dataPart.icon)
+            const part = new Part(partName, options, dataPart.icon, partBounds)
             parts.push(part)
         }
 
@@ -97,5 +109,5 @@ function duplicateConfiguration(configuration) {
 export {
     initialize, newConfiguration, currentConfigLabel, configCartIndex, saveInCart, editConfiguration,
     duplicateConfiguration,
-    products, currentConfigurations, cart
+    data, products, currentConfigurations, cart
 }

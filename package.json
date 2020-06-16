@@ -6,6 +6,7 @@
     "nodemailer": "^6.4.8"
   },
   "devDependencies": {
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "svgson": "^4.1.0"
   }
 }
