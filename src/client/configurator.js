@@ -6,9 +6,10 @@ const configuratorZoomedOut = 0.8 // a
 const configuratorZoomedIn = 0.5 // d
 
 export class Configurator {
-    constructor(element, product) {
+    constructor(element, product, partSelectionHandler) {
         this.configuration = null
         this.element = element
+        this.handleClick = partSelectionHandler
 
         this.front = document.createElement('div')
         this.back = document.createElement('div')
@@ -52,7 +53,6 @@ export class Configurator {
     onPartClicked(x, y, part) {
         let clickedPart
 
-        console.log(this.configuration)
         this.configuration.product.bounds.iterate((partName, bounds) => {
             if (clickedPart) return
 
@@ -65,6 +65,9 @@ export class Configurator {
         })
 
         if (clickedPart) {
+            console.log(this.configuration)
+            this.handleClick(this.configuration, clickedPart)
+
             let front = clickedPart.bounds.front
             let back = clickedPart.bounds.back
 

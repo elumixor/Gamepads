@@ -1,3 +1,5 @@
+import * as util from './util.js'
+
 Object.defineProperty(Array.prototype, "sum", {
     value: function () {
         return this.reduce((a, b) => a + b, 0)
@@ -32,7 +34,19 @@ Object.defineProperty(Object.prototype, 'iterate', {
     writable: false
 });
 
-// function returns a Promise
+Object.defineProperty(Object.prototype, 'toArray', {
+    get: function () {
+        return Object.entries(this)
+    }
+});
+
+
+Object.defineProperty(Object.prototype, 'length', {
+    get: function () {
+        return Object.entries(this).length
+    }
+});
+
 export function asyncHttp(url) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -57,4 +71,26 @@ export function asyncHttp(url) {
 export function walkDOM(node, callback) {
     callback(node);
     [...node.children].forEach(n => walkDOM(n, callback))
+}
+
+const baseUrl = 'http://localhost:8080'
+
+// const baseUrl = 'http://192.168.0.31:8080'
+
+export async function get(path) {
+    return await asyncHttp(`${baseUrl}/${path}`)
+}
+
+export async function buildDom(filePath) {
+    const xmlString = await util.get(filePath)
+    const doc = new DOMParser().parseFromString(xmlString, "text/xml")
+    const element = doc.firstChild
+    const ids = {}
+
+    walkDOM(element, node => {
+        if (node.hasAttribute("id"))
+            ids[node.id] = node
+    })
+
+    return {element, ids}
 }

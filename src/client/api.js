@@ -5,13 +5,13 @@ import * as util from './util.js'
 const products = {};
 const defaultConfigurations = {};
 const currentConfigurations = {};
+
 let data;
 const cart = new Cart();
 
-const baseUrl = 'http://192.168.0.31:8080'
 
 async function initialize() {
-    data = JSON.parse(await util.asyncHttp(`${baseUrl}/products`))
+    data = JSON.parse(await util.get('products'))
 
     for (const productName in data) {
         if (!data.hasOwnProperty(productName)) continue
@@ -19,8 +19,8 @@ async function initialize() {
         // fetch bounds data and place it into the object
         const bounds = data[productName].bounds
 
-        bounds.__front = JSON.parse(await util.asyncHttp(`${baseUrl}${bounds.front.slice(1)}`))
-        bounds.__back = JSON.parse(await util.asyncHttp(`${baseUrl}${bounds.back.slice(1)}`))
+        bounds.__front = JSON.parse(await util.get(bounds.front))
+        bounds.__back = JSON.parse(await util.get(bounds.back))
 
         delete bounds.front
         delete bounds.back
@@ -58,8 +58,6 @@ async function initialize() {
             selectedOptions[partName] = options[Object.keys(options)[0]]
 
             calculateBoundProperties(part.bounds)
-
-            console.log(part.bounds)
         }
 
         const config = defaultConfigurations[productName] = {product: data[productName], selectedOptions}
