@@ -1,4 +1,4 @@
-import {Configuration, Option, Part, Product, Cart} from './domain.js'
+import {Cart} from './domain.js'
 import * as util from './util.js'
 
 
@@ -52,8 +52,14 @@ async function initialize() {
         for (const partName in data[productName].parts) {
             if (!data[productName].parts.hasOwnProperty(partName)) continue
 
-            const options = data[productName].parts[partName].options
+            const part = data[productName].parts[partName]
+            const options = part.options
+
             selectedOptions[partName] = options[Object.keys(options)[0]]
+
+            calculateBoundProperties(part.bounds)
+
+            console.log(part.bounds)
         }
 
         const config = defaultConfigurations[productName] = {product: data[productName], selectedOptions}
@@ -61,6 +67,31 @@ async function initialize() {
             return {product: config.product, selectedOptions: {...config.selectedOptions}}
         }
     }
+}
+
+function calculateBoundProperties(bounds) {
+    function max(a, b) {
+        return a > b ? a : b
+    }
+
+    function calcProp(b) {
+        if (b) {
+            const x = b.map(bound => bound.map(point => point[0])).flat()
+            const y = b.map(bound => bound.map(point => point[1])).flat()
+
+            const xMax = x.max()
+            const xMin = x.min()
+
+            const yMax = y.max()
+            const yMin = y.min()
+
+            b.center = {x: (xMax + xMin) / 2, y: (yMax + yMin) / 2}
+            b.radius = max((xMax - xMin) / 2, (yMax - yMin) / 2)
+        }
+    }
+
+    calcProp(bounds.front)
+    calcProp(bounds.back)
 }
 
 function newConfiguration(productName) {

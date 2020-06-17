@@ -5,6 +5,21 @@ Object.defineProperty(Array.prototype, "sum", {
     writable: false
 });
 
+Object.defineProperty(Array.prototype, "max", {
+    value: function () {
+        return this.reduce((a, b) => Math.max(a, b), -Infinity)
+    },
+    writable: false
+});
+
+
+Object.defineProperty(Array.prototype, "min", {
+    value: function () {
+        return this.reduce((a, b) => Math.min(a, b), Infinity)
+    },
+    writable: false
+});
+
 
 Object.defineProperty(Object.prototype, 'iterate', {
     value: function (callback) {

@@ -1,4 +1,5 @@
 import * as api from "./api.js"
+import {pointInPolygon} from "./pointInPolygon.js"
 
 const documentWidth = document.body.offsetWidth
 const configuratorZoomedOut = 0.8 // a
@@ -33,28 +34,61 @@ export class Configurator {
         this.element.appendChild(this.back)
         this.element.appendChild(this.modifications)
 
-        element.addEventListener('click', e => {
-            // Get part from point
-            // zoom from data from that part
+        this.front.addEventListener('click', e => {
+            const x = e.offsetX / e.target.offsetWidth
+            const y = e.offsetY / e.target.offsetHeight
 
-            // We need to have
-
-            // Get current part where clicked
-            // Get what has been clicked
-            // (Circle (Point x, y), radius)
-            const x = (e.clientX - e.target.offsetLeft) / e.target.offsetWidth
-            const y = (e.clientY - e.target.offsetTop) / e.target.offsetHeight
-
-            // const clickedPart = this.configuration.product.getClickedPart({x, y})
-            // this.zoomIn(clickedPart.bounds.center(), clickedPart.bounds.radius())
-
-            const radius = .1
-            // this.zoomIn({x, y}, radius)
-
-            console.log(`clicked at ${x} ${y}`)
-            const partOptions = this.configuration.partOptions
-            Object.keys(partOptions).forEach(partName => console.log(api.data[this.configuration.product.name]))
+            this.onPartClicked(x, y, 'front')
         })
+
+        this.back.addEventListener('click', e => {
+            const x = e.offsetX / e.target.offsetWidth
+            const y = e.offsetY / e.target.offsetHeight
+
+            this.onPartClicked(x, y, 'back')
+        })
+    }
+
+    onPartClicked(x, y, part) {
+        let clickedPart
+
+        console.log(this.configuration)
+        this.configuration.product.bounds.iterate((partName, bounds) => {
+            if (clickedPart) return
+
+            bounds = bounds[part]
+            if (!bounds) return
+
+            const point = [x, y]
+            if (bounds.some(b => pointInPolygon(point, b)))
+                clickedPart = this.configuration.product.parts[partName]
+        })
+
+        if (clickedPart) {
+            let front = clickedPart.bounds.front
+            let back = clickedPart.bounds.back
+
+            if (front && back) {
+                const xMin = Math.min(front.center.x - front.radius, back.center.x - back.radius)
+                const xMax = Math.max(front.center.x + front.radius, back.center.x + back.radius)
+                const centerX = (xMin + xMax) / 2
+
+                const yMin = (front.center.y - front.radius) / 2
+                const yMax = (1 + back.center.y + front.radius) / 2
+                const centerY = (yMin + yMax) / 2
+
+                this.zoomIn({x: centerX, y: centerY}, Math.max((xMax - xMin) / 2, (yMax - yMin) / 2))
+            } else if (front) {
+                const {x, y} = front.center
+                this.zoomIn({x, y: y / 2}, front.radius)
+            } else {
+                const {x, y} = back.center
+                this.zoomIn({x, y: (1 + y) / 2}, back.radius)
+            }
+        } else {
+            // todo: clicked body? or do nothing
+            // do nothing. add body bound later + better bounds (somehow, plz not by hand...)
+        }
     }
 
     zoomIn(center, radius) {
@@ -81,7 +115,6 @@ export class Configurator {
 
         // load images of parts
         configuration.selectedOptions.iterate((part, option) => {
-            console.log(option)
             this.frontParts[part].src = option.front
         })
     }
