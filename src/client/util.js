@@ -40,12 +40,18 @@ Object.defineProperty(Object.prototype, 'toArray', {
     }
 });
 
-
 Object.defineProperty(Object.prototype, 'length', {
     get: function () {
         return Object.entries(this).length
     }
 });
+
+Object.defineProperty(Node.prototype, 'appendNew', {
+    value: function (type) {
+        return this.appendChild(document.createElement(type))
+    }
+});
+
 
 export function asyncHttp(url) {
     return new Promise((resolve, reject) => {

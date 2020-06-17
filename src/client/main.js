@@ -72,13 +72,52 @@ class PartIcon extends HTMLElement {
     }
 }
 
+class OptionIcon extends HTMLElement {
+    constructor(option) {
+        super();
+
+        this.option = option
+    }
+}
+
+class ConfirmCancel extends HTMLElement {
+    constructor(confirmText = "Confirm", cancelText = "Cancel") {
+        super();
+
+        this.confirmText = confirmText
+        this.cancelText = cancelText
+    }
+
+    connectedCallback() {
+        this.confirmButton = this.appendNew('button')
+        this.confirmButton.classList.add('confirm')
+        this.confirmButton.innerText = this.confirmText
+
+        this.cancelButton = this.appendNew('button')
+        this.cancelButton.classList.add('cancel')
+        this.cancelButton.innerText = this.cancelText
+    }
+}
+
 class Editor extends HTMLElement {
     connectedCallback() {
         this.partIcon = this.appendChild(new PartIcon())
+
+        this.dimmer = this.appendChild(document.createElement('div'))
+        this.dimmer.classList.add('dimmer')
+
+        this.optionsRoot = this.appendChild(document.createElement('div'))
+        this.optionsRoot.classList.add('options')
+
+        this.confirmCancel = this.appendChild(new ConfirmCancel())
+    }
+
+    hide() {
+        this.hidden = true
     }
 
     show() {
-
+        this.hidden = false
     }
 
     select(configuration, [partName, selectedOption]) {
@@ -86,13 +125,51 @@ class Editor extends HTMLElement {
 
         this.partIcon.part = part
 
+        // categories -> prices -> options
+        const categories = {Basic: {}}
+
+        part.options.iterate((optionName, option) => {
+            const cat = categories[option.category || 'Basic']
+            const price = cat[option.price] || (cat[option.price] = [])
+            price.push(option)
+        })
+
+        categories.iterate((categoryName, prices) => {
+            const categoryRoot = this.optionsRoot.appendNew('div')
+            const categoryNameEl = categoryRoot.appendNew('div')
+            categoryNameEl.classList.add('category-name')
+            categoryNameEl.innerText = categoryName
+
+            prices.iterate((price, options) => {
+                const priceRoot = categoryRoot.appendNew('span')
+                const priceEl = priceRoot.appendNew('span')
+                priceEl.classList.add('money', 'price')
+                priceEl.innerText = `\$${price}`
+
+                const optionsRoot = priceRoot.appendNew('span')
+                options.forEach(option => optionsRoot.appendChild(new OptionIcon(option)))
+            })
+
+        })
+
         // display options
+        // get categories
+        // within categories, get prices
+        // create div and text elements
+
+        // transform each option into an element
+        // append them to price spans
+        // append them to categories
+        // append them to this.optionsRoot()
+        // console.log(part.options)
         // console.log(configuration, partName, selectedOption)
     }
 }
 
-window.customElements.define('app-editor', Editor);
-window.customElements.define('app-part-icon', PartIcon);
+window.customElements.define('app-editor', Editor)
+window.customElements.define('app-part-icon', PartIcon)
+window.customElements.define('app-option-icon', OptionIcon)
+window.customElements.define('app-confirm-cancel', ConfirmCancel)
 
 
 ;(async function initialize() {
@@ -101,6 +178,7 @@ window.customElements.define('app-part-icon', PartIcon);
     const config = api.newConfiguration(Object.keys(api.data)[0])
 
     const editor = document.body.appendChild(new Editor())
+    editor.hidden = true
 
     editor.select(config, config.selectedOptions.toArray[0])
 

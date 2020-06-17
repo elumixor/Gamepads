@@ -12,6 +12,7 @@
   --line-height: calc(var(--font-size-normal) + 2px);
 
   --weight-light: 300;
+  --weight-normal: 500;
   --weight-heavy: 900;
 
   --logo-width: 12vw;
@@ -91,13 +92,6 @@ button.floating {
   width: 100%;
 }
 
-.bottom-buttons {
-  position: absolute;
-  width: calc(100% - 2 * 25px);
-  margin: 20px 25px;
-  bottom: 0;
-}
-
 #logo {
   border-color: white;
   border-style: solid;
@@ -112,24 +106,6 @@ button.floating {
   float: right;
   font-size: var(--font-size-little);
   margin: calc((var(--logo-width) - var(--line-height)) / 2 + var(--logo-margin));
-}
-
-#dimmer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.67);
-}
-
-#gradient-background {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  top: 50vw;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 21.87%);
-
 }
 
 #modification-count {
@@ -154,54 +130,114 @@ app-editor {
   position: absolute;
   top: 0;
   left: 0;
-}
 
-app-part-icon {
-  display: inline-block;
-  position: relative;
-  height: 30vw;
-  width: 40vw;
-  left: 50vw;
-  padding: 10vw 5vw;
-  text-align: center;
+  app-part-icon {
+    display: inline-block;
+    position: relative;
+    height: 30vw;
+    width: 40vw;
+    left: 50vw;
+    padding: 10vw 5vw;
+    text-align: center;
 
 
-  img {
-    position: absolute;
-    background-color: var(--accent-color-dark);
-    height: var(--part-size);
-    width: var(--part-size);
-    left: calc((100% - var(--part-size) - 2vw) / 2);
-    border-style: solid;
-    border-color: white;
-    border-radius: 100px;
-    border-width: 1vw;
+    img {
+      position: absolute;
+      background-color: var(--accent-color-dark);
+      height: var(--part-size);
+      width: var(--part-size);
+      left: calc((100% - var(--part-size) - 2vw) / 2);
+      border-style: solid;
+      border-color: white;
+      border-radius: 100px;
+      border-width: 1vw;
+    }
+
+    .dimmer {
+      position: relative;
+      top: 0;
+      height: calc(var(--part-size) + 2vw);
+      width: calc(var(--part-size) + 2vw);
+      background: linear-gradient(transparent, black);
+      left: calc((100% - var(--part-size) - 2vw) / 2);
+      border-radius: 100px;
+    }
+
+    .part-name {
+      position: relative;
+      width: 100%;
+      color: white;
+      text-align: center;
+      font-weight: var(--weight-heavy);
+      margin: -30px 0px 0px;
+      text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .options-count {
+      color: white;
+      font-size: var(--font-size-little);
+      text-shadow: 0 2px 5px rgb(0, 0, 0);
+    }
   }
 
   .dimmer {
-    position: relative;
-    height: calc(var(--part-size) + 2vw);
-    width: calc(var(--part-size) + 2vw);
-    background: linear-gradient(transparent, black);
-    left: calc((100% - var(--part-size) - 2vw) / 2);
-    border-radius: 100px;
-  }
-
-  .part-name {
-    position: relative;
+    position: absolute;
     width: 100%;
-    color: white;
-    text-align: center;
-    font-weight: var(--weight-heavy);
-    margin: -30px 0px 0px;
+    bottom: 0;
+    top: 45vw;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 21.87%);
   }
 
-  .options-count {
-    color: white;
-    font-size: var(--font-size-little);
-    text-shadow: 0 2px 5px rgb(0, 0, 0);
+  .options {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding: 0 5vw;
+
+    > div { // selects categories divs
+      > .category-name {
+        color: white;
+        font-size: var(--font-size-less);
+        font-weight: var(--weight-normal);
+      }
+
+      > span { // selects line with price and options
+        > .money {
+          width: 20vw;
+          text-align: center;
+          vertical-align: middle;
+        }
+
+        > :not(.money) { // selects options container
+          white-space: nowrap;
+          overflow-x: scroll;
+          vertical-align: middle;
+
+          > app-option-icon {
+            margin: 0 1vw;
+          }
+        }
+      }
+    }
   }
 }
+
+app-confirm-cancel {
+  position: absolute;
+  width: calc(100% - 2 * 25px);
+  margin: 20px 25px;
+  bottom: 0;
+  left: 0;
+
+  .confirm {
+    float: right;
+  }
+
+  .cancel {
+    float: left;
+  }
+}
+
 
 .category-text {
   color: white;
@@ -226,16 +262,8 @@ app-part-icon {
   text-align: center;
 }
 
-.options-container {
-  height: calc(var(--option-size) + 1vw);
+app-option-icon {
   display: inline-block;
-  white-space: nowrap;
-  /*line-break: strict;*/
-  overflow-x: scroll;
-  width: calc(100vw - 15vw - 15px - 7.5vw);
-}
-
-.option {
   background-color: var(--accent-color-dark);
   width: var(--option-size);
   height: var(--option-size);
