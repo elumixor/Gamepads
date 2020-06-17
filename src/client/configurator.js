@@ -5,12 +5,28 @@ const configuratorZoomedOut = 0.8 // a
 const configuratorZoomedIn = 0.5 // d
 
 export class Configurator {
-    constructor(element) {
+    constructor(element, product) {
         this.configuration = null
         this.element = element
 
-        this.front = document.createElement('img')
-        this.back = document.createElement('img')
+        this.front = document.createElement('div')
+        this.back = document.createElement('div')
+
+        this.frontParts = {base: document.createElement('img')}
+        this.backParts = {base: document.createElement('img')}
+
+        this.frontParts.base.src = product.front
+        this.backParts.base.src = product.back
+
+        this.front.appendChild(this.frontParts.base)
+        this.back.appendChild(this.backParts.base)
+
+        product.parts.iterate(partName => {
+            const partElement = this.frontParts[partName] = document.createElement('img')
+            this.front.appendChild(partElement)
+        })
+
+
         this.modifications = document.createElement('div')
 
         this.element.appendChild(this.front)
@@ -56,16 +72,20 @@ export class Configurator {
 
     loadConfiguration(configuration) {
         this.configuration = configuration
-        const product = api.data[configuration.product.name]
+        const product = configuration.product
 
         // load base images
         this.front.src = product.front
         this.back.src = product.back
 
+
         // load images of parts
+        configuration.selectedOptions.iterate((part, option) => {
+            console.log(option)
+            this.frontParts[part].src = option.front
+        })
     }
 }
-
 
 
 function loadConfiguration(configuration) {
@@ -73,8 +93,8 @@ function loadConfiguration(configuration) {
     // init parts?
     const product = api.data[configuration.product.name]
 
-    front.image = product.front;
-    back.image = product.back;
+    this.front.base.image = product.front;
+    this.back.base.image = product.back;
 
     // front.bounds = ...
     // back.bounds = ...
@@ -83,22 +103,21 @@ function loadConfiguration(configuration) {
     // front.parts = ...
 
 
-    const logo = dom['logo']
-    const margin = logo.offsetTop
-    let top = 2 * margin + logo.offsetHeight
-
-    front.style.top = top + "px"
-
-    top += front.offsetHeight + 2 * margin
-
-    back.style.top = top + "px"
-
-    top += back.offsetHeight + margin
-
-    const modificationCount = dom['modification-count']
-    modificationCount.style.top = top + "px"
+    // const logo = dom['logo']
+    // const margin = logo.offsetTop
+    // let top = 2 * margin + logo.offsetHeight
+    //
+    // front.style.top = top + "px"
+    //
+    // top += front.offsetHeight + 2 * margin
+    //
+    // back.style.top = top + "px"
+    //
+    // top += back.offsetHeight + margin
+    //
+    // const modificationCount = dom['modification-count']
+    // modificationCount.style.top = top + "px"
 }
-
 
 
 // function initConfigurators(/*) {

@@ -8,55 +8,58 @@ const currentConfigurations = {};
 let data;
 const cart = new Cart();
 
-async function initialize() {
-    data = JSON.parse(await util.asyncHttp("http://192.168.0.31:8080/products"))
+const baseUrl = 'http://192.168.0.31:8080'
 
-    const bounds = {
-        xbox: {
-            front: JSON.parse(await util.asyncHttp("http://192.168.0.31:8080/bounds/xbox_front.json")),
-            back: JSON.parse(await util.asyncHttp("http://192.168.0.31:8080/bounds/xbox_back.json"))
-        }
-    }
+async function initialize() {
+    data = JSON.parse(await util.asyncHttp(`${baseUrl}/products`))
 
     for (const productName in data) {
         if (!data.hasOwnProperty(productName)) continue
 
-        const parts = []
+        // fetch bounds data and place it into the object
+        const bounds = data[productName].bounds
 
-        const dataParts = data[productName].parts
-        for (const partName in dataParts) {
-            if (!dataParts.hasOwnProperty(partName)) continue
+        bounds.__front = JSON.parse(await util.asyncHttp(`${baseUrl}${bounds.front.slice(1)}`))
+        bounds.__back = JSON.parse(await util.asyncHttp(`${baseUrl}${bounds.back.slice(1)}`))
 
-            const partBounds = {
-                front: bounds[productName].front[partName],
-                back: bounds[productName].back[partName]
-            }
+        delete bounds.front
+        delete bounds.back
 
-            const dataPart = dataParts[partName]
-            const dataOptions = dataPart.options
-            const options = []
+        for (const n in bounds.__front) {
+            if (!bounds.__front.hasOwnProperty(n)) continue
 
-            for (const optionName in dataOptions) {
-                if (!dataOptions.hasOwnProperty(optionName)) continue
-
-                const dataOption = dataOptions[optionName]
-
-                const option = new Option(optionName, dataOption)
-                options.push(option)
-            }
-
-            const part = new Part(partName, options, dataPart.icon, partBounds)
-            parts.push(part)
+            bounds[n] = {front: bounds.__front[n], back: bounds.__back[n]}
         }
 
-        let product = new Product(productName, parts, data[productName].icon)
-        products[productName] = product
+        for (const n in bounds.__back) {
+            if (!bounds.__back.hasOwnProperty(n)) continue
 
-        const partOptions = {}
-        product.parts.forEach(part => partOptions[part.name] = part.options[0])
+            if (!bounds[n]) bounds[n] = {front: undefined}
+            bounds[n].back = bounds.__back[n]
+        }
 
-        defaultConfigurations[productName] = new Configuration(product, partOptions)
-        currentConfigurations[productName] = newConfiguration(productName)
+        delete bounds.__front
+        delete bounds.__back
+
+        for (const n in bounds) {
+            if (!bounds.hasOwnProperty(n)) continue
+
+            if (!data[productName].parts.hasOwnProperty(n)) delete bounds[n]
+            else data[productName].parts[n].bounds = bounds[n]
+        }
+
+        const selectedOptions = {}
+        for (const partName in data[productName].parts) {
+            if (!data[productName].parts.hasOwnProperty(partName)) continue
+
+            const options = data[productName].parts[partName].options
+            selectedOptions[partName] = options[Object.keys(options)[0]]
+        }
+
+        const config = defaultConfigurations[productName] = {product: data[productName], selectedOptions}
+        config.copy = () => {
+            return {product: config.product, selectedOptions: {...config.selectedOptions}}
+        }
     }
 }
 

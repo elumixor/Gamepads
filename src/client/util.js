@@ -5,6 +5,18 @@ Object.defineProperty(Array.prototype, "sum", {
     writable: false
 });
 
+
+Object.defineProperty(Object.prototype, 'iterate', {
+    value: function (callback) {
+        for (const n in this) {
+            if (this.hasOwnProperty(n)) {
+                callback(n, this[n])
+            }
+        }
+    },
+    writable: false
+});
+
 // function returns a Promise
 export function asyncHttp(url) {
     return new Promise((resolve, reject) => {

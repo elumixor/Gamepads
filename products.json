@@ -3,6 +3,10 @@
     "icon": "./images/xbox/icon.png",
     "front": "./images/xbox/base_front.png",
     "back": "./images/xbox/base_back.png",
+    "bounds": {
+      "front": "./bounds/xbox_front.json",
+      "back": "./bounds/xbox_back.json"
+    },
     "parts": {
       "left stick": {
         "icon": "./images/xbox/body/icon.png",
