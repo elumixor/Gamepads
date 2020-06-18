@@ -31,3 +31,5 @@ export class PartIcon extends HTMLElement {
         this.appendChild(this.optionsCountElement)
     }
 }
+
+window.customElements.define('app-part-icon', PartIcon)

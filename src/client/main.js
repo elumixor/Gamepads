@@ -5,6 +5,8 @@ import {PartIcon} from "./components/partIcon.js"
 import {OptionIcon} from "./components/optionIcon.js"
 import {ConfirmCancel} from "./components/confirmCancel.js"
 import {Editor} from "./components/editor.js"
+import {MainPage} from "./components/mainPage.js"
+import {OrderButton} from "./components/orderButton.js"
 
 // This dictionary object maps ids to dom objects
 const dom = {}
@@ -14,18 +16,16 @@ util.walkDOM(document.body, node => {
 })
 
 
-window.customElements.define('app-editor', Editor)
-window.customElements.define('app-part-icon', PartIcon)
-window.customElements.define('app-option-icon', OptionIcon)
-window.customElements.define('app-confirm-cancel', ConfirmCancel)
-window.customElements.define('app-configurator', Configurator)
 
 ;(async function initialize() {
     await api.initialize()
 
+    const mainPage = document.body.appendChild(new MainPage())
 
     const configurator = document.body.appendChild(new Configurator())
     api.currentConfigurator_(configurator)
+
+    const orderButton = document.body.appendChild(new OrderButton())
 
     const editor = document.body.appendChild(new Editor())
     editor.hide()
@@ -33,16 +33,20 @@ window.customElements.define('app-configurator', Configurator)
     configurator.onPartSelected = (configuration, part) => {
         editor.select(configuration, part)
 
-        dom['logo'].hidden = true
+        mainPage.hidden = true
         dom['cart-status'].hidden = true
 
         editor.show()
     }
 
+    configurator.onUpdated = (configuration) => {
+        orderButton.price = configuration.price
+    }
+
     editor.onHide = () => {
         configurator.zoomOut()
 
-        dom['logo'].hidden = false
+        mainPage.hidden = false
         dom['cart-status'].hidden = false
     }
 

@@ -1,6 +1,37 @@
 import {pointInPolygon} from "../pointInPolygon.js"
 
 export class Configurator extends HTMLElement {
+    constructor() {
+        super();
+
+        this.zoomedIn = false
+        this.onUpdated = (configuration) => {
+        }
+    }
+
+    connectedCallback() {
+        // two panels
+        this.containers = {
+            front: this.appendNew('div'),
+            back: this.appendNew('div')
+        }
+
+        this.bases = {
+            front: this.containers.front.appendNew('img'),
+            back: this.containers.back.appendNew('img')
+        }
+
+        this.selectedOptions = {
+            front: this.containers.front.appendNew('div'),
+            back: this.containers.back.appendNew('div')
+        }
+
+        this.modificationsText = this.appendNew('div')
+
+        this.containers.front.addEventListener('click', e => this.click(e, 'front'))
+        this.containers.back.addEventListener('click', e => this.click(e, 'back'))
+    }
+
     click(e, side) {
         const t = e.target
 
@@ -50,10 +81,16 @@ export class Configurator extends HTMLElement {
 
     zoomIn(center, radius) {
         this.zoomedIn = true
+        this.modificationsText.hidden = true
 
         const documentWidth = document.body.offsetWidth
         const configuratorZoomedIn = 0.5
         const {x, y} = center
+
+        // This should zoom into whole range?
+        // const x = 0.5
+        // const y = 0.5
+        // radius = 1
 
         const width = configuratorZoomedIn * documentWidth / (2 * radius)
         this.style.width = width + "px"
@@ -67,33 +104,11 @@ export class Configurator extends HTMLElement {
 
     zoomOut() {
         this.zoomedIn = false
+        this.modificationsText.hidden = false
 
         this.style.width = ''
         this.style.left = ''
         this.style.top = ''
-    }
-
-    connectedCallback() {
-        // two panels
-        this.containers = {
-            front: this.appendNew('div'),
-            back: this.appendNew('div')
-        }
-
-        this.bases = {
-            front: this.containers.front.appendNew('img'),
-            back: this.containers.back.appendNew('img')
-        }
-
-        this.selectedOptions = {
-            front: this.containers.front.appendNew('div'),
-            back: this.containers.back.appendNew('div')
-        }
-
-        this.modificationsText = this.appendNew('div')
-
-        this.containers.front.addEventListener('click', e => this.click(e, 'front'))
-        this.containers.back.addEventListener('click', e => this.click(e, 'back'))
     }
 
     update() {
@@ -102,6 +117,8 @@ export class Configurator extends HTMLElement {
 
         this.configuration.selectedOptions.iterate((partName, option) => {
             const {front, back} = option
+
+
             if (front)
                 this.selectedOptions.front.appendNew('img', {src: option.front, alt: ''})
             if (back)
@@ -109,6 +126,7 @@ export class Configurator extends HTMLElement {
         })
 
         this.updateText()
+        this.onUpdated(this.configuration)
     }
 
     updateText() {
@@ -128,8 +146,9 @@ export class Configurator extends HTMLElement {
         this.bases.front.src = front
         this.bases.back.src = back
 
-
         // update selected parts options
         this.update()
     }
 }
+
+window.customElements.define('app-configurator', Configurator)

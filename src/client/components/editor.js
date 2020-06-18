@@ -69,3 +69,5 @@ export class Editor extends HTMLElement {
         })
     }
 }
+
+window.customElements.define('app-editor', Editor)

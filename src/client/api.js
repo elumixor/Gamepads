@@ -68,7 +68,14 @@ async function initialize() {
 
         const config = defaultConfigurations[productName] = {product: data[productName], selectedOptions: {}}
         config.copy = () => {
-            return {product: config.product, selectedOptions: {...config.selectedOptions}}
+            const ret = {product: config.product, selectedOptions: {...config.selectedOptions}}
+
+            Object.defineProperty(ret, 'price', {
+                get: function () {
+                    return this.selectedOptions.values.map(opt => opt.price).sum() + ret.product.price
+                }
+            })
+            return ret
         }
     }
 }

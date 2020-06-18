@@ -27,3 +27,5 @@ export class ConfirmCancel extends HTMLElement {
         this.actions.cancel()
     }
 }
+
+window.customElements.define('app-confirm-cancel', ConfirmCancel)

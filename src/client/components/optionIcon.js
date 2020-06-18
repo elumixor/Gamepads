@@ -10,3 +10,5 @@ export class OptionIcon extends HTMLElement {
         })
     }
 }
+
+window.customElements.define('app-option-icon', OptionIcon)

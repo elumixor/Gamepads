@@ -1,5 +1,9 @@
 {
   "xbox": {
+    "displayName": "XBOX ONE",
+    "textBefore": "Design your",
+    "textAfter": "controller",
+    "price": 50,
     "icon": "./images/xbox/icon.png",
     "front": "./images/xbox/base_front.png",
     "back": "./images/xbox/base_back.png",
