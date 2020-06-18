@@ -9,6 +9,15 @@ const currentConfigurations = {};
 let data;
 const cart = new Cart();
 
+let currentConfig
+
+export function currentConfigurator() {
+    return currentConfig
+}
+
+export function currentConfigurator_(newConf) {
+    currentConfig = newConf
+}
 
 async function initialize() {
     data = JSON.parse(await util.get('products'))
@@ -48,19 +57,16 @@ async function initialize() {
             else data[productName].parts[n].bounds = bounds[n]
         }
 
-        const selectedOptions = {}
         for (const partName in data[productName].parts) {
             if (!data[productName].parts.hasOwnProperty(partName)) continue
 
             const part = data[productName].parts[partName]
             const options = part.options
 
-            selectedOptions[partName] = options[Object.keys(options)[0]]
-
             calculateBoundProperties(part.bounds)
         }
 
-        const config = defaultConfigurations[productName] = {product: data[productName], selectedOptions}
+        const config = defaultConfigurations[productName] = {product: data[productName], selectedOptions: {}}
         config.copy = () => {
             return {product: config.product, selectedOptions: {...config.selectedOptions}}
         }

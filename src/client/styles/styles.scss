@@ -2,7 +2,7 @@
   --accent-color: #A730C5;
   --accent-color-dark: #8710A5;
   --money-color: #FFB800;
-  --background-grey: #818181;
+  --background-grey: #E5E5E5;
 
   --font-size-normal: 7vw;
   --font-size-less: 5.5vw;
@@ -35,6 +35,7 @@ html {
 body {
   background-color: var(--background-grey);
   margin: 0;
+  overflow: hidden;
 }
 
 button, div, span {
@@ -101,7 +102,7 @@ button.floating {
   margin: var(--logo-margin);
 }
 
-#identifier {
+#cart-status {
   color: black;
   float: right;
   font-size: var(--font-size-little);
@@ -284,10 +285,23 @@ app-option-icon {
 }
 
 
-#configurator {
-  position: relative;
-  width: 80vw;
-  margin: 2vw 10vw;
+app-configurator {
+  position: absolute;
+  width: 80%;
+  display: block;
+  text-align: center;
+  left: 10%;
+
+  div {
+    img {
+      width: 100%;
+    }
+
+    div {
+      position: absolute;
+      top: 0;
+    }
+  }
 }
 
 #configurator > div, #configurator > div > img {

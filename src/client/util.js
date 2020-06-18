@@ -47,10 +47,23 @@ Object.defineProperty(Object.prototype, 'length', {
 });
 
 Object.defineProperty(Node.prototype, 'appendNew', {
-    value: function (type) {
-        return this.appendChild(document.createElement(type))
+    value: function (tag, attributes) {
+        const element = this.appendChild(document.createElement(tag))
+        if (attributes)
+            attributes.iterate((key, value) => element.setAttribute(key, value))
+        return element
     }
 });
+
+Math.clamp = (a, min = 0, max = 1) => {
+    return Math.min(max, Math.max(a, min))
+}
+
+Object.defineProperty(Node.prototype, 'removeChildren', {
+    value: function () {
+        while (this.firstChild) this.removeChild(this.lastChild);
+    }
+})
 
 
 export function asyncHttp(url) {
