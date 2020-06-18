@@ -55,24 +55,7 @@ button, app-order-button {
   font-weight: var(--weight-heavy);
 }
 
-app-order-button {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  right: 15px;
-  text-align: center;
 
-  > :not(.money) {
-    font-weight: var(--weight-heavy);
-
-  }
-
-  > .money {
-    margin: 0 10px;
-    font-weight: var(--weight-heavy);
-    text-shadow: 0 2px 2px black;
-  }
-}
 
 button:focus {
   outline: none;
@@ -107,6 +90,7 @@ app-editor {
   left: 0;
 
   app-part-icon {
+    z-index: 10;
     display: inline-block;
     position: relative;
     height: 30vw;
@@ -159,8 +143,8 @@ app-editor {
     position: absolute;
     width: 100%;
     bottom: 0;
-    top: 45vw;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 21.87%);
+    top: 15vw;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.885069) 20.25%, #000000 100%);
   }
 
   .options {
@@ -344,6 +328,24 @@ app-main-page {
   }
 }
 
+app-order-button {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  text-align: center;
+
+  > :not(.money) {
+    font-weight: var(--weight-heavy);
+
+  }
+
+  > .money {
+    margin: 0 10px;
+    font-weight: var(--weight-heavy);
+    text-shadow: 0 2px 2px black;
+  }
+}
 
 #cart-status {
   color: black;
