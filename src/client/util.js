@@ -14,6 +14,13 @@ Object.defineProperty(Array.prototype, "max", {
     writable: false
 });
 
+Object.defineProperty(String.prototype, 'times', {
+    value: function (count) {
+        const suffix = count === 11 || count % 10 !== 1 ? 's' : ''
+        return `${count} ${this}${suffix}`
+    }
+})
+
 
 Object.defineProperty(Array.prototype, "min", {
     value: function () {

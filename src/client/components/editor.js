@@ -1,18 +1,21 @@
 import {PartIcon} from "./partIcon.js"
 import {ConfirmCancel} from "./confirmCancel.js"
 import {OptionIcon} from "./optionIcon.js"
+import * as api from "../api.js"
 
 export class Editor extends HTMLElement {
     connectedCallback() {
         this.partIcon = this.appendChild(new PartIcon())
         this.dimmer = this.appendNew('div', {class: 'dimmer'})
-        this.image = this.appendNew('img')
         this.optionsRoot = this.appendNew('div', {class: 'options'})
         this.confirmCancel = this.appendChild(new ConfirmCancel())
+        this.onHide = () => {
+        }
     }
 
     hide() {
         this.hidden = true
+        this.onHide()
     }
 
     show() {
@@ -20,6 +23,23 @@ export class Editor extends HTMLElement {
     }
 
     select(configuration, [part, partName]) {
+        // Save previous option in case of cancellation
+        this.previousOption = configuration.selectedOptions[partName]
+
+        // Register confirm/cancel callbacks
+        this.confirmCancel.actions = {
+            confirm: () => {
+                this.hide()
+            }, cancel: () => {
+                if (!this.previousOption)
+                    delete configuration.selectedOptions[partName]
+                else
+                    configuration.selectedOptions[partName] = this.previousOption
+                api.currentConfigurator().update()
+                this.hide()
+            }
+        }
+
         this.configuration = configuration
         this.partIcon.part = part
 
@@ -31,6 +51,7 @@ export class Editor extends HTMLElement {
             price.push(option)
         })
 
+        this.optionsRoot.removeChildren()
         categories.iterate((categoryName, prices) => {
             const categoryRoot = this.optionsRoot.appendNew('div')
             const categoryNameEl = categoryRoot.appendNew('div', {class: 'category-name'})

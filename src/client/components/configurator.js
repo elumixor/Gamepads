@@ -107,6 +107,13 @@ export class Configurator extends HTMLElement {
             if (back)
                 this.selectedOptions.back.appendNew('img', {src: option.back, alt: ''})
         })
+
+        this.updateText()
+    }
+
+    updateText() {
+        const optionsCount = this.configuration.selectedOptions.length
+        this.modificationsText.innerText = optionsCount === 0 ? 'Click on a part to modify' : 'modification'.times(optionsCount)
     }
 
     get configuration() {
@@ -121,10 +128,6 @@ export class Configurator extends HTMLElement {
         this.bases.front.src = front
         this.bases.back.src = back
 
-        // Update options text
-        const optionsCount = config.selectedOptions.length
-        const suffix = optionsCount === 11 || optionsCount % 10 !== 1 ? 's' : ''
-        this.modificationsText.innerText = optionsCount + " modification" + suffix
 
         // update selected parts options
         this.update()

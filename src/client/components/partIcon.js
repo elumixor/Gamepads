@@ -1,3 +1,5 @@
+import * as util from '../util.js'
+
 export class PartIcon extends HTMLElement {
     constructor() {
         super();
@@ -19,9 +21,7 @@ export class PartIcon extends HTMLElement {
         this.patNameElement.innerText = newPart.displayName
 
         const optionsCount = newPart.options.length
-        const suffix = optionsCount === 11 || optionsCount % 10 !== 1 ? 's' : ''
-
-        this.optionsCountElement.innerText = `${optionsCount} option${suffix}`
+        this.optionsCountElement.innerText = 'option'.times(optionsCount)
     }
 
     connectedCallback() {

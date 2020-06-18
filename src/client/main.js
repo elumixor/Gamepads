@@ -39,6 +39,13 @@ window.customElements.define('app-configurator', Configurator)
         editor.show()
     }
 
+    editor.onHide = () => {
+        configurator.zoomOut()
+
+        dom['logo'].hidden = false
+        dom['cart-status'].hidden = false
+    }
+
 
     // load configurator with xbox, new configuration
     configurator.configuration = api.newConfiguration(Object.keys(api.data)[0])

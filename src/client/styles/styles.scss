@@ -292,7 +292,7 @@ app-configurator {
   text-align: center;
   left: 10%;
 
-  div {
+  > div {
     img {
       width: 100%;
     }
@@ -300,6 +300,11 @@ app-configurator {
     div {
       position: absolute;
       top: 0;
+    }
+
+    &:last-child {
+      top: 15px;
+      position: relative;
     }
   }
 }
