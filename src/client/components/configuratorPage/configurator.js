@@ -1,5 +1,5 @@
-import {pointInPolygon} from "../pointInPolygon.js"
-import {Component} from "./component.js"
+import {pointInPolygon} from "../../pointInPolygon.js"
+import {Component} from "../component.js"
 
 export class Configurator extends Component {
     constructor() {

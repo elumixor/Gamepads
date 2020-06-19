@@ -1,10 +1,22 @@
 import * as util from './util.js'
 
+Object.defineProperty(Array.prototype, 'remove', {
+    value: function (item) {
+        const index = this.indexOf(item)
+        if (index < 0) return
+
+        for (let i = index; i < this.length - 1; ++i) {
+            this[i] = this[i + 1]
+        }
+
+        --this.length
+    }
+})
+
 Object.defineProperty(Array.prototype, "sum", {
-    value: function () {
+    get: function () {
         return this.reduce((a, b) => a + b, 0)
-    },
-    writable: false
+    }
 });
 
 Object.defineProperty(Array.prototype, "max", {
@@ -21,14 +33,12 @@ Object.defineProperty(String.prototype, 'times', {
     }
 })
 
-
 Object.defineProperty(Array.prototype, "min", {
     value: function () {
         return this.reduce((a, b) => Math.min(a, b), Infinity)
     },
     writable: false
 });
-
 
 Object.defineProperty(Object.prototype, 'iterate', {
     value: function (callback) {
@@ -93,10 +103,20 @@ Object.defineProperty(Node.prototype, 'removeChildren', {
 })
 
 
-export function asyncHttp(url) {
-    return new Promise((resolve, reject) => {
+export function walkDOM(node, callback) {
+    callback(node);
+    [...node.children].forEach(n => walkDOM(n, callback))
+}
+
+
+// const baseUrl = 'http://localhost:8080'
+// const baseUrl = 'http://192.168.0.31:8080' // win
+const baseUrl = 'http://192.168.0.94:8080' // mac
+
+export async function get(path) {
+    return await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
+        xhr.open("GET", `${baseUrl}/${path}`, true);
 
         xhr.onload = function () {
             if (xhr.readyState === 4) {
@@ -111,21 +131,22 @@ export function asyncHttp(url) {
             reject(xhr.statusText);
         };
         xhr.send(null);
-    });
+    })
 }
 
-export function walkDOM(node, callback) {
-    callback(node);
-    [...node.children].forEach(n => walkDOM(n, callback))
-}
+export async function post(path, data) {
+    return await new Promise((resolve) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST', `${baseUrl}/${path}`, true);
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
+        // send the collected data as JSON
+        xhr.send(JSON.stringify(data));
 
-// const baseUrl = 'http://localhost:8080'
-// const baseUrl = 'http://192.168.0.31:8080' // win
-const baseUrl = 'http://192.168.0.94:8080' // mac
-
-export async function get(path) {
-    return await asyncHttp(`${baseUrl}/${path}`)
+        xhr.onloadend = function () {
+            resolve()
+        };
+    })
 }
 
 export async function buildDom(filePath) {
