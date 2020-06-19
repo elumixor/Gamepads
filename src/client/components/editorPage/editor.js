@@ -1,7 +1,7 @@
 import {PartIcon} from "./partIcon.js"
-import {ConfirmCancel} from "./confirmCancel.js"
+import {ConfirmCancel} from "../confirmCancel.js"
 import {OptionIcon} from "./optionIcon.js"
-import * as api from "../api.js"
+import * as api from "../../api.js"
 
 export class Editor extends HTMLElement {
     connectedCallback() {

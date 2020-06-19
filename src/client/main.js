@@ -1,10 +1,11 @@
 import * as api from './api.js'
 import * as util from "./util.js"
-import {Configurator} from "./components/configurator.js"
-import {Editor} from "./components/editor.js"
+import {Configurator} from "./components/configuratorPage/configurator.js"
+import {Editor} from "./components/editorPage/editor.js"
 import {MainPage} from "./components/mainPage.js"
-import {OrderButton} from "./components/orderButton.js"
-import {CartIcon} from "./components/cartIcon.js"
+import {OrderButton} from "./components/configuratorPage/orderButton.js"
+import {CartIcon} from "./components/configuratorPage/cartIcon.js"
+import {CartPage} from "./components/cartPage/cartPage.js"
 
 // This dictionary object maps ids to dom objects
 const dom = {}
@@ -18,8 +19,9 @@ util.walkDOM(document.body, node => {
     await api.initialize()
 
     const mainPage = document.body.appendChild(new MainPage())
+
     const cartIcon = document.body.appendChild(new CartIcon())
-    cartIcon.cart = api.cart
+    cartIcon.update()
 
     const configurator = document.body.appendChild(new Configurator())
     api.currentConfigurator_(configurator)
@@ -29,11 +31,15 @@ util.walkDOM(document.body, node => {
     const editor = document.body.appendChild(new Editor())
     editor.hide()
 
+    const cartPage = document.body.appendChild(new CartPage())
+    cartPage.hidden = true
+
     configurator.onPartSelected = (configuration, part) => {
         editor.select(configuration, part)
 
         mainPage.hidden = true
         dom['cart-status'].hidden = true
+        orderButton.hidden = true
 
         editor.show()
     }
@@ -46,6 +52,7 @@ util.walkDOM(document.body, node => {
         configurator.zoomOut()
 
         mainPage.hidden = false
+        orderButton.hidden = false
         dom['cart-status'].hidden = false
     }
 
@@ -56,9 +63,21 @@ util.walkDOM(document.body, node => {
 
     orderButton.onClick = () => {
         api.saveToCart(configurator.configuration)
-        cartIcon.cart = api.cart
+        cartIcon.update()
         configurator.configuration = api.newConfiguration(api.data.keyOf(configurator.configuration.product))
     }
+
+    cartIcon.onClick = () => {
+        cartPage.update()
+        cartPage.hidden = false
+    }
+
+    cartPage.onOrder = () => {
+        util.post('order', api.cart)
+        api.cart.length = 0
+        cartIcon.update()
+    }
+    cartPage.onConfigurationRemoved = () => cartIcon.update()
 
 
     // load configurator with xbox, new configuration

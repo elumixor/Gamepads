@@ -2,7 +2,10 @@ export class Component extends HTMLElement {
     constructor() {
         super();
 
-        this.setAttribute('custom-component', '')
+        this.setAttribute('data-custom-component', '')
+    }
+
+    connectedCallback() {
     }
 }
 

@@ -8,9 +8,10 @@ const currentConfigurations = {};
 
 let data;
 const cart = [];
+
 Object.defineProperty(cart, 'price', {
-    get: function() {
-        return cart.map(i => i.price).sum
+    get: function () {
+        return cart.map(i => i.price * i.count).sum
     }
 })
 
@@ -73,11 +74,11 @@ async function initialize() {
 
         const config = defaultConfigurations[productName] = {product: data[productName], selectedOptions: {}}
         config.copy = () => {
-            const ret = {product: config.product, selectedOptions: {...config.selectedOptions}}
+            const ret = {product: config.product, selectedOptions: {...config.selectedOptions}, count: 1}
 
             Object.defineProperty(ret, 'price', {
                 get: function () {
-                    return this.selectedOptions.values.map(opt => opt.price).sum() + ret.product.price
+                    return this.selectedOptions.values.map(opt => opt.price).sum + ret.product.price
                 }
             })
             return ret
@@ -141,7 +142,6 @@ function currentConfigLabel(productName) {
 
 function saveToCart(configuration) {
     const productName = data.keyOf(configuration.product)
-    console.log(productName)
 
     // check if editing, i.e., if this configuration is already in cart
     if (configCartIndex(productName) < 0)

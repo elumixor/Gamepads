@@ -1,4 +1,4 @@
-import * as api from '../api.js'
+import * as api from '../../api.js'
 
 export class OptionIcon extends HTMLElement {
     constructor(configuration, partName, option) {

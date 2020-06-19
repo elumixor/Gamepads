@@ -1,4 +1,4 @@
-import * as util from '../util.js'
+import * as util from '../../util.js'
 
 export class PartIcon extends HTMLElement {
     constructor() {
@@ -9,8 +9,8 @@ export class PartIcon extends HTMLElement {
         this.dimmerElement = document.createElement('div')
         this.dimmerElement.classList.add('dimmer')
 
-        this.patNameElement = document.createElement('div')
-        this.patNameElement.classList.add('part-name')
+        this.partNameElement = document.createElement('div')
+        this.partNameElement.classList.add('part-name')
 
         this.optionsCountElement = document.createElement('div')
         this.optionsCountElement.classList.add('options-count')
@@ -18,7 +18,7 @@ export class PartIcon extends HTMLElement {
 
     set part(newPart) {
         this.imageElement.src = newPart.icon
-        this.patNameElement.innerText = newPart.displayName
+        this.partNameElement.innerText = newPart.displayName
 
         const optionsCount = newPart.options.length
         this.optionsCountElement.innerText = 'option'.times(optionsCount)
@@ -27,9 +27,9 @@ export class PartIcon extends HTMLElement {
     connectedCallback() {
         this.appendChild(this.imageElement)
         this.appendChild(this.dimmerElement)
-        this.appendChild(this.patNameElement)
+        this.appendChild(this.partNameElement)
         this.appendChild(this.optionsCountElement)
     }
 }
 
-window.customElements.define('app-part-icon', PartIcon)
+customElements.define('app-part-icon', PartIcon)
