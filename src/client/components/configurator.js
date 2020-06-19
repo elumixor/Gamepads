@@ -1,6 +1,7 @@
 import {pointInPolygon} from "../pointInPolygon.js"
+import {Component} from "./component.js"
 
-export class Configurator extends HTMLElement {
+export class Configurator extends Component {
     constructor() {
         super();
 
@@ -139,6 +140,7 @@ export class Configurator extends HTMLElement {
     }
 
     set configuration(config) {
+        if (this.config === config) return
         this.config = config
 
         // Load base images

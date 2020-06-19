@@ -49,9 +49,14 @@ util.walkDOM(document.body, node => {
         dom['cart-status'].hidden = false
     }
 
+    mainPage.onProductSelected = (productName) => {
+        mainPage.close()
+        configurator.configuration = api.currentConfigurations[productName]
+    }
 
     // load configurator with xbox, new configuration
-    configurator.configuration = api.newConfiguration(Object.keys(api.data)[0])
+    const productName = api.data.keys[0]
+    configurator.configuration = api.currentConfigurations[productName] = api.newConfiguration(productName)
 
     // for each product, create configurator elements
 

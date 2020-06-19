@@ -5,6 +5,7 @@ export class MainPage extends HTMLElement {
         super();
 
         this.isOpen = true
+        this.onProductSelected = () => {}
     }
 
     connectedCallback() {
@@ -41,7 +42,9 @@ export class MainPage extends HTMLElement {
             const t3 = panel.appendNew('div')
             t3.innerText = product.textAfter
 
-            console.log(product.displayName)
+            panel.addEventListener('click', () => {
+                this.onProductSelected(productName)
+            })
         })
     }
 
