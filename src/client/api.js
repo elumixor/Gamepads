@@ -7,7 +7,12 @@ const defaultConfigurations = {};
 const currentConfigurations = {};
 
 let data;
-const cart = new Cart();
+const cart = [];
+Object.defineProperty(cart, 'price', {
+    get: function() {
+        return cart.map(i => i.price).sum
+    }
+})
 
 let currentConfig
 

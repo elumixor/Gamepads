@@ -55,8 +55,6 @@ button, app-order-button {
   font-weight: var(--weight-heavy);
 }
 
-
-
 button:focus {
   outline: none;
 }
@@ -80,6 +78,11 @@ span {
 
 .confirm {
   color: var(--accent-color);
+}
+
+[custom-component] {
+  position: relative;
+  display: inline-block;
 }
 
 app-editor {
@@ -212,7 +215,7 @@ app-option-icon {
 }
 
 app-configurator {
-  position: absolute;
+  position: relative;
   width: 80%;
   display: block;
   text-align: center;
@@ -304,22 +307,22 @@ app-main-page {
 
   &:not([open]) {
     display: inline-block;
-    overflow-y: scroll;
     width: 15vw;
     height: 15vw;
     z-index: 100;
-    position: relative;
+    position: absolute;
+    overflow: initial;
+    margin: 5px;
 
     &[hidden] {
       display: none;
     }
 
-
     > img {
       border-radius: 50%;
       box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-      width: 80%;
-      margin: 5px;
+      width: 100%;
+      margin: 0;
     }
 
     > :not(img) {
@@ -347,9 +350,45 @@ app-order-button {
   }
 }
 
+app-cart-icon[custom-component] {
+  position: absolute;
+  top: 2.5vw;
+  right: 2.5vw;
+  height: 9vw;
+  width: 9vw;
+  background-color: black;
+  padding: 3vw;
+  border-radius: 50%;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+  > img {
+    width: 30px;
+    height: 30px;
+  }
+
+  > div {
+    position: absolute;
+    color: white;
+    background: var(--accent-color);
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: var(--font-size-less);
+    text-align: center;
+    border-radius: 50%;
+    padding: 2px;
+    top: -5px;
+    right: -5px;
+  }
+}
+
 #cart-status {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  line-height: 15vw;
   color: black;
   float: right;
   font-size: var(--font-size-little);
-  margin: calc((var(--logo-width) - var(--line-height)) / 2 + var(--logo-margin));
+  height: 15vw;
 }

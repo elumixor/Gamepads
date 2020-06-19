@@ -1,12 +1,10 @@
 import * as api from './api.js'
 import * as util from "./util.js"
 import {Configurator} from "./components/configurator.js"
-import {PartIcon} from "./components/partIcon.js"
-import {OptionIcon} from "./components/optionIcon.js"
-import {ConfirmCancel} from "./components/confirmCancel.js"
 import {Editor} from "./components/editor.js"
 import {MainPage} from "./components/mainPage.js"
 import {OrderButton} from "./components/orderButton.js"
+import {CartIcon} from "./components/cartIcon.js"
 
 // This dictionary object maps ids to dom objects
 const dom = {}
@@ -16,11 +14,12 @@ util.walkDOM(document.body, node => {
 })
 
 
-
 ;(async function initialize() {
     await api.initialize()
 
     const mainPage = document.body.appendChild(new MainPage())
+    const cartIcon = document.body.appendChild(new CartIcon())
+    cartIcon.cart = api.cart
 
     const configurator = document.body.appendChild(new Configurator())
     api.currentConfigurator_(configurator)
