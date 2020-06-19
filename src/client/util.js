@@ -53,6 +53,14 @@ Object.defineProperty(Object.prototype, 'keys', {
     },
 });
 
+Object.defineProperty(Object.prototype, 'keyOf', {
+    value: function (v) {
+        for (const k in this) {
+            if (this.hasOwnProperty(k) && this[k] === v) return k
+        }
+    },
+});
+
 Object.defineProperty(Object.prototype, 'toArray', {
     get: function () {
         return Object.entries(this)

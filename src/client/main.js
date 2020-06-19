@@ -54,6 +54,13 @@ util.walkDOM(document.body, node => {
         configurator.configuration = api.currentConfigurations[productName]
     }
 
+    orderButton.onClick = () => {
+        api.saveToCart(configurator.configuration)
+        cartIcon.cart = api.cart
+        configurator.configuration = api.newConfiguration(api.data.keyOf(configurator.configuration.product))
+    }
+
+
     // load configurator with xbox, new configuration
     const productName = api.data.keys[0]
     configurator.configuration = api.currentConfigurations[productName] = api.newConfiguration(productName)

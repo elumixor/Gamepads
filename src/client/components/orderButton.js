@@ -1,6 +1,8 @@
 export class OrderButton extends HTMLElement {
     constructor() {
         super();
+        this.onClick = () => {}
+        this.addEventListener('click', () => this.onClick())
     }
 
     connectedCallback() {

@@ -139,8 +139,10 @@ function currentConfigLabel(productName) {
     return (index + 1) + ordinal_suffix_of(index + 1) + " in cart"
 }
 
-function saveInCart(productName) {
-    const configuration = currentConfigurations[productName]
+function saveToCart(configuration) {
+    const productName = data.keyOf(configuration.product)
+    console.log(productName)
+
     // check if editing, i.e., if this configuration is already in cart
     if (configCartIndex(productName) < 0)
         cart.push(configuration)
@@ -157,7 +159,7 @@ function duplicateConfiguration(configuration) {
 }
 
 export {
-    initialize, newConfiguration, currentConfigLabel, configCartIndex, saveInCart, editConfiguration,
+    initialize, newConfiguration, currentConfigLabel, configCartIndex, saveToCart, editConfiguration,
     duplicateConfiguration,
     data, products, currentConfigurations, cart
 }
