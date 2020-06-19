@@ -69,11 +69,7 @@ export class CartPage extends PageComponent {
                 this.update()
             }
             cartItem.onCountChanged = () => {
-                this.price.innerText = `\$$
-            {
-                api.cart.price
-            }
-            `
+                this.price.innerText = `\$${api.cart.price}`
             }
         })
     }
