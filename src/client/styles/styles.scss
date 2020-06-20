@@ -1,26 +1,41 @@
+@use "sass:color";
+
+$font-size-big: 2rem;
+$font-size-normal: 1rem;
+$font-size-less: 1.25rem;
+$font-size-little: 1rem;
+
+$weight-light: 300;
+$weight-normal: 500;
+$weight-heavy: 900;
+
+$top-icon-size: 50px;
+$top-icon-margin: 10px;
+
+$configurator-height: calc(100vh - 250px);
+
+$accent-light: #A730C5;
+$accent-dark: #8710A5;
+$background-grey: #BEBEBE;
+
+
 :root {
-  --accent-color: #A730C5;
-  --accent-color-dark: #8710A5;
-  --money-color: #FFB800;
+  --accent-light: #A730C5;
+  --accent-dark: #8710A5;
   --background-grey: #BEBEBE;
 
-  --font-size-normal: 7vw;
-  --font-size-less: 5.5vw;
-  --font-size-little: 4.2vw;
-  --font-size-big: 10vw;
+  --font-size-big: 2rem;
+  --font-size-normal: 1.5rem;
+  --font-size-less: 1.25vw;
+  --font-size-little: 1rem;
 
   --line-height: calc(var(--font-size-normal) + 2px);
 
   --weight-light: 300;
   --weight-normal: 500;
   --weight-heavy: 900;
-
-  --logo-width: 12vw;
-  --logo-margin: 5px;
-
-  --option-size: 12.5vw;
-  --part-size: 25vw;
 }
+
 
 ::-webkit-scrollbar {
   width: 0;
@@ -28,8 +43,21 @@
   background: transparent; /* make scrollbar transparent */
 }
 
+@mixin top-icon {
+  margin: $top-icon-margin;
+  width: $top-icon-size;
+  height: $top-icon-size;
+}
+
+@mixin text-center-line($lh) {
+  line-height: $lh;
+  height: $lh;
+}
+
 html {
-  font-size: var(--font-size-normal);
+  font-size: min(calc(1em + 1vw), 26px);
+  font-family: 'Lato', serif;
+  font-weight: $weight-light;
 }
 
 body {
@@ -38,30 +66,22 @@ body {
   overflow: hidden;
 }
 
-button, div, span, input {
-  font-family: 'Lato', serif;
-  font-size: var(--font-size-normal);
-  line-height: var(--line-height);
-  font-style: normal;
-  font-weight: var(--weight-light);
-}
-
 input {
   padding: 0 0 5px 0;
   border: none;
-  border-bottom: 2px solid var(--accent-color-dark);
+  border-bottom: 2px solid $accent-dark;
   background: transparent;
-  font-size: var(--font-size-less);
-  font-weight: var(--weight-normal);
+  font-size: $font-size-normal;
+  font-weight: $weight-normal;
   text-align: center;
-  color: var(--accent-color-dark);
+  color: $accent-dark;
 }
 
 button, app-order-button {
   color: black;
   background-color: transparent;
-  border: 1vw solid;
-  border-radius: 2.5vw;
+  border: 0.11rem solid;
+  border-radius: 15px;
   padding: 5px 10px;
   font-weight: var(--weight-heavy);
 }
@@ -79,7 +99,7 @@ span {
 }
 
 .money {
-  color: var(--accent-color-dark);
+  color: var(--accent-dark);
   font-weight: var(--weight-light);
 }
 
@@ -93,7 +113,7 @@ span {
 }
 
 .confirm {
-  color: var(--accent-color);
+  color: var(--accent-light);
 }
 
 [data-custom-component] {
@@ -135,13 +155,12 @@ app-editor {
     > div { // selects categories divs
       > .category-name {
         color: white;
-        font-size: var(--font-size-less);
         font-weight: var(--weight-normal);
       }
 
       > span { // selects line with price and options
         > .money {
-          width: 15vw;
+          width: 2em;
           text-align: center;
           vertical-align: middle;
           margin-right: 15px;
@@ -153,7 +172,7 @@ app-editor {
           vertical-align: middle;
 
           > app-option-icon {
-            margin: 0 1vw;
+            margin: 0 5px;
           }
         }
       }
@@ -181,62 +200,78 @@ app-part-icon {
   z-index: 10;
   display: inline-block;
   position: relative;
-  height: 30vw;
+  height: 40vw;
   width: 40vw;
   left: 50vw;
-  padding: 10vw 5vw;
+  margin: 10vw 5vw;
   text-align: center;
 
 
-  img {
+  $border-width: min(5px, 5vw);
+  $img-size: 80%;
+
+  img, .dimmer {
     position: absolute;
-    background-color: var(--accent-color-dark);
-    height: var(--part-size);
-    width: var(--part-size);
-    left: calc((100% - var(--part-size) - 2vw) / 2);
+
+    left: calc(50% - #{$img-size/2});
+    top: calc(50% - #{$img-size/2});
+
+    border-radius: 100%;
+  }
+
+  img {
+    $size: calc(#{$img-size} - 2 * #{$border-width});
+    height: $size;
+    width: $size;
+    border-width: $border-width;
+    background-color: var(--accent-dark);
     border-style: solid;
     border-color: white;
-    border-radius: 100px;
-    border-width: 1vw;
   }
 
   .dimmer {
-    position: relative;
-    top: 0;
-    height: calc(var(--part-size) + 2vw);
-    width: calc(var(--part-size) + 2vw);
+    height: $img-size;
+    width: $img-size;
     background: linear-gradient(transparent, black);
-    left: calc((100% - var(--part-size) - 2vw) / 2);
-    border-radius: 100px;
   }
 
   .part-name {
     position: relative;
+    top: 50%;
     width: 100%;
     color: white;
     text-align: center;
-    font-weight: var(--weight-heavy);
-    margin: -30px 0px 0px;
+    font-weight: $weight-heavy;
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: $font-size-big;
   }
 
   .options-count {
     color: white;
-    font-size: var(--font-size-little);
+    position: relative;
+    font-size: $font-size-little;
     text-shadow: 0 2px 5px rgb(0, 0, 0);
+    font-weight: $weight-normal;
+    top: 50%;
   }
 }
 
 app-confirm-cancel {
   position: absolute;
-  width: calc(100% - 2 * 25px);
-  margin: 20px 25px;
+  $margin-horizontal: 20px;
+  width: calc(100% - #{2 * $margin-horizontal});
+  margin: 20px $margin-horizontal;
   bottom: 0;
   left: 0;
 
   > * {
     width: auto;
-    min-width: 40%;
+    min-width: 35%;
+
+    @media screen and (min-width: 350px) {
+      width: 49%;
+    }
+    font-size: 1em;
   }
 
   .confirm {
@@ -250,12 +285,16 @@ app-confirm-cancel {
 
 app-option-icon {
   display: inline-block;
-  background-color: var(--accent-color-dark);
-  width: var(--option-size);
-  height: var(--option-size);
+  $border-size: 3px;
+  $size: calc(50px - #{$border-size * 2});
+
+  width: $size;
+  height: $size;
+
+  background-color: $accent-dark;
   border-color: white;
   border-style: solid;
-  border-width: .5vw;
+  border-width: $border-size;
   border-radius: 50%;
   vertical-align: middle;
 }
@@ -266,16 +305,27 @@ app-configurator {
   display: block;
   text-align: center;
   left: 10%;
+  height: $configurator-height;
 
-  & > div {
+  & > div:not(:last-child) {
+    height: 50%;
+    position: relative;
+
     img {
       width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: absolute;
+      left: 0;
+      top: 0;
     }
 
     & > div {
-      position: absolute;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
+      position: relative;
     }
 
     &:last-child {
@@ -308,25 +358,29 @@ app-main-page {
   }
 
   > img {
-    border-radius: 50%;
-    width: 35vw;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    margin: 10vw 32.5vw;
     position: relative;
+
+    $size: clamp(150px, 20vw, 200px);
+    width: $size;
+
+    margin: min(10vw, 50px) calc(50% - #{$size} / 2);
+
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
   }
 
   > div.languages {
     position: absolute;
-    top: 7.5vw;
-    right: 7.5vw;
+    top: $top-icon-margin;
+    right: $top-icon-margin;
 
     > div { // selects individual language buttons
       background-color: black;
-      margin: 3px;
+      margin: 5px 3px;
       color: white;
       padding: 1px 10px;
       border-radius: 100px;
-      font-size: var(--font-size-less);
+      font-size: $font-size-little;
       box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     }
   }
@@ -334,7 +388,7 @@ app-main-page {
   > div:last-child { // selects panels
     > div { // selects individual panel
       padding: 7px 10px;
-      background-color: var(--accent-color-dark);
+      background-color: var(--accent-dark);
 
       > .product {
         color: white;
@@ -346,7 +400,6 @@ app-main-page {
 
       > :first-child, > :last-child {
         color: rgba(255, 255, 255, 0.25);
-        font-size: var(--font-size-less);
       }
 
     }
@@ -354,12 +407,14 @@ app-main-page {
 
   &:not([open]) {
     display: inline-block;
-    width: 15vw;
-    height: 15vw;
+    width: var(--top-icon-size);
+    height: var(--top-icon-size);
+    margin: var(--top-icon-margin);
     z-index: 100;
     position: absolute;
     overflow: initial;
-    margin: 5px;
+
+    @include top-icon;
 
     &[hidden] {
       display: none;
@@ -370,6 +425,8 @@ app-main-page {
       box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
       width: 100%;
       margin: 0;
+      position: absolute;
+      top: 0;
     }
 
     > :not(img) {
@@ -397,33 +454,33 @@ app-order-button {
 
 app-cart-icon[data-custom-component] {
   position: absolute;
-  top: 2.5vw;
-  right: 2.5vw;
-  height: 9vw;
-  width: 9vw;
+  top: 0;
+  right: 0;
   background-color: black;
-  padding: 3vw;
+  padding: 0;
   border-radius: 50%;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  @include top-icon;
 
   > img {
     width: 30px;
     height: 30px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    margin: 10px;
   }
 
   > div {
     position: absolute;
     color: white;
-    background: var(--accent-color);
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    font-size: var(--font-size-less);
+    background: color.change($accent-dark, $alpha: 0.8);
+    width: 100%;
+    height: 100%;
+    line-height: 50px;
     text-align: center;
     border-radius: 50%;
-    padding: 2px;
-    top: -5px;
-    right: -5px;
+    font-weight: 900;
   }
 }
 
@@ -431,7 +488,7 @@ app-cart-page {
   z-index: 101;
 
   > .heading, > .total {
-    line-height: 15vw;
+    line-height: min(100px, 15vw);
     text-align: center;
     padding: 10px;
 
@@ -449,11 +506,17 @@ app-cart-page {
 
   > .total > :last-child {
     font-weight: var(--weight-light);
-    color: var(--accent-color-dark);
+    color: var(--accent-dark);
+  }
+
+  > .total {
+    position: absolute;
+    width: calc(100% - 20px);
+    bottom: calc(4.5rem + 17px);
   }
 
   > input {
-    bottom: 75px;
+    bottom: 3.5rem;
     position: absolute;
     margin: 5px 25px;
     width: calc(100% - 50px);
@@ -462,10 +525,20 @@ app-cart-page {
 
   > .items {
     overflow: scroll;
-    height: 55vh;
+    top: 3.5rem;
+    position: absolute;
+    width: 100%;
+    bottom: calc(8rem + 17px);
 
     > app-cart-item {
-      width: 100%;
+      $item-margin-v: 15px;
+      $item-margin-h: min(#{$item-margin-v}, 1vw);
+      $item-size: 100px;
+      //$item-size: clamp(70px, 15vw, 100px);
+
+      width: calc(100% - 2 * #{$item-margin-h});
+      height: $item-size;
+      margin: $item-margin-v $item-margin-h;
 
       > * {
         vertical-align: middle;
@@ -473,53 +546,105 @@ app-cart-page {
 
       > app-part-icon {
         left: auto;
-        height: 22vw;
-        width: 22vw;
-        padding: 5vw 5vw;
+        width: $item-size;
+        height: $item-size;
 
-        > img, .dimmer {
-          left: calc((100% - 17vw - 2vw) / 2);
+        margin: 0 1vw;
+        @media screen and (min-width: 640px) {
+          margin: 0 min(10vw, 30px) 0 10vw;
         }
-
-        > img {
-          height: 15vw;
-          width: 15vw;
-        }
-
-        > .dimmer {
-          width: 17vw;
-          height: 17vw;
+        @media screen and (min-width: 1280px) {
+          margin: 0 min(15vw, 30px) 0 15vw;
         }
 
         .part-name {
-          font-size: 0.6em;
+          font-size: min(0.6em, 19px);
           font-weight: var(--weight-heavy);
+        }
+
+        .options-count {
+          font-size: min(0.8em, 19px);
+        }
+      }
+
+      > app-counter {
+        width: clamp(90px, 30vw, 200px);
+        @media screen and (max-width: 300px) {
+          width: 30px;
         }
       }
 
       > .money {
-        margin: 0 20px 0 25px;
+        @include text-center-line($item-size);
+        text-align: center;
+
+        width: 20vw;
+        @media screen and (max-width: 300px) {
+          width: 30vw;
+        }
       }
+
+      > img {
+        $size: min(15px, 4vw);
+        $m: calc((#{$item-size} - #{$size}) / 2);
+
+        float: right;
+
+        height: $size;
+
+        margin: $m 5vw $m 0;
+
+        @media screen and (max-width: 350px) {
+          margin: $m 5px $m 0;
+        }
+        @media screen and (max-width: 250px) {
+          margin: $m 0;
+        }
+      }
+    }
+
+    > hr {
+      width: 80%;
+      margin: 0 10%;
     }
   }
 }
 
 app-counter {
+  $height: 30px;
+  line-height: $height;
   border: 3px solid black;
   border-radius: 10px;
+  text-align: center;
+  font-size: 0.75rem;
 
   > button {
     border: none;
   }
 
   > * {
-    font-weight: var(--weight-heavy);
-    font-size: var(--font-size-less);
+    min-width: $height;
+    padding: 0;
+    width: $height;
+    vertical-align: middle;
+    font-weight: 900;
+    font-size: 0.75rem;
     text-align: center;
-    padding: 3px;
-    line-height: 24px;
-    width: 30px;
     display: inline-block;
+  }
+
+  > :first-child { // -
+    //float: left;
+  }
+
+  > :not(:first-child):not(:last-child) { // count text
+    //margin: 0 5px;
+    //padding: min(3px, 0.1vw);
+    width: calc(100% - #{$height * 2});
+  }
+
+  > :last-child { // -
+    //float: right;
   }
 }
 
@@ -535,12 +660,11 @@ app-prompt {
 }
 
 #cart-status {
+  @include text-center-line($top-icon-size + 2 * $top-icon-margin);
+  font-size: $font-size-little;
   position: relative;
   width: 100%;
   text-align: center;
-  line-height: 15vw;
   color: black;
   float: right;
-  font-size: var(--font-size-little);
-  height: 15vw;
 }

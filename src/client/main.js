@@ -40,6 +40,7 @@ util.walkDOM(document.body, node => {
         mainPage.hidden = true
         dom['cart-status'].hidden = true
         orderButton.hidden = true
+        cartIcon.hidden = true
 
         editor.show()
     }
@@ -54,6 +55,7 @@ util.walkDOM(document.body, node => {
         mainPage.hidden = false
         orderButton.hidden = false
         dom['cart-status'].hidden = false
+        cartIcon.hidden = false
     }
 
     mainPage.onProductSelected = (productName) => {

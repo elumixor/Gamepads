@@ -61,16 +61,30 @@ export class CartPage extends PageComponent {
 
         this.itemsContainer.removeChildren()
 
-        api.cart.forEach(configuration => {
+        api.cart.forEach((configuration, i) => {
+            // Add item
             const cartItem = this.itemsContainer.appendChild(new CartItem(configuration))
+
+            // Add horizontal separator line
+            if (i < (api.cart.length - 1))
+                this.itemsContainer.appendNew('hr')
+
             cartItem.onDeleted = () => {
                 api.cart.remove(configuration)
                 this.onConfigurationRemoved()
                 this.update()
             }
+
             cartItem.onCountChanged = () => {
                 this.price.innerText = `\$${api.cart.price}`
             }
+
+            cartItem.partIcon.addEventListener('click', () => {
+                // Select item as current
+                configuration.select()
+                api.currentConfigurator().configuration = configuration
+                this.hidden = true
+            })
         })
     }
 

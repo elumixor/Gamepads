@@ -110,8 +110,8 @@ export function walkDOM(node, callback) {
 
 
 // const baseUrl = 'http://localhost:8080'
-// const baseUrl = 'http://192.168.0.31:8080' // win
-const baseUrl = 'http://192.168.0.94:8080' // mac
+const baseUrl = 'http://192.168.0.31:8080' // win
+// const baseUrl = 'http://192.168.0.94:8080' // mac
 
 export async function get(path) {
     return await new Promise((resolve, reject) => {

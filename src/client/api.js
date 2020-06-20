@@ -25,14 +25,33 @@ export function currentConfigurator_(newConf) {
     currentConfig = newConf
 }
 
+class Configuration {
+    constructor(product) {
+        this.product = product
+        this.selectedOptions = {}
+        this.count = 1
+    }
+
+    get price() {
+        return this.product.price + this.selectedOptions.values.map(option => option.price).sum;
+    }
+
+    select() {
+        currentConfigurations[this.product.name] = this
+    }
+}
+
 async function initialize() {
     data = JSON.parse(await util.get('products'))
 
     for (const productName in data) {
         if (!data.hasOwnProperty(productName)) continue
 
+        const product = data[productName]
+        product.name = productName
+
         // fetch bounds data and place it into the object
-        const bounds = data[productName].bounds
+        const bounds = product.bounds
 
         bounds.__front = JSON.parse(await util.get(bounds.front))
         bounds.__back = JSON.parse(await util.get(bounds.back))
@@ -59,29 +78,17 @@ async function initialize() {
         for (const n in bounds) {
             if (!bounds.hasOwnProperty(n)) continue
 
-            if (!data[productName].parts.hasOwnProperty(n)) delete bounds[n]
-            else data[productName].parts[n].bounds = bounds[n]
+            if (!product.parts.hasOwnProperty(n)) delete bounds[n]
+            else product.parts[n].bounds = bounds[n]
         }
 
-        for (const partName in data[productName].parts) {
-            if (!data[productName].parts.hasOwnProperty(partName)) continue
+        for (const partName in product.parts) {
+            if (!product.parts.hasOwnProperty(partName)) continue
 
-            const part = data[productName].parts[partName]
+            const part = product.parts[partName]
             const options = part.options
 
             calculateBoundProperties(part.bounds)
-        }
-
-        const config = defaultConfigurations[productName] = {product: data[productName], selectedOptions: {}}
-        config.copy = () => {
-            const ret = {product: config.product, selectedOptions: {...config.selectedOptions}, count: 1}
-
-            Object.defineProperty(ret, 'price', {
-                get: function () {
-                    return this.selectedOptions.values.map(opt => opt.price).sum + ret.product.price
-                }
-            })
-            return ret
         }
     }
 }
@@ -112,7 +119,7 @@ function calculateBoundProperties(bounds) {
 }
 
 function newConfiguration(productName) {
-    return defaultConfigurations[productName].copy()
+    return new Configuration(data[productName])
 }
 
 function ordinal_suffix_of(i) {
@@ -150,16 +157,7 @@ function saveToCart(configuration) {
     currentConfigurations[productName] = newConfiguration(productName)
 }
 
-function editConfiguration(configuration) {
-    currentConfigurations[configuration.product.name] = configuration
-}
-
-function duplicateConfiguration(configuration) {
-    cart.push(configuration.copy())
-}
-
 export {
-    initialize, newConfiguration, currentConfigLabel, configCartIndex, saveToCart, editConfiguration,
-    duplicateConfiguration,
+    initialize, newConfiguration, currentConfigLabel, configCartIndex, saveToCart,
     data, products, currentConfigurations, cart
 }

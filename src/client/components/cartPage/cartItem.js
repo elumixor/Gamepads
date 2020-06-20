@@ -29,6 +29,7 @@ export class CartItem extends Component {
         // Configure item count component
         this.itemCount = this.appendChild(new Counter())
 
+
         // Configure price text
         this.priceText = this.appendNew('span', {class: 'money'})
         this.itemCount.onCountChanged = (newCount) => {
