@@ -36,9 +36,22 @@ export class Configurator extends Component {
     click(e, side) {
         const t = e.target
 
-        // relative x, y to our element
-        let x = Math.clamp(e.offsetX / t.offsetWidth)
-        let y = Math.clamp(e.offsetY / t.offsetHeight)
+        let width, height, x, y
+        if (t.offsetWidth / t.offsetHeight > this.aspect) { // too wide -> height ok, recalculate width
+            height = t.offsetHeight
+            y = e.offsetY / height
+
+            width = height * this.aspect
+            x = (e.offsetX - (t.offsetWidth - width) / 2) / width
+        } else { // to narrow -> width ok, recalculate height
+            width = t.offsetWidth
+            x = e.offsetX / width
+
+            height = width / this.aspect
+            y = (e.offsetY - (t.offsetHeight - height) / 2) / height
+        }
+
+        if (x < 0 || x > 1 || y < 0 || y > 1) return
 
         // Get the clicked part, based on bounds polygons
         let clickedPart
@@ -84,23 +97,42 @@ export class Configurator extends Component {
         this.zoomedIn = true
         this.modificationsText.hidden = true
 
-        const documentWidth = document.body.offsetWidth
-        const configuratorZoomedIn = 0.5
-        const {x, y} = center
+        let width = 50 // we want the half of the page to be occupied with our image
+        let height = 50 / this.aspect // height for one image
+        height *= 2 // two images stacked without spacing
 
-        // This should zoom into whole range?
-        // const x = 0.5
-        // const y = 0.5
-        // radius = 1
+        width /= 2 * radius
+        height /= 2 * radius
 
-        const width = configuratorZoomedIn * documentWidth / (2 * radius)
-        this.style.width = width + "px"
+        const offsetX = -width * center.x + 25
+        const offsetY = -height * center.y + 25
 
-        const height = this.offsetHeight
-        const left = -x * width + configuratorZoomedIn * documentWidth / 2
-        const top = -y * height + configuratorZoomedIn * documentWidth / 2
-        this.style.left = left + "px"
-        this.style.top = top + "px"
+        this.style.width = `${width}vw`
+        this.style.height = `${height}vw` // 2 images, stacked vertically without spacing
+        this.style.left = `${offsetX}vw`
+        this.style.top = `${offsetY}vw`
+
+        return
+
+        // const documentWidth = document.body.offsetWidth
+        // const configuratorZoomedIn = 0.5
+        // const {x, y} = center
+        //
+        // // This should zoom into whole range?
+        // // const x = 0.5
+        // // const y = 0.5
+        // // radius = 1
+        //
+        // const width = configuratorZoomedIn * documentWidth / (2 * radius)
+        // this.style.width = width + "px"
+        //
+        // const height = this.offsetHeight
+        // const left = -x * width + configuratorZoomedIn * documentWidth / 2
+        // const top = -y * height + configuratorZoomedIn * documentWidth / 2
+        // this.style.left = left + "px"
+        // this.style.top = top + "px"
+        //
+        // this.setAttribute('zoomed', '')
     }
 
     zoomOut() {
@@ -110,6 +142,8 @@ export class Configurator extends Component {
         this.style.width = ''
         this.style.left = ''
         this.style.top = ''
+
+        this.removeAttribute('zoomed')
     }
 
     update() {
@@ -125,6 +159,11 @@ export class Configurator extends Component {
             if (back)
                 this.selectedOptions.back.appendNew('img', {src: option.back, alt: ''})
         })
+
+        // assume back image has the same size as the front (for now)
+        const imageWidth = this.bases.front.naturalWidth
+        const imageHeight = this.bases.front.naturalHeight
+        this.aspect = imageWidth / imageHeight
 
         this.updateText()
         this.onUpdated(this.configuration)
