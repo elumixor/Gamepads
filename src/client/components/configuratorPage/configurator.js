@@ -22,6 +22,11 @@ export class Configurator extends Component {
             back: this.containers.back.appendNew('img')
         }
 
+        this.loadedImages = 0
+
+        this.bases.front.addEventListener('load', () => this.calculateAspect())
+        this.bases.back.addEventListener('load', () => this.calculateAspect())
+
         this.selectedOptions = {
             front: this.containers.front.appendNew('div'),
             back: this.containers.back.appendNew('div')
@@ -35,6 +40,8 @@ export class Configurator extends Component {
 
     click(e, side) {
         const t = e.target
+
+        console.log(this.aspect)
 
         let width, height, x, y
         if (t.offsetWidth / t.offsetHeight > this.aspect) { // too wide -> height ok, recalculate width
@@ -112,27 +119,7 @@ export class Configurator extends Component {
         this.style.left = `${offsetX}vw`
         this.style.top = `${offsetY}vw`
 
-        return
-
-        // const documentWidth = document.body.offsetWidth
-        // const configuratorZoomedIn = 0.5
-        // const {x, y} = center
-        //
-        // // This should zoom into whole range?
-        // // const x = 0.5
-        // // const y = 0.5
-        // // radius = 1
-        //
-        // const width = configuratorZoomedIn * documentWidth / (2 * radius)
-        // this.style.width = width + "px"
-        //
-        // const height = this.offsetHeight
-        // const left = -x * width + configuratorZoomedIn * documentWidth / 2
-        // const top = -y * height + configuratorZoomedIn * documentWidth / 2
-        // this.style.left = left + "px"
-        // this.style.top = top + "px"
-        //
-        // this.setAttribute('zoomed', '')
+        this.setAttribute('zoomed', '')
     }
 
     zoomOut() {
@@ -142,8 +129,20 @@ export class Configurator extends Component {
         this.style.width = ''
         this.style.left = ''
         this.style.top = ''
+        this.style.height = ''
 
         this.removeAttribute('zoomed')
+    }
+
+    calculateAspect() {
+        this.loadedImages++
+        if (this.loadedImages !== 2) return
+
+        // assume back image has the same size as the front (for now)
+        const imageWidth = this.bases.front.naturalWidth
+        const imageHeight = this.bases.front.naturalHeight
+
+        this.aspect = imageWidth / imageHeight
     }
 
     update() {
@@ -159,11 +158,6 @@ export class Configurator extends Component {
             if (back)
                 this.selectedOptions.back.appendNew('img', {src: option.back, alt: ''})
         })
-
-        // assume back image has the same size as the front (for now)
-        const imageWidth = this.bases.front.naturalWidth
-        const imageHeight = this.bases.front.naturalHeight
-        this.aspect = imageWidth / imageHeight
 
         this.updateText()
         this.onUpdated(this.configuration)
