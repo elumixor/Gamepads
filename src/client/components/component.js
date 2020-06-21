@@ -5,8 +5,7 @@ export class Component extends HTMLElement {
         this.setAttribute('data-custom-component', '')
     }
 
-    connectedCallback() {
-    }
+    connectedCallback() {}
 }
 
 customElements.define('app-component', Component)

@@ -6,6 +6,7 @@ import {MainPage} from "./components/mainPage.js"
 import {OrderButton} from "./components/configuratorPage/orderButton.js"
 import {CartIcon} from "./components/configuratorPage/cartIcon.js"
 import {CartPage} from "./components/cartPage/cartPage.js"
+import {DesktopEditor} from "./components/desktopEditor.js"
 
 // This dictionary object maps ids to dom objects
 const dom = {}
@@ -17,6 +18,8 @@ util.walkDOM(document.body, node => {
 
 ;(async function initialize() {
     await api.initialize()
+    const productName = api.data.keys[0]
+    api.currentConfigurations[productName] = api.newConfiguration(productName)
 
     const mainPage = document.body.appendChild(new MainPage())
 
@@ -25,6 +28,7 @@ util.walkDOM(document.body, node => {
 
     const configurator = document.body.appendChild(new Configurator())
     api.currentConfigurator_(configurator)
+    configurator.configuration = api.currentConfigurations[productName]
 
     const orderButton = document.body.appendChild(new OrderButton())
 
@@ -34,7 +38,9 @@ util.walkDOM(document.body, node => {
     const cartPage = document.body.appendChild(new CartPage())
     cartPage.hidden = true
 
-    configurator.onPartSelected = (configuration, part) => {
+    const desktopEditor = document.body.appendChild(new DesktopEditor())
+
+    function selectMobile(configuration, part) {
         editor.select(configuration, part)
 
         mainPage.hidden = true
@@ -45,17 +51,30 @@ util.walkDOM(document.body, node => {
         editor.show()
     }
 
-    configurator.onUpdated = (configuration) => {
-        orderButton.price = configuration.price
-    }
-
-    editor.onHide = () => {
+    function hideMobile() {
         configurator.zoomOut()
 
         mainPage.hidden = false
         orderButton.hidden = false
         dom['cart-status'].hidden = false
         cartIcon.hidden = false
+    }
+
+    function selectDesktop(configuration, part) {
+        desktopEditor.select(configuration, part)
+    }
+
+    configurator.onPartSelected = (configuration, part) => {
+        if (util.isMobile()) selectMobile(configuration, part)
+        else selectDesktop(configuration, part)
+    }
+
+    configurator.onUpdated = (configuration) => {
+        orderButton.price = configuration.price
+    }
+
+    editor.onHide = () => {
+        hideMobile()
     }
 
     mainPage.onProductSelected = (productName) => {
@@ -81,11 +100,19 @@ util.walkDOM(document.body, node => {
     }
     cartPage.onConfigurationRemoved = () => cartIcon.update()
 
+    function* responsiveElements() {
+        yield editor
+        yield desktopEditor
+        yield configurator
+        yield orderButton
+        yield cartPage
+    }
 
-    // load configurator with xbox, new configuration
-    const productName = api.data.keys[0]
-    configurator.configuration = api.currentConfigurations[productName] = api.newConfiguration(productName)
-
-    // for each product, create configurator elements
-
+    util.responsiveElement(() => {
+        for (const el of responsiveElements())
+            el.removeAttribute('data-desktop')
+    }, () => {
+        for (const el of responsiveElements())
+            el.setAttribute('data-desktop', '')
+    })
 })()

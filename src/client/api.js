@@ -25,6 +25,10 @@ export function currentConfigurator_(newConf) {
     currentConfig = newConf
 }
 
+export function currentConfiguration() {
+    return currentConfig?.configuration
+}
+
 class Configuration {
     constructor(product) {
         this.product = product
@@ -86,6 +90,7 @@ async function initialize() {
             if (!product.parts.hasOwnProperty(partName)) continue
 
             const part = product.parts[partName]
+            part.name = partName
             const options = part.options
 
             calculateBoundProperties(part.bounds)

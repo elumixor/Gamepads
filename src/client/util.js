@@ -83,6 +83,12 @@ Object.defineProperty(Object.prototype, 'length', {
     }
 });
 
+Object.defineProperty(Object.prototype, 'first', {
+    get: function () {
+        return this.values[0]
+    }
+});
+
 Object.defineProperty(Node.prototype, 'appendNew', {
     value: function (tag, attributes) {
         const element = this.appendChild(document.createElement(tag))
@@ -108,10 +114,9 @@ export function walkDOM(node, callback) {
     [...node.children].forEach(n => walkDOM(n, callback))
 }
 
-
 // const baseUrl = 'http://localhost:8080'
-const baseUrl = 'http://192.168.0.31:8080' // win
-// const baseUrl = 'http://192.168.0.94:8080' // mac
+// const baseUrl = 'http://192.168.0.31:8080' // win
+const baseUrl = 'http://192.168.0.94:8080' // mac
 
 export async function get(path) {
     return await new Promise((resolve, reject) => {
@@ -161,4 +166,31 @@ export async function buildDom(filePath) {
     })
 
     return {element, ids}
+}
+
+let _isMobile
+
+addEventListener('load', () => {
+    _isMobile = innerWidth < 500
+    dispatchEvent(new CustomEvent('deviceChanged', {detail: _isMobile}))
+})
+
+addEventListener('resize', () => {
+    const newMobile = innerWidth < 500
+
+    if (newMobile && !_isMobile) dispatchEvent(new CustomEvent('deviceChanged', {detail: newMobile}))
+    else if (!newMobile && _isMobile) dispatchEvent(new CustomEvent('deviceChanged', {detail: newMobile}))
+
+    _isMobile = newMobile
+})
+
+export function isMobile() {
+    return _isMobile;
+}
+
+export function responsiveElement(onMobileCallback, onDeviceCallback) {
+    addEventListener('deviceChanged', ({detail: isMobile}) => {
+        if (isMobile) onMobileCallback()
+        else onDeviceCallback()
+    })
 }

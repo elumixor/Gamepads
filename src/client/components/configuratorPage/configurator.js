@@ -1,5 +1,7 @@
 import {pointInPolygon} from "../../pointInPolygon.js"
 import {Component} from "../component.js"
+import * as util from '../../util.js'
+
 
 export class Configurator extends Component {
     constructor() {
@@ -34,14 +36,20 @@ export class Configurator extends Component {
 
         this.modificationsText = this.appendNew('div')
 
-        this.containers.front.addEventListener('click', e => this.click(e, 'front'))
-        this.containers.back.addEventListener('click', e => this.click(e, 'back'))
+        util.responsiveElement(() => {
+            this.containers.front.onclick = e => this.click(e, 'front')
+            this.containers.back.onclick = e => this.click(e, 'back')
+        }, () => {
+            this.zoomOut()
+            this.containers.front.onclick = () => {
+            }
+            this.containers.back.onclick = () => {
+            }
+        })
     }
 
     click(e, side) {
         const t = e.target
-
-        console.log(this.aspect)
 
         let width, height, x, y
         if (t.offsetWidth / t.offsetHeight > this.aspect) { // too wide -> height ok, recalculate width
@@ -50,7 +58,7 @@ export class Configurator extends Component {
 
             width = height * this.aspect
             x = (e.offsetX - (t.offsetWidth - width) / 2) / width
-        } else { // to narrow -> width ok, recalculate height
+        } else { // too narrow -> width ok, recalculate height
             width = t.offsetWidth
             x = e.offsetX / width
 
@@ -58,6 +66,7 @@ export class Configurator extends Component {
             y = (e.offsetY - (t.offsetHeight - height) / 2) / height
         }
 
+        // Restrict to actual image
         if (x < 0 || x > 1 || y < 0 || y > 1) return
 
         // Get the clicked part, based on bounds polygons

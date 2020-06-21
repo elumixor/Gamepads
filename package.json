@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "dependencies": {
     "express": "^4.17.1",
-    "nodemailer": "^6.4.8"
+    "nodemailer": "^6.4.8",
+    "sass": "^1.26.8"
   },
   "devDependencies": {
     "cors": "^2.8.5",

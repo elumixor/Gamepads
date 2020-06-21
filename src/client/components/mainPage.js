@@ -1,21 +1,19 @@
 import * as api from '../api.js'
+import * as util from '../util.js'
 
 export class MainPage extends HTMLElement {
     constructor() {
         super();
 
         this.isOpen = true
-        this.onProductSelected = () => {}
+        this.onProductSelected = () => {
+        }
     }
 
     connectedCallback() {
         this.bg = this.appendNew('div', {class: 'background'})
 
         this.logo = this.appendNew('img', {src: './images/logo.jpg'})
-        this.logo.addEventListener('click', () => {
-            if (this.isOpen) this.close()
-            else this.open()
-        })
 
         this.languages = this.appendNew('div', {class: 'languages'})
 
@@ -46,18 +44,27 @@ export class MainPage extends HTMLElement {
                 this.onProductSelected(productName)
             })
         })
+
+        util.responsiveElement(() => {
+            this.logo.onclick = () => {
+                if (this.isOpen) this.close()
+                else this.open()
+            }
+        }, () => {
+            if (this.isOpen) this.close()
+            this.logo.onclick = () => {
+            }
+        })
     }
 
     open() {
-        console.log("openning")
         this.isOpen = true
-        this.toggleAttribute('open')
+        this.setAttribute('open', '')
     }
 
     close() {
-        console.log("closing")
         this.isOpen = false
-        this.toggleAttribute('open')
+        this.removeAttribute('open')
     }
 }
 

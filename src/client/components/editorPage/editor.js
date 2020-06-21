@@ -1,7 +1,7 @@
 import {PartIcon} from "./partIcon.js"
 import {ConfirmCancel} from "../confirmCancel.js"
-import {OptionIcon} from "./optionIcon.js"
 import * as api from "../../api.js"
+import {PartOptions} from "../partOptions.js"
 
 export class Editor extends HTMLElement {
     connectedCallback() {
@@ -40,33 +40,11 @@ export class Editor extends HTMLElement {
             }
         }
 
+
         this.configuration = configuration
         this.partIcon.part = part
 
-        const categories = {Basic: {}}
-
-        part.options.iterate((optionName, option) => {
-            const cat = categories[option.category || 'Basic']
-            const price = cat[option.price] || (cat[option.price] = [])
-            price.push(option)
-        })
-
-        this.optionsRoot.removeChildren()
-        categories.iterate((categoryName, prices) => {
-            const categoryRoot = this.optionsRoot.appendNew('div')
-            const categoryNameEl = categoryRoot.appendNew('div', {class: 'category-name'})
-
-            categoryNameEl.innerText = categoryName
-
-            prices.iterate((price, options) => {
-                const priceRoot = categoryRoot.appendNew('span')
-                const priceEl = priceRoot.appendNew('span', {class: 'money'})
-                priceEl.innerText = `\$${price}`
-
-                const optionsRoot = priceRoot.appendNew('span')
-                options.forEach(option => optionsRoot.appendChild(new OptionIcon(configuration, partName, option)))
-            })
-        })
+        this.optionsRoot.appendChild(new PartOptions(configuration, part))
     }
 }
 
