@@ -1,51 +1,56 @@
 import {Component} from "../component.js"
-import {PartIcon} from "../editorPage/partIcon.js"
-import {Counter} from "./counter.js"
+import {Icon} from "../icon.js"
+import {Counter} from "../counter.js"
 import {prompt as P} from "../prompts.js"
+import * as api from "../../api.js"
+import {E} from '../../elements.js'
 
 export class CartItem extends Component {
     constructor(configuration) {
         super();
 
         this.configuration = configuration
-        this.onDeleted = () => {
-        }
-        this.onCountChanged = () => {
-        }
     }
 
     connectedCallback() {
         super.connectedCallback();
 
-        // Configure part icon
-        this.partIcon = this.appendChild(new PartIcon())
-
         const product = this.configuration.product
 
-        this.partIcon.imageElement.src = product.icon
-        this.partIcon.partNameElement.innerText = product.displayName
-        this.partIcon.optionsCountElement.innerText = 'mod'.times(this.configuration.selectedOptions.length)
+        // Configure product icon
+        this.productIcon = this.appendChild(new Icon(product.icon))
+
+        this.productIcon.partNameElement.innerText = product.displayName
+        this.productIcon.optionsCountElement.innerText = 'mod'.times(this.configuration.selectedOptions.length)
+        this.productIcon.onclick = () => {
+            // Select item as current
+            this.configuration.select()
+            E['cart-page'].hidden = true
+        }
 
         // Configure item count component
         this.itemCount = this.appendChild(new Counter())
 
-
         // Configure price text
         this.priceText = this.appendNew('span', {class: 'money'})
-        this.itemCount.onCountChanged = (newCount) => {
+        this.itemCount.countChanged.subscribe(newCount => {
             if (newCount < 1) this.itemCount.count = 1
             else {
                 this.configuration.count = newCount
                 this.priceText.innerText = `\$${newCount * this.configuration.price}`
-                this.onCountChanged()
+                E['cart-page'].price.innerText = `\$${api.cart.price}`
             }
-        }
+        })
         this.itemCount.count = this.configuration.count
 
         // Configure delete button
-        this.deleteButton = this.appendNew('img', {src: 'images/cross.svg', alt: ''})
+        this.deleteButton = this.appendNew('img', {src: 'images/crossWhite.svg', alt: ''})
         this.deleteButton.addEventListener('click', () => {
-            P('Delete this item from the cart?', () => this.onDeleted())
+            P('Delete this item from the cart?', () => {
+                api.cart.remove(this.configuration)
+                E['cart-icon'].update()
+                E['cart-page'].update()
+            })
         })
     }
 }

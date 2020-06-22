@@ -89,6 +89,12 @@ Object.defineProperty(Object.prototype, 'first', {
     }
 });
 
+Object.defineProperty(Array.prototype, 'empty', {
+    get: function () {
+        return this.length === 0
+    }
+});
+
 Object.defineProperty(Node.prototype, 'appendNew', {
     value: function (tag, attributes) {
         const element = this.appendChild(document.createElement(tag))
@@ -114,14 +120,13 @@ export function walkDOM(node, callback) {
     [...node.children].forEach(n => walkDOM(n, callback))
 }
 
-// const baseUrl = 'http://localhost:8080'
-// const baseUrl = 'http://192.168.0.31:8080' // win
-const baseUrl = 'http://192.168.0.94:8080' // mac
+// Dynamically gets current address (i.e. either localhost, or 192.168.0.***)
+const baseUrl = document.baseURI
 
 export async function get(path) {
     return await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", `${baseUrl}/${path}`, true);
+        xhr.open("GET", `${baseUrl}${path}`, true);
 
         xhr.onload = function () {
             if (xhr.readyState === 4) {
@@ -142,7 +147,7 @@ export async function get(path) {
 export async function post(path, data) {
     return await new Promise((resolve) => {
         const xhr = new XMLHttpRequest()
-        xhr.open('POST', `${baseUrl}/${path}`, true);
+        xhr.open('POST', `${baseUrl}${path}`, true);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
         // send the collected data as JSON
@@ -168,15 +173,16 @@ export async function buildDom(filePath) {
     return {element, ids}
 }
 
+const minDesktopWidth = 640
 let _isMobile
 
 addEventListener('load', () => {
-    _isMobile = innerWidth < 500
+    _isMobile = innerWidth < minDesktopWidth
     dispatchEvent(new CustomEvent('deviceChanged', {detail: _isMobile}))
 })
 
 addEventListener('resize', () => {
-    const newMobile = innerWidth < 500
+    const newMobile = innerWidth < minDesktopWidth
 
     if (newMobile && !_isMobile) dispatchEvent(new CustomEvent('deviceChanged', {detail: newMobile}))
     else if (!newMobile && _isMobile) dispatchEvent(new CustomEvent('deviceChanged', {detail: newMobile}))
@@ -188,9 +194,23 @@ export function isMobile() {
     return _isMobile;
 }
 
-export function responsiveElement(onMobileCallback, onDeviceCallback) {
+export function responsiveElement(onMobileCallback, onDesktopCallback) {
     addEventListener('deviceChanged', ({detail: isMobile}) => {
         if (isMobile) onMobileCallback()
-        else onDeviceCallback()
+        else onDesktopCallback()
     })
+}
+
+export class MyEvent {
+    constructor() {
+        this.listeners = []
+    }
+
+    dispatch(data) {
+        for (const l of this.listeners) l(data)
+    }
+
+    subscribe(listener) {
+        this.listeners.push(listener)
+    }
 }

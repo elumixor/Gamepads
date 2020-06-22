@@ -1,11 +1,10 @@
 import {Component} from "./component.js"
-import {OptionIcon} from "./editorPage/optionIcon.js"
+import {OptionIcon} from "./optionIcon.js"
 
 export class PartOptions extends Component {
-    constructor(configuration, part) {
+    constructor(part) {
         super()
 
-        this.configuration = configuration
         this.selectedPart = part
     }
 
@@ -25,13 +24,13 @@ export class PartOptions extends Component {
             categoryNameEl.innerText = categoryName
 
             prices.iterate((price, options) => {
-                const priceRoot = categoryRoot.appendNew('span')
+                const priceRoot = categoryRoot.appendNew('div')
                 const priceEl = priceRoot.appendNew('span', {class: 'money'})
                 priceEl.innerText = `\$${price}`
 
                 const optionsRoot = priceRoot.appendNew('span')
                 options.forEach(option => optionsRoot.appendChild(
-                    new OptionIcon(this.configuration, this.part.name, option)))
+                    new OptionIcon(this.part.name, option)))
             })
         })
     }

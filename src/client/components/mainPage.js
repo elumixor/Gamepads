@@ -1,13 +1,14 @@
 import * as api from '../api.js'
 import * as util from '../util.js'
+import {Responsive} from "./responsive.js"
+import {Component} from "./component.js"
 
-export class MainPage extends HTMLElement {
+export class MainPage extends Responsive(Component) {
     constructor() {
         super();
 
         this.isOpen = true
-        this.onProductSelected = () => {
-        }
+        api.dataLoadedEvent.subscribe(products => this.dataLoadedCallback(products))
     }
 
     connectedCallback() {
@@ -27,8 +28,24 @@ export class MainPage extends HTMLElement {
         cz.innerText = 'Cz'
 
         this.panels = this.appendNew('div', {class: 'panels'})
+    }
 
-        api.data.iterate((productName, product) => {
+    onMobile() {
+        super.onMobile();
+        this.logo.onclick = () => {
+            if (this.isOpen) this.close()
+            else this.open()
+        }
+    }
+
+    onDesktop() {
+        super.onDesktop();
+        this.close()
+        this.logo.onclick = () => {}
+    }
+
+    dataLoadedCallback(products) {
+        products.values.forEach(product => {
             const panel = this.panels.appendNew('div')
 
             const t1 = panel.appendNew('div')
@@ -40,19 +57,9 @@ export class MainPage extends HTMLElement {
             const t3 = panel.appendNew('div')
             t3.innerText = product.textAfter
 
-            panel.addEventListener('click', () => {
-                this.onProductSelected(productName)
-            })
-        })
-
-        util.responsiveElement(() => {
-            this.logo.onclick = () => {
-                if (this.isOpen) this.close()
-                else this.open()
-            }
-        }, () => {
-            if (this.isOpen) this.close()
-            this.logo.onclick = () => {
+            panel.onclick = () => {
+                new api.Configuration(product).select()
+                this.close()
             }
         })
     }
@@ -68,4 +75,3 @@ export class MainPage extends HTMLElement {
     }
 }
 
-window.customElements.define('app-main-page', MainPage)

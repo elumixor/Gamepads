@@ -1,9 +1,25 @@
 @use "sass:color";
 
-$font-size-big: 2rem;
+@mixin padding-h($value) {
+  padding-left: $value;
+  padding-right: $value;
+}
+
+@mixin padding-v($value) {
+  padding-top: $value;
+  padding-bottom: $value;
+}
+
+@mixin center-v($height, $padding, $top: 0) {
+  height: $height - 2 * $padding;
+  @include padding-v($padding);
+  top: $top
+}
+
+$font-size-big: 1.5rem;
 $font-size-normal: 1rem;
-$font-size-less: 1.25rem;
-$font-size-little: 1rem;
+$font-size-less: 0.8rem;
+$font-size-little: 0.7rem;
 
 $weight-light: 300;
 $weight-normal: 500;
@@ -17,8 +33,11 @@ $configurator-height: calc(100vh - 250px);
 $accent-light: #A730C5;
 $accent-dark: #8710A5;
 $background-grey: #BEBEBE;
+$background-dark: #181818;
 
 $min-desktop-width: 640px;
+
+$confirmCancelSize: calc(1rem + 0.11rem * 2 + 50px);
 
 :root {
   --accent-light: #A730C5;
@@ -117,149 +136,9 @@ span {
   color: var(--accent-light);
 }
 
-[data-custom-component] {
-  position: relative;
-  display: inline-block;
-}
-
-[data-page-component] {
-  background: var(--background-grey);
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  overflow: scroll;
-}
-
-app-editor {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  .dimmer {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    top: 40vw;
-    background: linear-gradient(180deg, rgba(190, 190, 190, 0) 0%, rgba(103, 103, 103, 0.44) 20.25%, #353535 100%);
-  }
-
-  .options {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    padding: 0 5vw;
-
-    > div { // selects categories divs
-      > .category-name {
-        color: white;
-        font-weight: var(--weight-normal);
-      }
-
-      > span { // selects line with price and options
-        > .money {
-          width: 2em;
-          text-align: center;
-          vertical-align: middle;
-          margin-right: 15px;
-          color: $accent-light;
-        }
-
-        > :not(.money) { // selects options container
-          white-space: nowrap;
-          overflow-x: scroll;
-          vertical-align: middle;
-
-          > app-option-icon {
-            margin: 0 5px;
-          }
-        }
-      }
-    }
-  }
-
-  > app-confirm-cancel {
-    > * {
-      width: 47.5%;
-    }
-
-    .confirm {
-      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .cancel {
-      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-  }
-}
-
-app-part-icon {
-  z-index: 10;
-  display: inline-block;
-  position: relative;
-  height: 40vw;
-  width: 40vw;
-  left: 50vw;
-  margin: 10vw 5vw;
-  text-align: center;
-
-
-  $border-width: min(5px, 5vw);
-  $img-size: 80%;
-
-  img, .dimmer {
-    position: absolute;
-
-    left: calc(50% - #{$img-size/2});
-    top: calc(50% - #{$img-size/2});
-
-    border-radius: 100%;
-  }
-
-  img {
-    $size: calc(#{$img-size} - 2 * #{$border-width});
-    height: $size;
-    width: $size;
-    border-width: $border-width;
-    background-color: var(--accent-dark);
-    border-style: solid;
-    border-color: white;
-  }
-
-  .dimmer {
-    height: $img-size;
-    width: $img-size;
-    background: linear-gradient(transparent, black);
-  }
-
-  .part-name {
-    position: relative;
-    top: 50%;
-    width: 100%;
-    color: white;
-    text-align: center;
-    font-weight: $weight-heavy;
-    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    font-size: $font-size-big;
-  }
-
-  .options-count {
-    color: white;
-    position: relative;
-    font-size: $font-size-little;
-    text-shadow: 0 2px 5px rgb(0, 0, 0);
-    font-weight: $weight-normal;
-    top: 50%;
-  }
-}
-
 app-confirm-cancel {
   position: absolute;
+  display: flex;
   $margin-horizontal: 20px;
   width: calc(100% - #{2 * $margin-horizontal});
   margin: 20px $margin-horizontal;
@@ -267,21 +146,9 @@ app-confirm-cancel {
   left: 0;
 
   > * {
-    width: auto;
-    min-width: 35%;
-
-    @media screen and (min-width: 350px) {
-      width: 49%;
-    }
+    margin: 0 10px;
+    flex-grow: 1;
     font-size: 1em;
-  }
-
-  .confirm {
-    float: right;
-  }
-
-  .cancel {
-    float: left;
   }
 }
 
@@ -301,8 +168,10 @@ app-option-icon {
   vertical-align: middle;
 }
 
-app-configurator {
-  position: relative;
+app-part-selector {
+  z-index: -1;
+  position: fixed;
+  top: 50px;
   width: 80%;
   display: block;
   text-align: center;
@@ -335,7 +204,26 @@ app-configurator {
       position: relative;
     }
   }
+
+  &:not([data-mobile]) {
+    z-index: -1;
+    position: fixed;
+    width: 30vw;
+
+    @include center-v(100vh, 10vh);
+    @include padding-h(5vw);
+
+    left: 0;
+
+    > :last-child { // selects 'modifications count' label
+      position: fixed;
+      right: 15px;
+      padding: 5px;
+      bottom: $confirmCancelSize;
+    }
+  }
 }
+
 
 app-main-page {
   display: inline-block;
@@ -409,9 +297,6 @@ app-main-page {
 
   &:not([open]) {
     display: inline-block;
-    width: var(--top-icon-size);
-    height: var(--top-icon-size);
-    margin: var(--top-icon-margin);
     z-index: 100;
     position: absolute;
     overflow: initial;
@@ -457,9 +342,10 @@ app-main-page {
 app-order-button {
   position: absolute;
   bottom: 15px;
-  left: 15px;
   right: 15px;
   text-align: center;
+  width: fit-content;
+  left: auto;
 
   > :not(.money) {
     font-weight: var(--weight-heavy);
@@ -469,10 +355,16 @@ app-order-button {
   > .money {
     margin: 0 10px;
   }
+
+  &[data-mobile] {
+    left: 15px;
+    right: 15px;
+    width: auto;
+  }
 }
 
-app-cart-icon[data-custom-component] {
-  position: absolute;
+app-cart-icon {
+  position: fixed;
   top: 0;
   right: 0;
   background-color: black;
@@ -503,8 +395,257 @@ app-cart-icon[data-custom-component] {
   }
 }
 
+
+app-prompt {
+  > div {
+    $size: min(600px, 50%);
+    z-index: 10000;
+    position: fixed;
+    background: white;
+    width: $size;
+    box-shadow: 0 4px 30px 0 black;
+    left: calc(50% - #{$size} / 2);
+    top: 10vh;
+    height: 50vh;
+    border-radius: 15px;
+
+    > div {
+      margin: 10%;
+      top: 20%;
+
+      text-align: center;
+      position: relative;
+
+    }
+  }
+
+  &::after {
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #000000B0;
+    content: 'div';
+    z-index: 1000;
+  }
+
+  &[data-mobile] {
+    width: 100vw;
+    box-shadow: none;
+    left: 0;
+    top: 0;
+    height: 100vh;
+
+    &::after {
+      display: none;
+    }
+
+    > div {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+
+      > div {
+
+      }
+    }
+  }
+}
+
+app-icon {
+  display: inline-block;
+  position: relative;
+
+  $icon-size: 70%;
+  $icon-left: (100% - $icon-size) / 2;
+  $border-size: min(5px, 1vw);
+
+  img, .dimmer {
+    display: block;
+    width: $icon-size;
+    margin-left: $icon-left;
+    border-radius: 50%;
+
+    &:after {
+      content: "";
+      display: block;
+      padding-bottom: 100%;
+    }
+  }
+
+  img {
+    border: $border-size solid white;
+    width: calc(#{$icon-size} - 2 * #{$border-size});
+    background-color: $accent-dark;
+
+    margin-bottom: -1 * $icon-size;
+  }
+
+  .dimmer {
+    top: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0), black);
+    margin-bottom: 40%;
+
+    &:after {
+      margin-bottom: -100%;
+    }
+  }
+
+  div {
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 10px black;
+    font-size: 1em;
+
+    &.part-name {
+      font-weight: $weight-heavy;
+      padding: 0 10px;
+    }
+
+    &.options-count {
+      font-size: $font-size-less;
+      padding: 0 2px 5px;
+    }
+  }
+}
+
+#cart-status {
+  @include text-center-line($top-icon-size + 2 * $top-icon-margin);
+  font-size: $font-size-little;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  color: black;
+  float: right;
+}
+
+
+app-editor {
+  display: block;
+  position: fixed;
+  left: 40vw;
+  top: 10vh;
+
+  .parts-container {
+    overflow-x: scroll;
+    margin-bottom: 30px;
+  }
+
+  > app-confirm-cancel {
+    display: none;
+  }
+
+  &[data-mobile] {
+    display: none;
+
+    &[data-open] {
+      display: block;
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(#ffffff00 16vh, #ffffff30 30vh, #ffffff94 76vh, white 90vh);
+
+      > .parts-container {
+        > app-icon {
+
+          height: 40vw;
+          width: 50vw;
+          left: 50vw;
+          font-size: 2rem;
+          margin: 5vw 0;
+        }
+      }
+
+      > app-confirm-cancel {
+        display: flex;
+      }
+
+      > .options-container {
+        position: absolute;
+        bottom: calc(1rem + 0.11rem * 2 + 50px);
+        top: calc(50vw + 30px);
+        width: 100%;
+        overflow-y: scroll;
+        background: linear-gradient(0deg, #ffffff, #bfbfbf63 41%, #8888882b);
+
+        > app-part-options {
+          > div {
+            padding: 3px max(20px, 10vw);
+            border-top: 1px solid #0000007a;
+          }
+        }
+      }
+    }
+  }
+}
+
+#links-container {
+  display: inline-block;
+  position: fixed;
+  top: 10px;
+  left: 80px;
+
+  > * {
+    font-weight: $weight-heavy;
+    @include text-center-line(50px)
+  }
+
+  &[data-mobile] {
+    display: none;
+  }
+}
+
+#cart-status[data-responsive] {
+  display: none;
+}
+
+app-part-options {
+  div { // single category container
+    .category-name {
+      font-size: $font-size-little;
+      font-weight: $weight-heavy;
+      color: rgba(0, 0, 0, 0.5);
+      margin: 15px 0 5px;
+    }
+
+    div { // price group
+      margin: 10px 0;
+
+      .money { // money label
+        width: 70px;
+        text-align: left;
+        text-shadow: 0 1px 5px #0000007a;
+      }
+
+      span:last-child { // options group
+        padding: 0 5px;
+
+        * {
+          margin: 0 5px;
+        }
+      }
+    }
+  }
+}
+
 app-cart-page {
   z-index: 101;
+  position: fixed;
+  height: 100%;
+  width: clamp(380px, 40vw, 600px);
+  top: 0;
+  right: 0;
+  display: inline-block;
+  background-color: $background-dark;
+  left: unset;
+
+  color: white;
 
   > .heading, > .total {
     line-height: min(100px, 15vw);
@@ -541,7 +682,6 @@ app-cart-page {
     width: calc(100% - 50px);
   }
 
-
   > .items {
     overflow: scroll;
     top: 3.5rem;
@@ -550,92 +690,55 @@ app-cart-page {
     bottom: calc(8rem + 17px);
 
     > app-cart-item {
-      $item-margin-v: 15px;
-      $item-margin-h: min(#{$item-margin-v}, 1vw);
-      $item-size: 100px;
-      //$item-size: clamp(70px, 15vw, 100px);
+      app-counter {
+        color: white;
 
-      width: calc(100% - 2 * #{$item-margin-h});
-      height: $item-size;
-      margin: $item-margin-v $item-margin-h;
+        * {
+          color: white;
+        }
 
-      > * {
-        vertical-align: middle;
       }
 
-      > app-part-icon {
-        left: auto;
-        width: $item-size;
-        height: $item-size;
-
-        margin: 0 1vw;
-        @media screen and (min-width: 640px) {
-          margin: 0 min(10vw, 30px) 0 10vw;
-        }
-        @media screen and (min-width: 1280px) {
-          margin: 0 min(15vw, 30px) 0 15vw;
-        }
-
-        .part-name {
-          font-size: min(0.6em, 19px);
-          font-weight: var(--weight-heavy);
-        }
-
-        .options-count {
-          font-size: min(0.8em, 19px);
-        }
+      .money {
+        color: $accent-light;
       }
-
-      > app-counter {
-        width: clamp(90px, 30vw, 200px);
-        @media screen and (max-width: 300px) {
-          width: 30px;
-        }
-      }
-
-      > .money {
-        @include text-center-line($item-size);
-        text-align: center;
-
-        width: 20vw;
-        @media screen and (max-width: 300px) {
-          width: 30vw;
-        }
-      }
-
-      > img {
-        $size: min(15px, 4vw);
-        $m: calc((#{$item-size} - #{$size}) / 2);
-
-        float: right;
-
-        height: $size;
-
-        margin: $m 5vw $m 0;
-
-        @media screen and (max-width: 350px) {
-          margin: $m 5px $m 0;
-        }
-        @media screen and (max-width: 250px) {
-          margin: $m 0;
-        }
-      }
-    }
-
-    > hr {
-      width: 80%;
-      margin: 0 10%;
     }
   }
 }
 
+app-cart-page[data-mobile] {
+  width: 100%;
+}
+
+app-cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25px 0;
+
+  > .money {
+    width: 100px;
+    text-align: center;
+  }
+
+  > app-icon {
+    font-size: 0.6rem;
+    margin: 0 2%;
+  }
+}
+
 app-counter {
+  display: inline-block;
   $height: 30px;
   line-height: $height;
-  border: 3px solid black;
+  border: 3px solid;
   border-radius: 10px;
   text-align: center;
   font-size: 0.75rem;
+
+  @media screen and (max-width: 350px) {
+    width: 30px;
+  }
 
   > button {
     border: none;
@@ -665,25 +768,4 @@ app-counter {
   > :last-child { // -
     //float: right;
   }
-}
-
-app-prompt {
-  z-index: 10000;
-
-  > div {
-    margin: 10vw 10vw;
-    text-align: center;
-    top: 20vw;
-    position: relative;
-  }
-}
-
-#cart-status {
-  @include text-center-line($top-icon-size + 2 * $top-icon-margin);
-  font-size: $font-size-little;
-  position: relative;
-  width: 100%;
-  text-align: center;
-  color: black;
-  float: right;
 }

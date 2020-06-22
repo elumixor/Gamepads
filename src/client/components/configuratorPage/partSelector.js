@@ -1,19 +1,20 @@
+import * as util from '../../util.js'
+import {changeEvent, updateEvent, currentConfiguration as C} from '../../api.js'
 import {pointInPolygon} from "../../pointInPolygon.js"
 import {Component} from "../component.js"
-import * as util from '../../util.js'
+import {Responsive} from "../responsive.js"
+import {E} from '../../elements.js'
 
-
-export class Configurator extends Component {
+export class PartSelector extends Responsive(Component) {
     constructor() {
         super();
 
         this.zoomedIn = false
-        this.onUpdated = (configuration) => {
-        }
+
+        updateEvent.subscribe(() => this.dataLoadedCallback())
     }
 
     connectedCallback() {
-        // two panels
         this.containers = {
             front: this.appendNew('div'),
             back: this.appendNew('div')
@@ -35,17 +36,45 @@ export class Configurator extends Component {
         }
 
         this.modificationsText = this.appendNew('div')
+    }
 
-        util.responsiveElement(() => {
-            this.containers.front.onclick = e => this.click(e, 'front')
-            this.containers.back.onclick = e => this.click(e, 'back')
-        }, () => {
-            this.zoomOut()
-            this.containers.front.onclick = () => {
-            }
-            this.containers.back.onclick = () => {
-            }
+    onMobile() {
+        super.onMobile();
+        this.containers.front.onclick = e => this.click(e, 'front')
+        this.containers.back.onclick = e => this.click(e, 'back')
+    }
+
+    onDesktop() {
+        super.onDesktop();
+        this.zoomOut()
+        this.containers.front.onclick = () => { }
+        this.containers.back.onclick = () => { }
+    }
+
+    dataLoadedCallback() {
+        this.configuration = C()
+
+        // Load base images
+        const {front, back} = this.configuration.product
+        this.bases.front.src = front
+        this.bases.back.src = back
+
+        // update selected parts options
+        this.selectedOptions.front.removeChildren()
+        this.selectedOptions.back.removeChildren()
+
+        this.configuration.selectedOptions.iterate((partName, option) => {
+            const {front, back} = option
+
+
+            if (front)
+                this.selectedOptions.front.appendNew('img', {src: option.front, alt: ''})
+            if (back)
+                this.selectedOptions.back.appendNew('img', {src: option.back, alt: ''})
         })
+
+        const optionsCount = this.configuration.selectedOptions.length
+        this.modificationsText.innerText = optionsCount === 0 ? 'Click on a part to modify' : 'modification'.times(optionsCount)
     }
 
     click(e, side) {
@@ -58,7 +87,8 @@ export class Configurator extends Component {
 
             width = height * this.aspect
             x = (e.offsetX - (t.offsetWidth - width) / 2) / width
-        } else { // too narrow -> width ok, recalculate height
+        }
+        else { // too narrow -> width ok, recalculate height
             width = t.offsetWidth
             x = e.offsetX / width
 
@@ -79,13 +109,13 @@ export class Configurator extends Component {
 
             const point = [x, y]
             if (bounds.some(b => pointInPolygon(point, b)))
-                clickedPart = [this.configuration.product.parts[partName], partName]
+                clickedPart = this.configuration.product.parts[partName]
         })
 
         if (!clickedPart) return
 
-        const front = clickedPart[0].bounds.front
-        const back = clickedPart[0].bounds.back
+        const front = clickedPart.bounds.front
+        const back = clickedPart.bounds.back
 
         if (front && back) {
             const xMin = Math.min(front.center.x - front.radius, back.center.x - back.radius)
@@ -97,16 +127,24 @@ export class Configurator extends Component {
             const centerY = (yMin + yMax) / 2
 
             this.zoomIn({x: centerX, y: centerY}, Math.max((xMax - xMin) / 2, (yMax - yMin) / 2))
-        } else if (front) {
+        }
+        else if (front) {
             const {x, y} = front.center
             this.zoomIn({x, y: y / 2}, front.radius)
-        } else {
+        }
+        else {
             const {x, y} = back.center
             this.zoomIn({x, y: (1 + y) / 2}, back.radius)
         }
 
-        if (this.onPartSelected)
-            this.onPartSelected(this.configuration, clickedPart)
+        this.onPartSelected(clickedPart)
+    }
+
+    onPartSelected(part) {
+        E['main-page'].hidden = true
+        E['cart-icon'].hidden = true
+        E['order-button'].hidden = true
+        E['editor'].setAttribute('data-open', '')
     }
 
     zoomIn(center, radius) {
@@ -141,6 +179,11 @@ export class Configurator extends Component {
         this.style.height = ''
 
         this.removeAttribute('zoomed')
+
+        E['main-page'].hidden = false
+        E['cart-icon'].hidden = false
+        E['order-button'].hidden = false
+        E['editor'].removeAttribute('data-open')
     }
 
     calculateAspect() {
@@ -153,46 +196,4 @@ export class Configurator extends Component {
 
         this.aspect = imageWidth / imageHeight
     }
-
-    update() {
-        this.selectedOptions.front.removeChildren()
-        this.selectedOptions.back.removeChildren()
-
-        this.configuration.selectedOptions.iterate((partName, option) => {
-            const {front, back} = option
-
-
-            if (front)
-                this.selectedOptions.front.appendNew('img', {src: option.front, alt: ''})
-            if (back)
-                this.selectedOptions.back.appendNew('img', {src: option.back, alt: ''})
-        })
-
-        this.updateText()
-        this.onUpdated(this.configuration)
-    }
-
-    updateText() {
-        const optionsCount = this.configuration.selectedOptions.length
-        this.modificationsText.innerText = optionsCount === 0 ? 'Click on a part to modify' : 'modification'.times(optionsCount)
-    }
-
-    get configuration() {
-        return this.config
-    }
-
-    set configuration(config) {
-        if (this.config === config) return
-        this.config = config
-
-        // Load base images
-        const {front, back} = config.product
-        this.bases.front.src = front
-        this.bases.back.src = back
-
-        // update selected parts options
-        this.update()
-    }
 }
-
-window.customElements.define('app-configurator', Configurator)

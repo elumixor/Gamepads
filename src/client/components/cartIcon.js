@@ -1,18 +1,18 @@
-import {Component} from "../component.js"
-import * as api from "../../api.js"
+import {Component} from "./component.js"
+import * as api from "../api.js"
+import {E} from '../elements.js'
 
 export class CartIcon extends Component {
     constructor() {
         super();
 
-        this.onClick = () => {
-        }
-        this.addEventListener('click', () => this.onClick())
+        api.changeEvent.subscribe(() => this.update())
+        this.onclick = () => E['cart-page'].open()
     }
 
     connectedCallback() {
         this.appendNew('img', {src: 'images/cart.svg', alt: ''})
-        this.itemsCount = this.appendNew('div')
+        this.itemsCount = this.appendNew('div', {hidden: true})
     }
 
     update() {
@@ -24,4 +24,3 @@ export class CartIcon extends Component {
     }
 }
 
-customElements.define('app-cart-icon', CartIcon)

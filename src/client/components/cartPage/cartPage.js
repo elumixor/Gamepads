@@ -1,19 +1,14 @@
 import {PageComponent} from "../pageComponent.js"
 import * as api from '../../api.js'
+import {E} from '../../elements.js'
 import {ConfirmCancel} from "../confirmCancel.js"
 import {CartItem} from "./cartItem.js"
 import {prompt as P} from "../prompts.js"
+import {Responsive} from "../responsive.js"
 
-export class CartPage extends PageComponent {
+export class CartPage extends Responsive(PageComponent) {
     constructor() {
         super();
-
-        this.onBack = () => {
-        }
-        this.onOrder = () => {
-        }
-        this.onConfigurationRemoved = () => {
-        }
     }
 
     connectedCallback() {
@@ -34,25 +29,35 @@ export class CartPage extends PageComponent {
 
         // Input for email
         this.email = this.appendNew('input', {type: 'email'})
-        this.email.addEventListener('input', () => this.onEmailChanged())
+        this.email.addEventListener('input', () => this.validateCart())
         this.email.placeholder = 'Email for payment details'
+        this.email.onkeydown = e => {
+            //See notes about 'which' and 'key'
+            if (e.key === 'Enter') {
+                this.confirmCancel.confirm()
+                return false;
+            }
+        }
 
         // "Back" and "Send Order" buttons
         this.confirmCancel = this.appendChild(new ConfirmCancel("Send Order", "Back"))
-        this.confirmCancel.actions.cancel = () => {
-            this.hidden = true
-            this.onBack()
-        }
+        this.confirmCancel.actions.cancel = () => this.hidden = true
         this.confirmCancel.actions.confirm = () => {
             this.hidden = true
-            P(
-                `Payment detail will be sent to <b class="money">${this.email.value}</b>
+            P(`Payment detail will be sent to <b class="money">${this.email.value}</b>
                             <br/><br/>Order will be processed upon receiving payment.
-                            <br/><br/>Continue?`, () => this.onOrder())
+                            <br/><br/>Continue?`, () => {
+                api.sendOrder()
+                this.update()
+                E['cart-icon'].update()
+            }, () => this.hidden = false)
         }
 
-        this.update()
-        this.onEmailChanged()
+        // Validate email
+        this.validateCart()
+
+        // Hide cart by default
+        this.hidden = true
     }
 
     update() {
@@ -61,37 +66,21 @@ export class CartPage extends PageComponent {
 
         this.itemsContainer.removeChildren()
 
-        api.cart.forEach((configuration, i) => {
-            // Add item
-            const cartItem = this.itemsContainer.appendChild(new CartItem(configuration))
-
-            // Add horizontal separator line
-            if (i < (api.cart.length - 1))
-                this.itemsContainer.appendNew('hr')
-
-            cartItem.onDeleted = () => {
-                api.cart.remove(configuration)
-                this.onConfigurationRemoved()
-                this.update()
-            }
-
-            cartItem.onCountChanged = () => {
-                this.price.innerText = `\$${api.cart.price}`
-            }
-
-            cartItem.partIcon.addEventListener('click', () => {
-                // Select item as current
-                configuration.select()
-                api.currentConfigurator().configuration = configuration
-                this.hidden = true
-            })
-        })
+        // Add configurations as CartItems
+        api.cart.forEach(configuration => this.itemsContainer.appendChild(new CartItem(configuration)))
+        this.validateCart()
     }
 
-    onEmailChanged() {
-        this.confirmCancel.confirmButton.disabled = !(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            .test(this.email.value))
+    open() {
+        this.update()
+        this.hidden = false
+    }
+
+    validateCart() {
+        const emailValid = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            .test(this.email.value)
+
+        this.confirmCancel.disabled = !emailValid || api.cart.empty
     }
 }
 
-customElements.define('app-cart-page', CartPage)

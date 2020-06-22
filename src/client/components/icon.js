@@ -1,7 +1,7 @@
-import * as util from '../../util.js'
+import * as util from '../util.js'
 
-export class PartIcon extends HTMLElement {
-    constructor() {
+export class Icon extends HTMLElement {
+    constructor(imagePath, displayName, additionalInfo) {
         super();
 
         this.imageElement = document.createElement('img')
@@ -14,14 +14,10 @@ export class PartIcon extends HTMLElement {
 
         this.optionsCountElement = document.createElement('div')
         this.optionsCountElement.classList.add('options-count')
-    }
 
-    set part(newPart) {
-        this.imageElement.src = newPart.icon
-        this.partNameElement.innerText = newPart.displayName
-
-        const optionsCount = newPart.options.length
-        this.optionsCountElement.innerText = 'option'.times(optionsCount)
+        this.imageElement.src = imagePath
+        this.partNameElement.innerText = displayName
+        this.optionsCountElement.innerText = additionalInfo
     }
 
     connectedCallback() {
@@ -31,5 +27,3 @@ export class PartIcon extends HTMLElement {
         this.appendChild(this.optionsCountElement)
     }
 }
-
-customElements.define('app-part-icon', PartIcon)

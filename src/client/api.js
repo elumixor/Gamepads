@@ -1,13 +1,7 @@
-import {Cart} from './domain.js'
 import * as util from './util.js'
 
-
-const products = {};
-const defaultConfigurations = {};
-const currentConfigurations = {};
-
-let data;
-const cart = [];
+export let products
+export const cart = [];
 
 Object.defineProperty(cart, 'price', {
     get: function () {
@@ -15,21 +9,13 @@ Object.defineProperty(cart, 'price', {
     }
 })
 
-let currentConfig
-
-export function currentConfigurator() {
-    return currentConfig
-}
-
-export function currentConfigurator_(newConf) {
-    currentConfig = newConf
-}
+let _currentConfiguration
 
 export function currentConfiguration() {
-    return currentConfig?.configuration
+    return _currentConfiguration
 }
 
-class Configuration {
+export class Configuration {
     constructor(product) {
         this.product = product
         this.selectedOptions = {}
@@ -41,17 +27,35 @@ class Configuration {
     }
 
     select() {
-        currentConfigurations[this.product.name] = this
+        currentConfiguration_(this)
+        changeEvent.dispatch(_currentConfiguration)
+    }
+
+    selectOption(partName, option) {
+        this.selectedOptions[partName] = option
+        updateEvent.dispatch(_currentConfiguration)
     }
 }
 
-async function initialize() {
-    data = JSON.parse(await util.get('products'))
 
-    for (const productName in data) {
-        if (!data.hasOwnProperty(productName)) continue
+export function currentConfiguration_(newConf) {
+    _currentConfiguration = newConf
+}
 
-        const product = data[productName]
+export const updateEvent = new util.MyEvent()
+export const changeEvent = new util.MyEvent()
+export const dataLoadedEvent = new util.MyEvent()
+
+// Whenever cart is changed, update is also called
+changeEvent.subscribe(config => updateEvent.dispatch(config))
+
+export async function fetchData() {
+    products = JSON.parse(await util.get('products'))
+
+    for (const productName in products) {
+        if (!products.hasOwnProperty(productName)) continue
+
+        const product = products[productName]
         product.name = productName
 
         // fetch bounds data and place it into the object
@@ -96,6 +100,11 @@ async function initialize() {
             calculateBoundProperties(part.bounds)
         }
     }
+
+    dataLoadedEvent.dispatch(products)
+
+    new Configuration(products.first).select()
+
 }
 
 function calculateBoundProperties(bounds) {
@@ -123,10 +132,6 @@ function calculateBoundProperties(bounds) {
     calcProp(bounds.back)
 }
 
-function newConfiguration(productName) {
-    return new Configuration(data[productName])
-}
-
 function ordinal_suffix_of(i) {
     const j = i % 10,
         k = i % 100
@@ -142,27 +147,24 @@ function ordinal_suffix_of(i) {
     return i + "th";
 }
 
-function configCartIndex(productName) {
-    return cart.indexOf(currentConfigurations[productName])
-}
-
 function currentConfigLabel(productName) {
-    const index = configCartIndex(productName)
+    const index = cart.indexOf(productName)
     if (index < 0) return "Not in cart"
     return (index + 1) + ordinal_suffix_of(index + 1) + " in cart"
 }
 
-function saveToCart(configuration) {
-    const productName = data.keyOf(configuration.product)
+export function saveToCart(configuration) {
+    const productName = products.keyOf(configuration.product)
 
     // check if editing, i.e., if this configuration is already in cart
-    if (configCartIndex(productName) < 0)
+    if (cart.indexOf(productName) < 0)
         cart.push(configuration)
 
-    currentConfigurations[productName] = newConfiguration(productName)
+
+    new Configuration(products[productName]).select()
 }
 
-export {
-    initialize, newConfiguration, currentConfigLabel, configCartIndex, saveToCart,
-    data, products, currentConfigurations, cart
+export function sendOrder() {
+    util.post('order', cart)
+    cart.length = 0
 }

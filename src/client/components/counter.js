@@ -1,10 +1,11 @@
-import {Component} from "../component.js"
+import {Component} from "./component.js"
+import * as util from "../util.js"
 
 export class Counter extends Component {
     constructor(initialCount = 0) {
         super();
         this.currentCount = initialCount
-        this.onCountChanged = () => {}
+        this.countChanged = new util.MyEvent()
     }
 
     connectedCallback() {
@@ -27,7 +28,7 @@ export class Counter extends Component {
     set count(newCount) {
         this.currentCount = newCount
         this.countElement.innerText = `${newCount}`
-        this.onCountChanged(newCount)
+        this.countChanged.dispatch(newCount)
     }
 }
 
