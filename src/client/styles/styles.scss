@@ -41,8 +41,9 @@ $confirmCancelSize: calc(1rem + 0.11rem * 2 + 50px);
 
 :root {
   --accent-light: #A730C5;
-  --accent-dark: #8710A5;
+  --accent-dark: #{$accent-dark};
   --background-grey: #BEBEBE;
+  --background-dark: #{$background-dark};
 
   --font-size-big: 2rem;
   --font-size-normal: 1.5rem;
@@ -160,12 +161,23 @@ app-option-icon {
   width: $size;
   height: $size;
 
-  background-color: $accent-dark;
+  //background-color: $accent-dark;
+  background-color: white;
   border-color: white;
   border-style: solid;
   border-width: $border-size;
   border-radius: 50%;
   vertical-align: middle;
+  overflow: hidden;
+
+  > img {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: contain;
+  }
 }
 
 app-part-selector {
@@ -265,13 +277,17 @@ app-main-page {
     right: $top-icon-margin;
 
     > div { // selects individual language buttons
-      background-color: black;
+      background-color: rgba(0, 0, 0, 0.5);
       margin: 5px 3px;
       color: white;
       padding: 1px 10px;
       border-radius: 100px;
       font-size: $font-size-little;
       box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+
+      &.selected {
+        background-color: black;
+      }
     }
   }
 
@@ -318,6 +334,15 @@ app-main-page {
 
     > :not(img) {
       display: none;
+    }
+  }
+
+  &:not([data-mobile]) {
+    > div.languages {
+      display: block;
+      position: fixed;
+      top: 2 * $top-icon-margin + $top-icon-size;
+      right: $top-icon-margin;
     }
   }
 }
@@ -478,9 +503,13 @@ app-icon {
   }
 
   img {
+    $size: calc(#{$icon-size} - 2 * #{$border-size});
     border: $border-size solid white;
-    width: calc(#{$icon-size} - 2 * #{$border-size});
-    background-color: $accent-dark;
+    width: $size;
+    height: $size;
+    //background-color: $accent-dark;
+    background-color: black;
+    object-fit: contain;
 
     margin-bottom: -1 * $icon-size;
   }
@@ -533,6 +562,11 @@ app-editor {
   .parts-container {
     overflow-x: scroll;
     margin-bottom: 30px;
+
+    > app-icon {
+      width: 150px;
+      height: 150px;
+    }
   }
 
   > app-confirm-cancel {
@@ -592,6 +626,8 @@ app-editor {
   left: 80px;
 
   > * {
+    display: inline-block;
+    margin-right: 15px;
     font-weight: $weight-heavy;
     @include text-center-line(50px)
   }
@@ -626,7 +662,7 @@ app-part-options {
       span:last-child { // options group
         padding: 0 5px;
 
-        * {
+        > * {
           margin: 0 5px;
         }
       }
@@ -722,6 +758,7 @@ app-cart-item {
   }
 
   > app-icon {
+    width: 120px;
     font-size: 0.6rem;
     margin: 0 2%;
   }
