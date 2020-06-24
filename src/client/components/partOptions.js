@@ -26,7 +26,7 @@ export class PartOptions extends Component {
             prices.iterate((price, options) => {
                 const priceRoot = categoryRoot.appendNew('div')
                 const priceEl = priceRoot.appendNew('span', {class: 'money'})
-                priceEl.innerText = `\$${price}`
+                priceEl.innerText = price > 0 ? `\$${price}` : 'Free'
 
                 const optionsRoot = priceRoot.appendNew('span')
                 options.forEach(option => optionsRoot.appendChild(

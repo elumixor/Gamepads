@@ -8,6 +8,14 @@ export class OrderButton extends Responsive(Component) {
 
         api.updateEvent.subscribe(({price}) => this.price = price)
         this.onclick = () => api.saveToCart(api.currentConfiguration())
+
+        api.changeEvent.subscribe(c => {
+            if (api.cart.contains(c)) {
+                this.priceEl.innerText = ''
+                this.text.innerText = 'Save and create new'
+                this.priceEl.style.display = 'inherit'
+            }
+        })
     }
 
     connectedCallback() {
@@ -17,7 +25,15 @@ export class OrderButton extends Responsive(Component) {
     }
 
     set price(newPrice) {
-        this.priceEl.innerText = `\$${newPrice}`
+        if (api.cart.contains(api.currentConfiguration())) {
+            this.priceEl.innerText = ''
+            this.text.innerText = 'Save and create new'
+            this.priceEl.style.display = 'inherit'
+        } else {
+            this.text.innerText = 'Order for '
+            this.priceEl.style.display = 'inline-block'
+            this.priceEl.innerText = `\$${newPrice}`
+        }
     }
 }
 

@@ -4,7 +4,7 @@
     "textBefore": "Design your",
     "textAfter": "controller",
     "price": 50,
-    "icon": "./images/xbox/icon.png",
+    "icon": "./images/xbox/logo.png",
     "front": "./images/xbox/base_front.png",
     "back": "./images/xbox/base_back.png",
     "bounds": {
@@ -13,18 +13,45 @@
     },
     "parts": {
       "left stick": {
-        "icon": "./images/xbox/body/icon.png",
+        "icon": "./images/xbox/stick_left/icon.png",
         "displayName": "Left Stick",
         "options": {
           "black": {
-            "color": "black",
             "front": "./images/xbox/stick_left/black.png",
-            "price": 10
+            "icon":  "./images/xbox/stick_left/black_icon.png",
+            "price": 50
           },
           "red": {
-            "color": "red",
             "front": "./images/xbox/stick_left/red.png",
+            "icon":  "./images/xbox/stick_left/red_icon.png",
             "price": 10
+          }
+        }
+      }
+    }
+  },
+  "playstation": {
+    "displayName": "Playstation 4",
+    "textBefore": "Design your",
+    "textAfter": "controller",
+    "price": 50,
+    "icon": "./images/playstation/logo.png",
+    "front": "./images/playstation/front.png",
+    "back": "./images/playstation/back.png",
+    "bounds": {
+      "front": "./bounds/xbox_front.json",
+      "back": "./bounds/xbox_back.json"
+    },
+    "parts": {
+      "left stick": {
+        "icon": "./images/playstation/part_icon.png",
+        "displayName": "Aim Grip",
+        "options": {
+          "green": {
+            "front": "./images/playstation/green_front.png",
+            "back": "./images/playstation/green_back.png",
+            "icon":  "./images/playstation/green_icon.png",
+            "price": 50
           }
         }
       }

@@ -95,6 +95,19 @@ Object.defineProperty(Array.prototype, 'empty', {
     }
 });
 
+Object.defineProperty(Array.prototype, 'contains', {
+    value: function (el) {
+        return this.indexOf(el) >= 0
+    },
+    writable: false
+});
+
+Object.defineProperty(String.prototype, 'capitalize', {
+    get: function () {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+})
+
 Object.defineProperty(Node.prototype, 'appendNew', {
     value: function (tag, attributes) {
         const element = this.appendChild(document.createElement(tag))

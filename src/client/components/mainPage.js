@@ -2,6 +2,7 @@ import * as api from '../api.js'
 import * as util from '../util.js'
 import {Responsive} from "./responsive.js"
 import {Component} from "./component.js"
+import * as language from "../language.js"
 
 export class MainPage extends Responsive(Component) {
     constructor() {
@@ -18,14 +19,12 @@ export class MainPage extends Responsive(Component) {
 
         this.languages = this.appendNew('div', {class: 'languages'})
 
-        const en = this.languages.appendNew('div', {class: 'language'})
-        en.innerText = 'En'
-
-        const ru = this.languages.appendNew('div', {class: 'language'})
-        ru.innerText = 'Ru'
-
-        const cz = this.languages.appendNew('div', {class: 'language'})
-        cz.innerText = 'Cz'
+        language.supported.forEach(lang => {
+            const el = this.languages.appendNew('div', {class: 'language'})
+            el.innerText = lang.capitalize
+            el.setAttribute('data-language', lang)
+            el.onclick = () => language.select(lang)
+        })
 
         this.panels = this.appendNew('div', {class: 'panels'})
     }
@@ -45,8 +44,16 @@ export class MainPage extends Responsive(Component) {
     }
 
     dataLoadedCallback(products) {
+        const dynamicColors = (function* () {
+            while (true) {
+                yield 'var(--accent-dark)'
+                yield 'var(--background-dark)'
+            }
+        })()
+
         products.values.forEach(product => {
             const panel = this.panels.appendNew('div')
+            panel.style.backgroundColor = dynamicColors.next().value
 
             const t1 = panel.appendNew('div')
             t1.innerText = product.textBefore
