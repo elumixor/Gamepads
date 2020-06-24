@@ -13,6 +13,8 @@ function updateProducts() {
 
 updateProducts()
 
+const PORT = process.env.PORT || 5000
+
 const app = new express();
 
 app.use(express.static('./src/client'))
@@ -28,9 +30,9 @@ app.get('/products', function (request, response) {
 })
 
 
-app.post('/order', function(request, response){
+app.post('/order', function (request, response) {
     console.log(request.body);      // your JSON
     response.send(request.body);    // echo the result back
 });
 
-app.listen(8080)
+app.listen(PORT)
