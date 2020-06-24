@@ -37,7 +37,7 @@ $background-dark: #181818;
 
 $min-desktop-width: 640px;
 
-$confirmCancelSize: calc(1rem + 0.11rem * 2 + 50px);
+$confirm-cancel-size: calc(1rem + 0.11rem * 2 + 50px);
 
 :root {
   --accent-light: #A730C5;
@@ -231,7 +231,7 @@ app-part-selector {
       position: fixed;
       right: 15px;
       padding: 5px;
-      bottom: $confirmCancelSize;
+      bottom: $confirm-cancel-size;
     }
   }
 }
@@ -576,6 +576,14 @@ app-editor {
     }
   }
 
+  > .options-container {
+    > app-part-options {
+      display: block;
+      overflow-y: scroll;
+      height: calc(100vh - 10vh - 150px - 30px - #{$confirm-cancel-size} - 2rem);
+    }
+  }
+
   > app-confirm-cancel {
     display: none;
   }
@@ -688,6 +696,11 @@ app-part-options {
 
       span:last-child { // options group
         padding: 0 5px;
+        width: calc(100% - 80px);
+        white-space: nowrap;
+        /* display: inline-block; */
+        overflow-x: scroll;
+        vertical-align: middle;
 
         > * {
           margin: 0 5px;

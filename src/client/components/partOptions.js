@@ -11,7 +11,8 @@ export class PartOptions extends Component {
     connectedCallback() {
         const categories = {Basic: {}}
         this.selectedPart.options.iterate((optionName, option) => {
-            const cat = categories[option.category || 'Basic']
+            const categoryName = option.category || 'Basic'
+            const cat = categories[categoryName] || (categories[categoryName] = [])
             const price = cat[option.price] || (cat[option.price] = [])
             price.push(option)
         })
