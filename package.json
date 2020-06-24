@@ -1,6 +1,10 @@
 {
-  "name": "Gamepads",
+  "name": "gamepads",
   "version": "1.0.0",
+  "scripts": {
+    "build": "sass ./src/client/styles/styles.scss ./src/client/styles/styles.css",
+    "start": "node ./src/server/server.js"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "nodemailer": "^6.4.8",
