@@ -27,6 +27,86 @@
             "price": 10
           }
         }
+      },
+      "buttons": {
+        "icon": "./images/xbox/stick_left/icon.png",
+        "displayName": "Left Stick",
+        "options": {
+          "black": {
+            "front": "./images/xbox/stick_left/black.png",
+            "icon":  "./images/xbox/stick_left/black_icon.png",
+            "price": 0
+          },
+          "red": {
+            "front": "./images/xbox/stick_left/red.png",
+            "icon":  "./images/xbox/stick_left/red_icon.png",
+            "price": 10
+          }
+        }
+      },
+      "d-pad": {
+        "icon": "./images/xbox/stick_left/icon.png",
+        "displayName": "Left Stick",
+        "options": {
+          "black": {
+            "front": "./images/xbox/stick_left/black.png",
+            "icon":  "./images/xbox/stick_left/black_icon.png",
+            "price": 0
+          },
+          "red": {
+            "front": "./images/xbox/stick_left/red.png",
+            "icon":  "./images/xbox/stick_left/red_icon.png",
+            "price": 10
+          }
+        }
+      },
+      "right stick": {
+        "icon": "./images/xbox/stick_left/icon.png",
+        "displayName": "Left Stick",
+        "options": {
+          "black": {
+            "front": "./images/xbox/stick_left/black.png",
+            "icon":  "./images/xbox/stick_left/black_icon.png",
+            "price": 0
+          },
+          "red": {
+            "front": "./images/xbox/stick_left/red.png",
+            "icon":  "./images/xbox/stick_left/red_icon.png",
+            "price": 10
+          }
+        }
+      },
+      "start select": {
+        "icon": "./images/xbox/stick_left/icon.png",
+        "displayName": "Left Stick",
+        "options": {
+          "black": {
+            "front": "./images/xbox/stick_left/black.png",
+            "icon":  "./images/xbox/stick_left/black_icon.png",
+            "price": 0
+          },
+          "red": {
+            "front": "./images/xbox/stick_left/red.png",
+            "icon":  "./images/xbox/stick_left/red_icon.png",
+            "price": 10
+          }
+        }
+      },
+      "bumpers": {
+        "icon": "./images/xbox/stick_left/icon.png",
+        "displayName": "Left Stick",
+        "options": {
+          "black": {
+            "front": "./images/xbox/stick_left/black.png",
+            "icon":  "./images/xbox/stick_left/black_icon.png",
+            "price": 0
+          },
+          "red": {
+            "front": "./images/xbox/stick_left/red.png",
+            "icon":  "./images/xbox/stick_left/red_icon.png",
+            "price": 10
+          }
+        }
       }
     }
   },

@@ -18,9 +18,12 @@ export class Editor extends Responsive(Component) {
             // Fill parts container with parts icons
             this.partsContainer.removeChildren()
             const parts = configuration.product.parts
-            parts.iterate((partName, part) => {
-                this.partsContainer.appendChild(
-                    new Icon(part.icon, part.displayName, 'option'.times(part.options.length)))
+            this.icons = {}
+            parts.values.forEach(part => {
+                const icon = this.partsContainer.appendChild(new Icon(part.icon, part.displayName, 'option'.times(part.options.length)))
+
+                icon.onclick = () => this.select(part)
+                this.icons[part.name] = icon
             })
 
             // Select first option as default
@@ -50,6 +53,10 @@ export class Editor extends Responsive(Component) {
     }
 
     select(part) {
+        // Disable selected for all part icons except selected one
+        for (const i of this.icons.values) i.removeAttribute('data-selected')
+        this.icons[part.name].setAttribute('data-selected', '')
+
         // Store previous value to rollback
         this.previous = {partName: part.name, option: C().selectedOptions[part.name]}
 

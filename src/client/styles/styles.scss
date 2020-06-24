@@ -557,15 +557,22 @@ app-editor {
   display: block;
   position: fixed;
   left: 40vw;
+  width: 50vw;
   top: 10vh;
 
   .parts-container {
     overflow-x: scroll;
     margin-bottom: 30px;
+    white-space: nowrap;
+    overflow-y: hidden;
 
     > app-icon {
       width: 150px;
       height: 150px;
+
+      &:not([data-selected]) {
+        opacity: 0.5;
+      }
     }
   }
 
@@ -593,6 +600,10 @@ app-editor {
           left: 50vw;
           font-size: 2rem;
           margin: 5vw 0;
+
+          &:not([data-selected]) {
+            display: none;
+          }
 
           > img {
             height: calc(.7 * 50vw - 2 * min(5px, 1vw));
