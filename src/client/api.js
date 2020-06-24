@@ -19,11 +19,18 @@ export class Configuration {
     constructor(product) {
         this.product = product
         this.selectedOptions = {}
+        product.parts.iterate((partName, part) => this.selectedOptions[partName] = part.options.first)
         this.count = 1
     }
 
     get price() {
         return this.product.price + this.selectedOptions.values.map(option => option.price).sum;
+    }
+
+    get modificationsCount() {
+        const parts = this.product.parts
+        return parts.keys
+            .count(partName => this.selectedOptions[partName] !== parts[partName].options.first)
     }
 
     select() {
@@ -95,8 +102,6 @@ export async function fetchData() {
 
             const part = product.parts[partName]
             part.name = partName
-            const options = part.options
-
             calculateBoundProperties(part.bounds)
         }
     }
@@ -154,14 +159,12 @@ function currentConfigLabel(productName) {
 }
 
 export function saveToCart(configuration) {
-    const productName = products.keyOf(configuration.product)
-
     // check if editing, i.e., if this configuration is already in cart
-    if (cart.indexOf(productName) < 0)
+    if (cart.indexOf(configuration) < 0)
         cart.push(configuration)
 
 
-    new Configuration(products[productName]).select()
+    new Configuration(products[configuration.product.name]).select()
 }
 
 export function sendOrder() {

@@ -583,16 +583,20 @@ app-editor {
       top: 0;
       height: 100%;
       width: 100%;
-      background: linear-gradient(#ffffff00 16vh, #ffffff30 30vh, #ffffff94 76vh, white 90vh);
+      //background: linear-gradient(#ffffff00 16vh, #ffffff30 30vh, #ffffff94 76vh, white 90vh);
+      background: linear-gradient(#ffffff00 16vh, #ffffff30 30vh, #00000094 76vh, black 90vh);
 
       > .parts-container {
         > app-icon {
-
           height: 40vw;
           width: 50vw;
           left: 50vw;
           font-size: 2rem;
           margin: 5vw 0;
+
+          > img {
+            height: calc(.7 * 50vw - 2 * min(5px, 1vw));
+          }
         }
       }
 
@@ -606,12 +610,24 @@ app-editor {
         top: calc(50vw + 30px);
         width: 100%;
         overflow-y: scroll;
-        background: linear-gradient(0deg, #ffffff, #bfbfbf63 41%, #8888882b);
+        //background: linear-gradient(0deg, #ffffff, #bfbfbf63 41%, #8888882b);
+        background: linear-gradient(0deg, #000000, #000000ad);
 
         > app-part-options {
           > div {
             padding: 3px max(20px, 10vw);
             border-top: 1px solid #0000007a;
+
+            > .category-name {
+              color: rgba(255, 255, 255, 0.5);
+            }
+
+            > div {
+              > .money {
+                font-weight: $weight-heavy;
+                color: $accent-light
+              }
+            }
           }
         }
       }

@@ -73,8 +73,10 @@ export class PartSelector extends Responsive(Component) {
                 this.selectedOptions.back.appendNew('img', {src: option.back, alt: ''})
         })
 
-        const optionsCount = this.configuration.selectedOptions.length
-        this.modificationsText.innerText = optionsCount === 0 ? 'Click on a part to modify' : 'modification'.times(optionsCount)
+
+        const modificationsCount = this.configuration.modificationsCount
+        this.modificationsText.innerText =
+            modificationsCount === 0 ? 'Click on a part to modify' : 'modification'.times(modificationsCount)
     }
 
     click(e, side) {
@@ -87,8 +89,7 @@ export class PartSelector extends Responsive(Component) {
 
             width = height * this.aspect
             x = (e.offsetX - (t.offsetWidth - width) / 2) / width
-        }
-        else { // too narrow -> width ok, recalculate height
+        } else { // too narrow -> width ok, recalculate height
             width = t.offsetWidth
             x = e.offsetX / width
 
@@ -127,12 +128,10 @@ export class PartSelector extends Responsive(Component) {
             const centerY = (yMin + yMax) / 2
 
             this.zoomIn({x: centerX, y: centerY}, Math.max((xMax - xMin) / 2, (yMax - yMin) / 2))
-        }
-        else if (front) {
+        } else if (front) {
             const {x, y} = front.center
             this.zoomIn({x, y: y / 2}, front.radius)
-        }
-        else {
+        } else {
             const {x, y} = back.center
             this.zoomIn({x, y: (1 + y) / 2}, back.radius)
         }

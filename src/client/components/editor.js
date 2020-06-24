@@ -55,7 +55,9 @@ export class Editor extends Responsive(Component) {
 
         // Fill the options container with selected part options
         this.optionsContainer.removeChildren()
-        this.optionsContainer.appendChild(new PartOptions(part))
+        const partIcon = new PartOptions()
+        partIcon.selectedPart = part
+        this.optionsContainer.appendChild(partIcon)
     }
 }
 

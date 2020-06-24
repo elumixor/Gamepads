@@ -21,7 +21,7 @@ export class CartItem extends Component {
         this.productIcon = this.appendChild(new Icon(product.icon))
 
         this.productIcon.partNameElement.innerText = product.displayName
-        this.productIcon.optionsCountElement.innerText = 'mod'.times(this.configuration.selectedOptions.length)
+        this.productIcon.optionsCountElement.innerText = this.configuration.modificationsCount === 0 ? 'No mods' : 'mod'.times(this.configuration.modificationsCount)
         this.productIcon.onclick = () => {
             // Select item as current
             this.configuration.select()

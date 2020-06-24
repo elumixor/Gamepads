@@ -19,7 +19,7 @@
           "black": {
             "front": "./images/xbox/stick_left/black.png",
             "icon":  "./images/xbox/stick_left/black_icon.png",
-            "price": 50
+            "price": 0
           },
           "red": {
             "front": "./images/xbox/stick_left/red.png",

@@ -67,14 +67,14 @@ parse(content).then(json => {
 
     const paths = json.children.find(c => c.name === 'g').children.map(p => {
         // return {part: parts_back[p.attributes.stroke], path: p.attributes.d}
-        return {part: parts[p.attributes.stroke], path: p.attributes.d}
+        return {selectedPart: parts[p.attributes.stroke], path: p.attributes.d}
     })
 
 
-    paths.forEach(({part, path}) => {
+    paths.forEach(({selectedPart, path}) => {
         const commands = path.slice(0, path.length - 1).split(/(?=[LMCVH])/)
         const points = processCommands(commands)
-        regions[part].push(points)
+        regions[selectedPart].push(points)
     })
 
     fs.writeFileSync(target, JSON.stringify(regions))

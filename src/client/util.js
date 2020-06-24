@@ -94,6 +94,13 @@ Object.defineProperty(Array.prototype, 'empty', {
         return this.length === 0
     }
 });
+Object.defineProperty(Array.prototype, 'count', {
+    value: function (predicate) {
+        return this.reduce(function(n, val) {
+            return n + predicate(val)
+        }, 0);
+    }
+});
 
 Object.defineProperty(Array.prototype, 'contains', {
     value: function (el) {

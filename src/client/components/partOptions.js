@@ -2,10 +2,10 @@ import {Component} from "./component.js"
 import {OptionIcon} from "./optionIcon.js"
 
 export class PartOptions extends Component {
-    constructor(part) {
+    constructor() {
         super()
 
-        this.selectedPart = part
+        this.selectedPart = undefined
     }
 
     connectedCallback() {
@@ -30,7 +30,7 @@ export class PartOptions extends Component {
 
                 const optionsRoot = priceRoot.appendNew('span')
                 options.forEach(option => optionsRoot.appendChild(
-                    new OptionIcon(this.part.name, option)))
+                    new OptionIcon(this.selectedPart.name, option)))
             })
         })
     }
