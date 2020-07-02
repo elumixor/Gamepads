@@ -4,6 +4,7 @@ import {pointInPolygon} from "../../pointInPolygon.js"
 import {Component} from "../component.js"
 import {Responsive} from "../responsive.js"
 import {E} from '../../elements.js'
+import * as api from '../../api.js'
 
 export class PartSelector extends Responsive(Component) {
     constructor() {
@@ -66,7 +67,6 @@ export class PartSelector extends Responsive(Component) {
         this.configuration.selectedOptions.iterate((partName, option) => {
             const {front, back} = option
 
-
             if (front)
                 this.selectedOptions.front.appendNew('img', {src: option.front, alt: ''})
             if (back)
@@ -85,7 +85,9 @@ export class PartSelector extends Responsive(Component) {
         let width, height, x, y
         if (t.offsetWidth / t.offsetHeight > this.aspect) { // too wide -> height ok, recalculate width
             height = t.offsetHeight
+            console.log(height)
             y = e.offsetY / height
+
 
             width = height * this.aspect
             x = (e.offsetX - (t.offsetWidth - width) / 2) / width
@@ -102,21 +104,34 @@ export class PartSelector extends Responsive(Component) {
 
         // Get the clicked part, based on bounds polygons
         let clickedPart
-        this.configuration.product.bounds.iterate((partName, bounds) => {
+        const bounds = api.bounds[this.configuration.product.name]
+        bounds.front.iterate((partName, bounds) => {
             if (clickedPart) return
 
-            bounds = bounds[side]
             if (!bounds) return
 
             const point = [x, y]
-            if (bounds.some(b => pointInPolygon(point, b)))
-                clickedPart = this.configuration.product.parts[partName]
+            if (bounds.some(b => pointInPolygon(point, b))) {
+                clickedPart = partName
+            }
         })
+
+        if (!clickedPart)
+            bounds.back.iterate((partName, bounds) => {
+                if (clickedPart) return
+
+                if (!bounds) return
+
+                const point = [x, y]
+                if (bounds.some(b => pointInPolygon(point, b))) {
+                    clickedPart = partName
+                }
+            })
 
         if (!clickedPart) return
 
-        const front = clickedPart.bounds.front
-        const back = clickedPart.bounds.back
+        const front = bounds.front[clickedPart]
+        const back = bounds.back[clickedPart]
 
         if (front && back) {
             const xMin = Math.min(front.center.x - front.radius, back.center.x - back.radius)

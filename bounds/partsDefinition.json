@@ -1,0 +1,33 @@
+{
+  "xbox": {
+    "front": {
+      "Left Thumbstick": "#FF0000",
+      "Buttons": "#FF00A8",
+      "dpad": "#0029FF",
+      "Right Thumbstick": "#00FF47",
+      "start/select": "#FA00FF",
+      "bumpers": "black"
+    },
+    "back": {
+      "side rails": "#00FFF0",
+      "rtlt": "#FF0000",
+      "bumpers": "#001AFF",
+      "battery pack": "#FF067E"
+    }
+  },
+  "playstation": {
+    "front": {
+      "buttons": "#D2A4A4",
+      "left stick": "#DB00FF",
+      "right stick": "#DBFF00",
+      "d pad": "#FF0000",
+      "rtltrblb": "#E00000",
+      "ps": "#54FF04",
+      "option selection": "#15A4C3",
+      "touchpad": "#00FF85"
+    },
+    "back": {
+      "rtltrblb": "#E00000"
+    }
+  }
+}

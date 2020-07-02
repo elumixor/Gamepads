@@ -1,5 +1,5 @@
 const fs = require('fs')
-const {parse, stringify} = require('svgson')
+const {parseSync, stringify} = require('svgson')
 
 let width, height
 
@@ -26,57 +26,67 @@ function processCommands(commands) {
         points.push(last)
     }
 
+    // console.log(points)
+    //
     return points
 }
 
-const parts_front = {
-    '#FF0000': 'left stick',
-    '#FF00A8': 'buttons',
-    '#0029FF': 'd-pad',
-    '#00FF47': 'right stick',
-    '#FA00FF': 'start select',
-    'black': 'bumpers'
+const parts2Colors = require("./partsDefinition.json")
+const products = Object.keys(parts2Colors)
+
+const colors2Parts = {}
+const bounds = {}
+
+
+for (const p of products) {
+    colors2Parts[p] = {front: {}, back: {}}
+    bounds[p] = {front: {}, back: {}}
+
+    for (const [key, value] of Object.entries(parts2Colors[p].front)) {
+        colors2Parts[p].front[value] = key
+        bounds[p].front[key] = []
+    }
+    for (const [key, value] of Object.entries(parts2Colors[p].back)) {
+        colors2Parts[p].back[value] = key
+        bounds[p].back[key] = []
+    }
 }
+const files = {}
+for (const p of products) files[p] = {front: `./svg/${p}Front.svg`, back: `./svg/${p}Back.svg`}
 
-const parts_back = {
-    '#00FFF0': 'side rails',
-    '#FF0000': 'rt lt',
-    '#001AFF': 'bumpers',
-    '#FF067E': 'battery pack'
-}
+for (const p of products) {
+    const front = fs.readFileSync(files[p].front, 'utf-8')
+    const back = fs.readFileSync(files[p].back, 'utf-8')
 
+    let json = parseSync(front)
 
-const regions_front = {}
-const regions_back = {}
-
-const product = 'xbox'
-const name = 'back'
-
-const parts = name === 'front' ? parts_front : parts_back
-const regions = name === 'front' ? regions_front : regions_back
-
-Object.values(parts).forEach(p => regions[p] = [])
-
-const src = `./${product}_${name}.svg`
-const target = `./${product}_${name}.json`
-
-const content = fs.readFileSync(src, 'utf8')
-parse(content).then(json => {
     width = parseFloat(json.attributes.width)
     height = parseFloat(json.attributes.height)
 
-    const paths = json.children.find(c => c.name === 'g').children.map(p => {
-        // return {part: parts_back[p.attributes.stroke], path: p.attributes.d}
-        return {selectedPart: parts[p.attributes.stroke], path: p.attributes.d}
+    let paths = json.children.filter(c => c.name === 'path').map(path => {
+        return {part: colors2Parts[p].front[path.attributes.stroke], path: path.attributes.d}
     })
-
-
-    paths.forEach(({selectedPart, path}) => {
+    for (const {part, path} of paths) {
         const commands = path.slice(0, path.length - 1).split(/(?=[LMCVH])/)
         const points = processCommands(commands)
-        regions[selectedPart].push(points)
+
+        bounds[p].front[part].push(points)
+    }
+
+    json = parseSync(back)
+
+    width = parseFloat(json.attributes.width)
+    height = parseFloat(json.attributes.height)
+
+    paths = json.children.filter(c => c.name === 'path').map(path => {
+        return {part: colors2Parts[p].back[path.attributes.stroke], path: path.attributes.d}
     })
 
-    fs.writeFileSync(target, JSON.stringify(regions))
-})
-// console.log(content)
+    for (const {part, path} of paths) {
+        const commands = path.slice(0, path.length - 1).split(/(?=[LMCVH])/)
+        const points = processCommands(commands)
+        bounds[p].back[part].push(points)
+    }
+}
+
+fs.writeFileSync('bounds.json', JSON.stringify(bounds))

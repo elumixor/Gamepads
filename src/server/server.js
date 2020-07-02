@@ -2,13 +2,20 @@ const express = require('express');
 const fs = require('fs')
 
 const productsPath = './products.json'
+const boundsPath = './bounds/bounds.json'
 
 let products
+let bounds
 let lastChange
 
 function updateProducts() {
     products = JSON.parse(fs.readFileSync(productsPath, 'utf8'))
     lastChange = fs.statSync(productsPath).mtime;
+}
+
+function updateBounds() {
+    bounds = JSON.parse(fs.readFileSync(boundsPath, 'utf8'))
+    lastChange = fs.statSync(boundsPath).mtime;
 }
 
 updateProducts()
@@ -27,6 +34,14 @@ app.get('/products', function (request, response) {
     if (ch > lastChange) updateProducts()
 
     response.json(products)
+})
+
+
+app.get('/bounds', function (request, response) {
+    const ch = fs.statSync(boundsPath).mtime;
+    if (ch > lastChange) updateBounds()
+
+    response.json(bounds)
 })
 
 

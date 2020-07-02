@@ -1,6 +1,7 @@
 import * as util from './util.js'
 
 export let products
+export let bounds
 export const cart = [];
 
 Object.defineProperty(cart, 'price', {
@@ -58,52 +59,18 @@ changeEvent.subscribe(config => updateEvent.dispatch(config))
 
 export async function fetchData() {
     products = JSON.parse(await util.get('products'))
+    bounds = JSON.parse(await util.get('bounds'))
 
     for (const productName in products) {
         if (!products.hasOwnProperty(productName)) continue
 
         const product = products[productName]
         product.name = productName
+    }
 
-        // fetch bounds data and place it into the object
-        const bounds = product.bounds
-
-        bounds.__front = JSON.parse(await util.get(bounds.front))
-        bounds.__back = JSON.parse(await util.get(bounds.back))
-
-        delete bounds.front
-        delete bounds.back
-
-        for (const n in bounds.__front) {
-            if (!bounds.__front.hasOwnProperty(n)) continue
-
-            bounds[n] = {front: bounds.__front[n], back: bounds.__back[n]}
-        }
-
-        for (const n in bounds.__back) {
-            if (!bounds.__back.hasOwnProperty(n)) continue
-
-            if (!bounds[n]) bounds[n] = {front: undefined}
-            bounds[n].back = bounds.__back[n]
-        }
-
-        delete bounds.__front
-        delete bounds.__back
-
-        for (const n in bounds) {
-            if (!bounds.hasOwnProperty(n)) continue
-
-            if (!product.parts.hasOwnProperty(n)) delete bounds[n]
-            else product.parts[n].bounds = bounds[n]
-        }
-
-        for (const partName in product.parts) {
-            if (!product.parts.hasOwnProperty(partName)) continue
-
-            const part = product.parts[partName]
-            part.name = partName
-            calculateBoundProperties(part.bounds)
-        }
+    for (const b in bounds) {
+        for (const p in bounds[b].front) calculateBoundProperties(bounds[b].front[p])
+        for (const p in bounds[b].back) calculateBoundProperties(bounds[b].back[p])
     }
 
     dataLoadedEvent.dispatch(products)
@@ -133,8 +100,7 @@ function calculateBoundProperties(bounds) {
         }
     }
 
-    calcProp(bounds.front)
-    calcProp(bounds.back)
+    calcProp(bounds)
 }
 
 function ordinal_suffix_of(i) {
