@@ -103,7 +103,7 @@
         "displayName": "Battery Pack",
         "options": {
           "black": {
-            "back": "./images/xbox/xbox_backshell_standart_black_back.png.png",
+            "back": "./images/xbox/xbox_backshell_standart_black_back.png",
             "icon": "./images/xbox/xbox_backshell_standart_black_icon.png",
             "price": 0
           },
@@ -295,7 +295,7 @@
         }
       },
       "start/select": {
-        "icon": "./images/xbox/xbox_option/selection_icon.jpeg",
+        "icon": "./images/xbox/xbox_option_selection_icon.jpeg",
         "displayName": "Start/Select",
         "options": {
           "black": {

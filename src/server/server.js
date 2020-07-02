@@ -4,6 +4,7 @@ const fs = require('fs')
 const productsPath = './products.json'
 const boundsPath = './bounds/bounds.json'
 
+
 let products
 let bounds
 let lastChange
@@ -19,6 +20,7 @@ function updateBounds() {
 }
 
 updateProducts()
+updateBounds()
 
 const PORT = process.env.PORT || 5000
 
