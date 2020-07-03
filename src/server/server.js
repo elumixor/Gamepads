@@ -7,16 +7,17 @@ const boundsPath = './bounds/bounds.json'
 
 let products
 let bounds
-let lastChange
+let lastChangeProducts
+let lastChangeBounds
 
 function updateProducts() {
     products = JSON.parse(fs.readFileSync(productsPath, 'utf8'))
-    lastChange = fs.statSync(productsPath).mtime;
+    lastChangeProducts = fs.statSync(productsPath).mtime;
 }
 
 function updateBounds() {
     bounds = JSON.parse(fs.readFileSync(boundsPath, 'utf8'))
-    lastChange = fs.statSync(boundsPath).mtime;
+    lastChangeBounds = fs.statSync(boundsPath).mtime;
 }
 
 updateProducts()
@@ -33,7 +34,7 @@ app.use(express.json());
 
 app.get('/products', function (request, response) {
     const ch = fs.statSync(productsPath).mtime;
-    if (ch > lastChange) updateProducts()
+    if (ch > lastChangeProducts) updateProducts()
 
     response.json(products)
 })
@@ -41,7 +42,7 @@ app.get('/products', function (request, response) {
 
 app.get('/bounds', function (request, response) {
     const ch = fs.statSync(boundsPath).mtime;
-    if (ch > lastChange) updateBounds()
+    if (ch > lastChangeBounds) updateBounds()
 
     response.json(bounds)
 })

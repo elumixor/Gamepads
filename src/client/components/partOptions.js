@@ -1,5 +1,6 @@
 import {Component} from "./component.js"
 import {OptionIcon} from "./optionIcon.js"
+import {getPrice} from "../localization.js"
 
 export class PartOptions extends Component {
     constructor() {
@@ -27,7 +28,7 @@ export class PartOptions extends Component {
             prices.iterate((price, options) => {
                 const priceRoot = categoryRoot.appendNew('div')
                 const priceEl = priceRoot.appendNew('span', {class: 'money'})
-                priceEl.innerText = price > 0 ? `\$${price}` : 'Free'
+                priceEl.innerText = `${getPrice(price)}`
 
                 const optionsRoot = priceRoot.appendNew('span')
                 options.forEach(option => optionsRoot.appendChild(

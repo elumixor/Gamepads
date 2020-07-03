@@ -6,7 +6,8 @@
       "dpad": "#0029FF",
       "Right Thumbstick": "#00FF47",
       "start/select": "#FA00FF",
-      "bumpers": "black"
+      "bumpers": "black",
+      "led/guide": "#1A15FF"
     },
     "back": {
       "side rails": "#00FFF0",

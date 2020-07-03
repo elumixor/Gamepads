@@ -2,7 +2,7 @@ import * as api from '../api.js'
 import * as util from '../util.js'
 import {Responsive} from "./responsive.js"
 import {Component} from "./component.js"
-import * as language from "../language.js"
+import * as language from "../localization.js"
 
 export class MainPage extends Responsive(Component) {
     constructor() {

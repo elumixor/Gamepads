@@ -3,16 +3,24 @@ const {parseSync, stringify} = require('svgson')
 
 let width, height
 
+function clamp(x, min, max) {
+    return Math.min(Math.max(x, min), max)
+}
+
 function parseCommand(command) {
     const c = command[0]
     const split = command.slice(1).split(' ')
-    return {command: c, x: parseFloat(split[0]) / width, y: parseFloat(split[1]) / height}
+    return {
+        command: c,
+        x: clamp(parseFloat(split[0]) / width, 0, 1),
+        y: clamp(parseFloat(split[1]) / height, 0, 1)
+    }
 }
 
 function applyCommand(command, x, y, last) {
     if (command === "L") return [x, y]
-    if (command === "V") return [x, last[1]]
-    if (command === "H") return [last.x, x]
+    if (command === "V") return [last[0], x]
+    if (command === "H") return [x, last[1]]
 }
 
 function processCommands(commands) {
@@ -26,8 +34,6 @@ function processCommands(commands) {
         points.push(last)
     }
 
-    // console.log(points)
-    //
     return points
 }
 
@@ -69,7 +75,6 @@ for (const p of products) {
     for (const {part, path} of paths) {
         const commands = path.slice(0, path.length - 1).split(/(?=[LMCVH])/)
         const points = processCommands(commands)
-
         bounds[p].front[part].push(points)
     }
 

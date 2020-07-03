@@ -4,6 +4,7 @@ import {Counter} from "../counter.js"
 import {prompt as P} from "../prompts.js"
 import * as api from "../../api.js"
 import {E} from '../../elements.js'
+import {getPrice} from "../../localization.js"
 
 export class CartItem extends Component {
     constructor(configuration) {
@@ -37,8 +38,8 @@ export class CartItem extends Component {
             if (newCount < 1) this.itemCount.count = 1
             else {
                 this.configuration.count = newCount
-                this.priceText.innerText = `\$${newCount * this.configuration.price}`
-                E['cart-page'].price.innerText = `\$${api.cart.price}`
+                this.priceText.innerText = `${getPrice(newCount * this.configuration.price)}`
+                E['cart-page'].price.innerText = `${getPrice(api.cart.price)}`
             }
         })
         this.itemCount.count = this.configuration.count

@@ -5,6 +5,7 @@ import {ConfirmCancel} from "../confirmCancel.js"
 import {CartItem} from "./cartItem.js"
 import {prompt as P} from "../prompts.js"
 import {Responsive} from "../responsive.js"
+import {getPrice} from "../../localization.js"
 
 export class CartPage extends Responsive(PageComponent) {
     constructor() {
@@ -62,7 +63,7 @@ export class CartPage extends Responsive(PageComponent) {
 
     update() {
         this.headingItems.innerText = 'item'.times(api.cart.length)
-        this.price.innerText = `\$${api.cart.price}`
+        this.price.innerText = `${getPrice(api.cart.price)}`
 
         this.itemsContainer.removeChildren()
 

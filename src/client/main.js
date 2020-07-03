@@ -3,7 +3,7 @@ import * as util from "./util.js"
 import {E, components} from './elements.js'
 import {Responsive} from "./components/responsive.js"
 import {Component} from "./components/component.js"
-import * as language from './language.js'
+import * as language from './localization.js'
 
 
 const responsive = [...document.querySelectorAll('[data-responsive]')]

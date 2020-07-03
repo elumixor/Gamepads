@@ -79,13 +79,12 @@ export class PartSelector extends Responsive(Component) {
             modificationsCount === 0 ? 'Click on a part to modify' : 'modification'.times(modificationsCount)
     }
 
-    click(e, side) {
+    click(e, part) {
         const t = e.target
 
         let width, height, x, y
         if (t.offsetWidth / t.offsetHeight > this.aspect) { // too wide -> height ok, recalculate width
             height = t.offsetHeight
-            console.log(height)
             y = e.offsetY / height
 
 
@@ -105,7 +104,19 @@ export class PartSelector extends Responsive(Component) {
         // Get the clicked part, based on bounds polygons
         let clickedPart
         const bounds = api.bounds[this.configuration.product.name]
-        bounds.front.iterate((partName, bounds) => {
+
+        if (part === 'front') {
+            bounds.front.iterate((partName, bounds) => {
+                if (clickedPart) return
+
+                if (!bounds) return
+
+                const point = [x, y]
+                if (bounds.some(b => pointInPolygon(point, b))) {
+                    clickedPart = partName
+                }
+            })
+        } else bounds.back.iterate((partName, bounds) => {
             if (clickedPart) return
 
             if (!bounds) return
@@ -116,19 +127,7 @@ export class PartSelector extends Responsive(Component) {
             }
         })
 
-        if (!clickedPart)
-            bounds.back.iterate((partName, bounds) => {
-                if (clickedPart) return
-
-                if (!bounds) return
-
-                const point = [x, y]
-                if (bounds.some(b => pointInPolygon(point, b))) {
-                    clickedPart = partName
-                }
-            })
-
-        if (!clickedPart) return
+        if (!clickedPart || !this.configuration.product.parts[clickedPart]) return
 
         const front = bounds.front[clickedPart]
         const back = bounds.back[clickedPart]
@@ -151,7 +150,7 @@ export class PartSelector extends Responsive(Component) {
             this.zoomIn({x, y: (1 + y) / 2}, back.radius)
         }
 
-        this.onPartSelected(clickedPart)
+        this.onPartSelected(this.configuration.product.parts[clickedPart])
     }
 
     onPartSelected(part) {
@@ -159,6 +158,7 @@ export class PartSelector extends Responsive(Component) {
         E['cart-icon'].hidden = true
         E['order-button'].hidden = true
         E['editor'].setAttribute('data-open', '')
+        E['editor'].selectPart(part)
     }
 
     zoomIn(center, radius) {
