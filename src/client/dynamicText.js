@@ -14,6 +14,7 @@ function checkReference() {
 export function dynamicTextSize(el, minimum = 0, maximum = 40, multiplier = 1) {
     checkReference()
     reference.innerText = el.innerText
+    console.log(el.innerText)
 
     const w = reference.clientWidth
     const h = reference.clientHeight
