@@ -26,8 +26,8 @@ export class Icon extends HTMLElement {
         this.appendChild(this.dimmerElement)
         this.appendChild(this.partNameElement)
         this.appendChild(this.optionsCountElement)
-        setTimeout(() => {
-            dynamicTextSize(this.partNameElement, 10, 30)
-        }, 0)
+        // setTimeout(() => {
+        dynamicTextSize(this.partNameElement, 10, 30)
+        // }, 0)
     }
 }
