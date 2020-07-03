@@ -7,8 +7,6 @@
     "icon": "./images/xbox/logo.png",
     "front": "./images/xbox/xbox_faceshell_standart_black_front.png",
     "back": "./images/xbox/xbox_backshell_standart_black_back.png",
-    "frontDefault": "face shell",
-    "backDefault": "back side",
     "parts": {
       "face shell": {
         "icon": "./images/xbox/xbox_faceshell_icon.jpeg",
@@ -329,8 +327,6 @@
     "icon": "./images/playstation/logo.png",
     "front": "./images/playstation/faceshell_standart_black_front.png",
     "back": "./images/playstation/backshell_standart_black_back.png",
-    "frontDefault": "face shell",
-    "backDefault": "back shell",
     "parts": {
       "face shell": {
         "icon": "./images/playstation/ps_faceshell_icon.jpeg",

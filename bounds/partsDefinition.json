@@ -1,6 +1,7 @@
 {
   "xbox": {
     "front": {
+      "face shell": "#FAFF14",
       "Left Thumbstick": "#FF0000",
       "Buttons": "#FF00A8",
       "dpad": "#0029FF",
@@ -10,6 +11,7 @@
       "led/guide": "#1A15FF"
     },
     "back": {
+      "back side": "white",
       "side rails": "#00FFF0",
       "rtlt": "#FF0000",
       "bumpers": "#001AFF",
@@ -18,17 +20,19 @@
   },
   "playstation": {
     "front": {
+      "face shell": "black",
       "buttons": "#D2A4A4",
       "left stick": "#DB00FF",
       "right stick": "#DBFF00",
       "d pad": "#FF0000",
-      "rtltrblb": "#E00000",
+      "rtltrblb": "#F98FB5",
       "ps": "#54FF04",
-      "option selection": "#15A4C3",
+      "option selection": "#15A4C4",
       "touchpad": "#00FF85"
     },
     "back": {
-      "rtltrblb": "#E00000"
+      "back shell": "white",
+      "rtltrblb": "#F98FB5"
     }
   }
 }
