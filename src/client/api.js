@@ -71,14 +71,8 @@ export async function fetchData() {
     }
 
     for (const b in bounds) {
-        for (const p in bounds[b].front) {
-            console.log('front', p)
-            calculateBoundProperties(bounds[b].front[p])
-        }
-        for (const p in bounds[b].back) {
-            console.log('back', p)
-            calculateBoundProperties(bounds[b].back[p])
-        }
+        for (const p in bounds[b].front) calculateBoundProperties(bounds[b].front[p])
+        for (const p in bounds[b].back) calculateBoundProperties(bounds[b].back[p])
     }
 
     dataLoadedEvent.dispatch(products)

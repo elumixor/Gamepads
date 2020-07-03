@@ -1,4 +1,5 @@
 import * as util from '../util.js'
+import {dynamicTextSize} from '../dynamicText.js'
 
 export class Icon extends HTMLElement {
     constructor(imagePath, displayName, additionalInfo) {
@@ -25,5 +26,8 @@ export class Icon extends HTMLElement {
         this.appendChild(this.dimmerElement)
         this.appendChild(this.partNameElement)
         this.appendChild(this.optionsCountElement)
+        setTimeout(() => {
+            dynamicTextSize(this.partNameElement, 10, 30)
+        }, 0)
     }
 }

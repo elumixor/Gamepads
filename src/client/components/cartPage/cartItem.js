@@ -5,6 +5,7 @@ import {prompt as P} from "../prompts.js"
 import * as api from "../../api.js"
 import {E} from '../../elements.js'
 import {getPrice} from "../../localization.js"
+import {dynamicTextSize} from "../../dynamicText.js"
 
 export class CartItem extends Component {
     constructor(configuration) {
@@ -19,15 +20,15 @@ export class CartItem extends Component {
         const product = this.configuration.product
 
         // Configure product icon
-        this.productIcon = this.appendChild(new Icon(product.icon))
-
-        this.productIcon.partNameElement.innerText = product.displayName
-        this.productIcon.optionsCountElement.innerText = this.configuration.modificationsCount === 0 ? 'No mods' : 'mod'.times(this.configuration.modificationsCount)
+        this.productIcon = this.appendChild(new Icon(product.icon, product.displayName, this.configuration.modificationsCount === 0 ? 'No mods' : 'mod'.times(this.configuration.modificationsCount)))
         this.productIcon.onclick = () => {
             // Select item as current
             this.configuration.select()
             E['cart-page'].hidden = true
         }
+        setTimeout(() => {
+            dynamicTextSize(this.productIcon.partNameElement, 10, 30, 0.9)
+        }, 0)
 
         // Configure item count component
         this.itemCount = this.appendChild(new Counter())

@@ -533,6 +533,9 @@ app-icon {
     &.part-name {
       font-weight: $weight-heavy;
       padding: 0 10px;
+      height: 50px;
+      line-height: 50px;
+      white-space: nowrap;
     }
 
     &.options-count {
