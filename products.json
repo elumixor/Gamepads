@@ -275,7 +275,7 @@
             "price": 0
           },
           "white": {
-            "front": "./images/xbox/xbox_l2r2_white_back.png",
+            "back": "./images/xbox/xbox_l2r2_white_back.png",
             "icon": "./images/xbox/xbox_l2r2_white_icon.png",
             "price": 2
           },
