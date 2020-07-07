@@ -49,9 +49,12 @@ export class Editor extends Responsive(Component) {
     }
 
     selectPart(part) {
+        const selectedIcon = this.icons[part.name];
         // Disable selected for all part icons except selected one
         for (const i of this.icons.values) i.removeAttribute('data-selected')
-        this.icons[part.name].setAttribute('data-selected', '')
+        selectedIcon.setAttribute('data-selected', '')
+
+        selectedIcon.scrollIntoView();
 
         // Store previous value to rollback
         this.previous = {partName: part.name, option: C().selectedOptions[part.name]}

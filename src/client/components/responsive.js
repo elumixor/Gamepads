@@ -3,6 +3,7 @@ export const Responsive = (C) => class extends C {
     constructor() {
         super();
         this.setAttribute('data-responsive', '')
+        this.mobileView = false;
     }
 
     onChanged() {
@@ -10,11 +11,13 @@ export const Responsive = (C) => class extends C {
 
     onMobile() {
         this.setAttribute('data-mobile', '')
+        this.mobileView = true;
         this.onChanged()
     }
 
     onDesktop() {
         this.removeAttribute('data-mobile')
+        this.mobileView = false;
         this.onChanged()
     }
 }

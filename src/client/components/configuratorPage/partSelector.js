@@ -37,19 +37,18 @@ export class PartSelector extends Responsive(Component) {
         }
 
         this.modificationsText = this.appendNew('div')
+
+        this.containers.front.onclick = e => this.click(e, 'front')
+        this.containers.back.onclick = e => this.click(e, 'back')
     }
 
     onMobile() {
         super.onMobile();
-        this.containers.front.onclick = e => this.click(e, 'front')
-        this.containers.back.onclick = e => this.click(e, 'back')
     }
 
     onDesktop() {
         super.onDesktop();
         this.zoomOut()
-        this.containers.front.onclick = () => { }
-        this.containers.back.onclick = () => { }
     }
 
     dataLoadedCallback() {
@@ -129,25 +128,27 @@ export class PartSelector extends Responsive(Component) {
 
         if (!clickedPart || !this.configuration.product.parts[clickedPart]) return
 
-        const front = bounds.front[clickedPart]
-        const back = bounds.back[clickedPart]
+        if (this.mobileView) {
+            const front = bounds.front[clickedPart]
+            const back = bounds.back[clickedPart]
 
-        if (front && back) {
-            const xMin = Math.min(front.center.x - front.radius, back.center.x - back.radius)
-            const xMax = Math.max(front.center.x + front.radius, back.center.x + back.radius)
-            const centerX = (xMin + xMax) / 2
+            if (front && back) {
+                const xMin = Math.min(front.center.x - front.radius, back.center.x - back.radius)
+                const xMax = Math.max(front.center.x + front.radius, back.center.x + back.radius)
+                const centerX = (xMin + xMax) / 2
 
-            const yMin = (front.center.y - front.radius) / 2
-            const yMax = (1 + back.center.y + front.radius) / 2
-            const centerY = (yMin + yMax) / 2
+                const yMin = (front.center.y - front.radius) / 2
+                const yMax = (1 + back.center.y + front.radius) / 2
+                const centerY = (yMin + yMax) / 2
 
-            this.zoomIn({x: centerX, y: centerY}, Math.max((xMax - xMin) / 2, (yMax - yMin) / 2))
-        } else if (front) {
-            const {x, y} = front.center
-            this.zoomIn({x, y: y / 2}, front.radius)
-        } else {
-            const {x, y} = back.center
-            this.zoomIn({x, y: (1 + y) / 2}, back.radius)
+                this.zoomIn({x: centerX, y: centerY}, Math.max((xMax - xMin) / 2, (yMax - yMin) / 2))
+            } else if (front) {
+                const {x, y} = front.center
+                this.zoomIn({x, y: y / 2}, front.radius)
+            } else {
+                const {x, y} = back.center
+                this.zoomIn({x, y: (1 + y) / 2}, back.radius)
+            }
         }
 
         this.onPartSelected(this.configuration.product.parts[clickedPart])
@@ -156,7 +157,7 @@ export class PartSelector extends Responsive(Component) {
     onPartSelected(part) {
         E['main-page'].hidden = true
         E['cart-icon'].hidden = true
-        E['order-button'].hidden = true
+        E['order-button'].hidden = this.mobileView
         E['editor'].setAttribute('data-open', '')
         E['editor'].selectPart(part)
     }
