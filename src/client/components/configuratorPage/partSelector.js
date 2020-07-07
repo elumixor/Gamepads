@@ -155,8 +155,8 @@ export class PartSelector extends Responsive(Component) {
     }
 
     onPartSelected(part) {
-        E['main-page'].hidden = true
-        E['cart-icon'].hidden = true
+        E['main-page'].hidden = this.mobileView
+        E['cart-icon'].hidden =  this.mobileView
         E['order-button'].hidden = this.mobileView
         E['editor'].setAttribute('data-open', '')
         E['editor'].selectPart(part)
