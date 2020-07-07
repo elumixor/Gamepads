@@ -316,6 +316,17 @@
             "price": 4
           }
         }
+      },
+      "xbox": {
+        "icon": "./images/xbox/xbox_xbox_icon.png",
+        "displayName": "Xbox",
+        "options": {
+          "standart": {
+            "front": "./images/xbox/xbox_xboxbutton_front.png",
+            "icon": "./images/xbox/xbox_startselect_starndart_icon.png",
+            "price": 0
+          }
+        }
       }
     }
   },
@@ -507,7 +518,7 @@
         }
       },
       "left stick": {
-        "icon": "./images/ps_joystict_left_icon.jpeg",
+        "icon": "./images/playstation/ps_joystict_left_icon.jpeg",
         "displayName": "Left Thumbstick",
         "options": {
           "standart black": {
@@ -548,7 +559,7 @@
         }
       },
       "right stick": {
-        "icon": "./images/ps_joystict_right_icon.jpeg",
+        "icon": "./images/playstation/ps_joystict_right_icon.jpeg",
         "displayName": "Right Thumbstick",
         "options": {
           "standart black": {
@@ -635,7 +646,7 @@
         }
       },
       "rtltrblb": {
-        "icon": "./images/playstation/ps_l1r1_icon.jpeg",
+        "icon": "./images/playstation/ps_l1r1_icon.png",
         "displayName": "RTLTRBLB",
         "options": {
           "standart": {
@@ -707,7 +718,7 @@
         }
       },
       "option selection": {
-        "icon": "./images/playstation/ps_option/selection_icon.jpeg",
+        "icon": "./images/playstation/ps_option_selection_icon.jpeg",
         "displayName": "Start/Back",
         "options": {
           "standart": {
