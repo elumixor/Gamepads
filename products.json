@@ -258,9 +258,9 @@
             "price": 4
           },
           "chrome gold": {
-            "front": "./images/_front.png",
-            "back": "./images/_back.png",
-            "icon": "./images/_icon.png",
+            "front": "./images/xbox_l1r1_chrome_gold_front.png",
+            "back": "./images/xbox_l1r1_chrome_gold_back.png",
+            "icon": "./images/xbox_l1r1_chrome_gold_icon.png",
             "price": 4
           }
         }
