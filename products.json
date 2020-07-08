@@ -459,7 +459,7 @@
           },
           "rubbered green": {
             "front": "./images/playstation/backshell_rubbered_green_front.png",
-            "back": "./images/playstation/backshell_rubbered_greenk_back.png",
+            "back": "./images/playstation/backshell_rubbered_green_back.png",
             "icon": "./images/playstation/backshell_rubbered_green_icon.png",
             "price": 14
           },
