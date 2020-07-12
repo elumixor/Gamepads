@@ -28,15 +28,27 @@ export class CartPage extends Responsive(PageComponent) {
         t.innerText = 'Total: '
         this.price = total.appendNew('span')
 
+        // Input for the name
+        // this.nameInput = this.appendNew('input', {type: 'text', class: 'name'})
+        // this.nameInput.addEventListener('input', () => this.validateCart())
+        // this.nameInput.placeholder = 'First and Last name'
+        // this.nameInput.onkeydown = e => {
+        //     //See notes about 'which' and 'key'
+        //     if (e.key === 'Enter') {
+        //         this.email.focus()
+        //         return false
+        //     }
+        // }
+
         // Input for email
         this.email = this.appendNew('input', {type: 'email'})
         this.email.addEventListener('input', () => this.validateCart())
-        this.email.placeholder = 'Email for payment details'
+        this.email.placeholder = 'Email'
         this.email.onkeydown = e => {
             //See notes about 'which' and 'key'
             if (e.key === 'Enter') {
                 this.confirmCancel.confirm()
-                return false;
+                return false
             }
         }
 
@@ -48,7 +60,7 @@ export class CartPage extends Responsive(PageComponent) {
             P(`Payment detail will be sent to <b class="money">${this.email.value}</b>
                             <br/><br/>Order will be processed upon receiving payment.
                             <br/><br/>Continue?`, () => {
-                api.sendOrder()
+                api.sendOrder(this.email.value)
                 this.update()
                 E['cart-icon'].update()
             }, () => this.hidden = false)
@@ -81,6 +93,7 @@ export class CartPage extends Responsive(PageComponent) {
         const emailValid = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             .test(this.email.value)
 
+        // this.confirmCancel.disabled = !emailValid || api.cart.empty || !this.nameInput.value
         this.confirmCancel.disabled = !emailValid || api.cart.empty
     }
 }

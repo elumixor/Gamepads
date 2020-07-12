@@ -67,7 +67,12 @@ export async function fetchData() {
         const product = products[productName]
         product.name = productName
 
-        for (const pn in product.parts) product.parts[pn].name = pn;
+        for (const pn in product.parts) {
+            const part = product.parts[pn]
+            part.name = pn;
+
+            for (const optionName in part.options) part.options[optionName].name = optionName
+        }
     }
 
     for (const b in bounds) {
@@ -135,7 +140,18 @@ export function saveToCart(configuration) {
     new Configuration(products[configuration.product.name]).select()
 }
 
-export function sendOrder() {
-    util.post('order', cart)
+export function sendOrder(email) {
+    const c = cart.map(configuration => {
+        return {
+            product: configuration.product.name,
+            basePrice: configuration.product.price,
+            selectedOptions: configuration.selectedOptions.map((key, value) => {
+                return {part: key, option: value.name, price: value.price}
+            }),
+            totalPrice: configuration.price,
+            count: configuration.count
+        }
+    })
+    util.post('order', {cart: c, email})
     cart.length = 0
 }

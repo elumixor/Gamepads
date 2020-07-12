@@ -63,6 +63,12 @@ Object.defineProperty(Object.prototype, 'keys', {
     },
 });
 
+Object.defineProperty(Object.prototype, 'map', {
+    value: function (callback) {
+        return Object.entries(this).map(entry => callback(entry[0], entry[1]))
+    },
+});
+
 Object.defineProperty(Object.prototype, 'keyOf', {
     value: function (v) {
         for (const k in this) {
@@ -96,7 +102,7 @@ Object.defineProperty(Array.prototype, 'empty', {
 });
 Object.defineProperty(Array.prototype, 'count', {
     value: function (predicate) {
-        return this.reduce(function(n, val) {
+        return this.reduce(function (n, val) {
             return n + predicate(val)
         }, 0);
     }

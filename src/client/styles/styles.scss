@@ -452,7 +452,7 @@ app-prompt {
     top: 0;
     left: 0;
     background: #000000B0;
-    content: 'div';
+    content: '';
     z-index: 1000;
   }
 
@@ -752,6 +752,7 @@ app-cart-page {
     position: absolute;
     width: calc(100% - 20px);
     bottom: calc(4.5rem + 17px);
+    //bottom: calc(5.5rem + 40px);
   }
 
   > input {
@@ -759,6 +760,10 @@ app-cart-page {
     position: absolute;
     margin: 5px 25px;
     width: calc(100% - 50px);
+
+    //&.name {
+    //  bottom: calc(4.5rem + 20px);
+    //}
   }
 
   > .items {
