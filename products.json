@@ -152,6 +152,11 @@
             "icon": "./images/xbox/xbox_joystick_left_standart_black_icon.png",
             "price": 0
           },
+          "white": {
+            "front": "./images/xbox/xbox_joystick_left_white_front.png",
+            "icon": "./images/xbox/xbox_joystick_left_white_icon.png",
+            "price": 3
+          },
           "chrome red": {
             "front": "./images/xbox/xbox_joystick_left_chrome_red_front.png",
             "icon": "./images/xbox/xbox_joystick_left_chrome_red_icon.png",
@@ -182,6 +187,11 @@
             "front": "./images/xbox/xbox_joystick_right_standart_black_front.png",
             "icon": "./images/xbox/xbox_joystick_right_standart_black_icon.png",
             "price": 0
+          },
+          "white": {
+            "front": "./images/xbox/xbox_joystick_right_white_front.png",
+            "icon": "./images/xbox/xbox_joystick_right_white_icon.png",
+            "price": 3
           },
           "chrome red": {
             "front": "./images/xbox/xbox_joystick_right_chrome_red_front.png",
