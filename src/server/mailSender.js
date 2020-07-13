@@ -24,7 +24,7 @@ const transporter2 = nodemailer.createTransport({
     }
 });
 
-async function sendToCustomLab(email) {
+function sendToCustomLab(email) {
     // Configure view
     transporter1.use('compile', hbs({
         viewEngine: {
@@ -37,30 +37,26 @@ async function sendToCustomLab(email) {
         extName: '.hbs'
     }));
 
-    return new Promise((res, rej) => {
-        transporter1.sendMail({
-                from, // Send from CustomLab
-                to,  // Send to CustomLab (notify itself)
-                subject: 'New order - CustomLab',
-                template: 'index',
-                attachments: [
-                    {filename: 'cart.json', path: './attachments/cart.json'}
-                ],
-                context: {email}
-            },
-            (err, data) => {
-                if (err) {
-                    console.error('Could not send email.', err)
-                    rej(err)
-                } else {
-                    console.log('Email sent to CustomLab.', data)
-                    res()
-                }
-            })
-    })
+    transporter1.sendMail({
+            from, // Send from CustomLab
+            to,  // Send to CustomLab (notify itself)
+            subject: 'New order - CustomLab',
+            template: 'index',
+            attachments: [
+                {filename: 'cart.json', path: './attachments/cart.json'}
+            ],
+            context: {email}
+        },
+        (err, data) => {
+            if (err) {
+                console.error('Could not send email.', err)
+            } else {
+                console.log('Email sent to CustomLab.', data)
+            }
+        })
 }
 
-async function sendToClient(email) {
+function sendToClient(email) {
     transporter2.use('compile', hbs({
         viewEngine: {
             extName: '.hbs',
@@ -72,21 +68,17 @@ async function sendToClient(email) {
         extName: '.hbs'
     }));
 
-    return new Promise((res, rej) => {
-        transporter2.sendMail({
-            from, // Send from CustomLab
-            to: email, // Send to client
-            subject: 'New order - CustomLab',
-            template: 'index'
-        }, (err, data) => {
-            if (err) {
-                console.error('Could not send email.', err)
-                rej(err)
-            } else {
-                console.log('Email sent to client.', data)
-                res()
-            }
-        })
+    transporter2.sendMail({
+        from, // Send from CustomLab
+        to: email, // Send to client
+        subject: 'New order - CustomLab',
+        template: 'index'
+    }, (err, data) => {
+        if (err) {
+            console.error('Could not send email.', err)
+        } else {
+            console.log('Email sent to client.', data)
+        }
     })
 }
 
@@ -96,7 +88,8 @@ async function sendMail(order) {
     // Write attachment file
     fs.writeFileSync('./attachments/cart.json', JSON.stringify(order.cart))
 
-    await Promise.all([sendToCustomLab(email), sendToClient(email)])
+    sendToCustomLab(email)
+    sendToClient(email)
 }
 
 module.exports = {sendMail}
