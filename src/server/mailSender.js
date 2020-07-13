@@ -89,7 +89,7 @@ async function sendMail(order) {
     fs.writeFileSync('./attachments/cart.json', JSON.stringify(order.cart))
 
     sendToCustomLab(email)
-    sendToClient(email)
+    // sendToClient(email)
 }
 
 module.exports = {sendMail}
