@@ -2,7 +2,7 @@ const parseOrder = require('./orderParser').parseOrder
 const hbs = require('nodemailer-express-handlebars')
 const fs = require('fs')
 
-const {login, password, from, to} = require('../../sensetive/mailCredentials.json')
+const {login, password, from, to} = require('../../sensitive/mailCredentials.json')
 const nodemailer = require('nodemailer');
 
 // Create two transporters to workaround the issue whre both email used the same email html layout
