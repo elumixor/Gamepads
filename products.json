@@ -155,7 +155,7 @@
           "white": {
             "front": "./images/xbox/xbox_joystick_left_white_front.png",
             "icon": "./images/xbox/xbox_joystick_left_white_icon.png",
-            "price": 3
+            "price": 2
           },
           "chrome red": {
             "front": "./images/xbox/xbox_joystick_left_chrome_red_front.png",
@@ -191,7 +191,7 @@
           "white": {
             "front": "./images/xbox/xbox_joystick_right_white_front.png",
             "icon": "./images/xbox/xbox_joystick_right_white_icon.png",
-            "price": 3
+            "price": 2
           },
           "chrome red": {
             "front": "./images/xbox/xbox_joystick_right_chrome_red_front.png",
