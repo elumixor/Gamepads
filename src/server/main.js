@@ -1,3 +1,5 @@
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+
 const express = require('express');
 const fs = require('fs')
 const sendMail = require('./mailSender').sendMail
@@ -49,9 +51,7 @@ app.get('/bounds', function (request, response) {
 
 
 app.post('/order', function (request, response) {
-    console.log(request.body);      // your JSON
     sendMail(request.body)
-    response.send(request.body);    // echo the result back
 });
 
 app.listen(PORT)

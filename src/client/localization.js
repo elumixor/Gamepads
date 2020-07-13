@@ -1,6 +1,3 @@
-import {E} from './elements.js'
-
-// export const supported = ['en', 'ru', 'cz']
 export const supported = []
 
 

@@ -1,6 +1,6 @@
 import * as api from './api.js'
 import * as util from "./util.js"
-import {E, components} from './elements.js'
+import {E} from './elements.js'
 import {Responsive} from "./components/responsive.js"
 import {Component} from "./components/component.js"
 import * as language from './localization.js'

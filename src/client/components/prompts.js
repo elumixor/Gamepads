@@ -15,12 +15,17 @@ customElements.define('app-prompt', PromptComponent)
 let promptElement = document.body.appendChild(new PromptComponent())
 promptElement.hidden = true
 
-export function prompt(message, onYes, onNo = () => {}) {
-    promptElement.confirmCancel.actions.confirm = () => {
+export function prompt(message, onYes, onNo = () => {}, yes = 'Yes', no = 'No') {
+
+    const confirmCancel = promptElement.confirmCancel
+    confirmCancel.confirmButton.innerText = yes
+    confirmCancel.cancelButton.innerText = no
+
+    confirmCancel.actions.confirm = () => {
         onYes()
         promptElement.hidden = true
     }
-    promptElement.confirmCancel.actions.cancel = () => {
+    confirmCancel.actions.cancel = () => {
         onNo()
         promptElement.hidden = true
     }

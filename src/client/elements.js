@@ -19,18 +19,19 @@ customElements.define('app-icon', Icon)
 
 // This dictionary object maps ids to dom elements so we can access them as dom['element-id']
 export const E = {}
-export const components = []
 
 // Put all the elements by id
 util.walkDOM(document.body, node => {
     if (node.hasAttribute('id'))
         E[node.id] = node
-})
 
-// Put all the custom components
-for (const c of document.body.children) {
-    if (c instanceof Component) {
-        E[c.localName.slice(4)] = c
-        components.push(c)
+    if (node instanceof Component) {
+        let componentName = node.localName.slice(4)
+        if (node.hasAttribute("data-duplicate")) {
+            if (!E[componentName]) E[componentName] = {}
+
+            E[componentName][node.id] = node
+        } else
+            E[componentName] = node
     }
-}
+})

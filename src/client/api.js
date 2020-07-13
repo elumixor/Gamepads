@@ -1,4 +1,5 @@
 import * as util from './util.js'
+import {getPrice} from "./localization.js"
 
 export let products
 export let bounds
@@ -22,10 +23,19 @@ export class Configuration {
         this.selectedOptions = {}
         product.parts.iterate((partName, part) => this.selectedOptions[partName] = part.options.first)
         this.count = 1
+        this.sendIn = false
+    }
+
+    get normalPrice() {
+        return this.product.price + this.selectedOptions.values.map(option => option.price).sum;
+    }
+
+    get sendInPrice() {
+        return this.normalPrice - this.product.price + this.product.sendInPrice
     }
 
     get price() {
-        return this.product.price + this.selectedOptions.values.map(option => option.price).sum;
+        return this.sendIn ? this.sendInPrice : this.normalPrice
     }
 
     get modificationsCount() {
@@ -142,13 +152,16 @@ export function saveToCart(configuration) {
 
 export function sendOrder(email) {
     const c = cart.map(configuration => {
+        const parts = configuration.product.parts
+
         return {
             product: configuration.product.name,
-            basePrice: configuration.product.price,
-            selectedOptions: configuration.selectedOptions.map((key, value) => {
-                return {part: key, option: value.name, price: value.price}
+            // sendIn: configuration.sendIn,
+            basePrice: !configuration.sendIn ? configuration.product.price : (configuration.product.sendInPrice + " (send in)"),
+            selectedOptions: configuration.selectedOptions.toArray.filter(([partName, option]) => option !== parts[partName].options.first).map(([partName, option]) => {
+                return {part: partName, option: option.name, price: option.price}
             }),
-            totalPrice: configuration.price,
+            totalPrice: getPrice(configuration.price),
             count: configuration.count
         }
     })

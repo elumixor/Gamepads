@@ -364,13 +364,19 @@ app-main-page {
   top: 0;
 }
 
-app-order-button {
+#order-buttons {
+  display: flex;
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  bottom: 13px;
+  right: 13px;
+}
+
+app-order-button {
+  display: inline-flex;
   text-align: center;
   width: fit-content;
   left: auto;
+  margin: 0 5px;
 
   > :not(.money) {
     font-weight: var(--weight-heavy);
@@ -382,6 +388,7 @@ app-order-button {
   }
 
   &[data-mobile] {
+    display: block;
     left: 15px;
     right: 15px;
     width: auto;
