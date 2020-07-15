@@ -10,6 +10,7 @@
     "back": "./images/xbox/xbox_backshell_standart_black_back.png",
     "parts": {
       "face shell": {
+        "highlightFront": "./images/highlights/xbox/xbox_front.png",
         "icon": "./images/xbox/xbox_faceshell_icon.jpeg",
         "displayName": "Face Shell",
         "options": {
@@ -66,6 +67,7 @@
         }
       },
       "back side": {
+        "highlightBack": "./images/highlights/xbox/xbox_back.png",
         "icon": "./images/xbox/xbox_backshell_icon.jpeg",
         "displayName": "Back Side",
         "options": {
@@ -82,6 +84,7 @@
         }
       },
       "side rails": {
+        "highlightBack": "./images/highlights/xbox/xbox_rails.png",
         "icon": "./images/xbox/xbox_siderails_icon.png",
         "displayName": "Side Rails",
         "options": {
@@ -98,6 +101,7 @@
         }
       },
       "battery pack": {
+        "highlightBack": "./images/highlights/xbox/xbox_battery.png",
         "icon": "./images/xbox/xbox_baterry_icon.png",
         "displayName": "Battery Pack",
         "options": {
@@ -113,6 +117,7 @@
         }
       },
       "Buttons": {
+        "highlightFront": "./images/highlights/xbox/xbox_buttons.png",
         "icon": "./images/xbox/xbox_buttons_icon.jpeg",
         "displayName": "Buttons",
         "options": {
@@ -144,6 +149,7 @@
         }
       },
       "Left Thumbstick": {
+        "highlightFront": "./images/highlights/xbox/xbox_left_stick.png",
         "icon": "./images/xbox/xbox_joystick_left_icon.jpeg",
         "displayName": "Left Thumbstick",
         "options": {
@@ -180,6 +186,7 @@
         }
       },
       "Right Thumbstick": {
+        "highlightFront": "./images/highlights/xbox/xbox_right_stick.png",
         "icon": "./images/xbox/xbox_joystick_right_icon.jpeg",
         "displayName": "Right Thumbstick",
         "options": {
@@ -216,6 +223,7 @@
         }
       },
       "dpad": {
+        "highlightFront": "./images/highlights/xbox/xbox_dpad.png",
         "icon": "./images/xbox/xbox_lpad_icon.jpeg",
         "displayName": "D-pad",
         "options": {
@@ -247,6 +255,8 @@
         }
       },
       "bumpers": {
+        "highlightFront": "./images/highlights/xbox/xbox_bumpers_front.png",
+        "highlightBack": "./images/highlights/xbox/xbox_bumpers_back.png",
         "icon": "./images/xbox/xbox_l1r1_icon.png",
         "displayName": "Bumpers",
         "options": {
@@ -277,6 +287,7 @@
         }
       },
       "rtlt": {
+        "highlightBack": "./images/highlights/xbox/xbox_rtlt.png",
         "icon": "./images/xbox/xbox_l2r2_icon.png",
         "displayName": "RT LT",
         "options": {
@@ -303,6 +314,7 @@
         }
       },
       "start/select": {
+        "highlightFront": "./images/highlights/xbox/xbox_startselect.png",
         "icon": "./images/xbox/xbox_option_selection_icon.jpeg",
         "displayName": "Start/Select",
         "options": {
@@ -328,7 +340,8 @@
           }
         }
       },
-      "xbox": {
+      "led/guide": {
+        "highlightFront": "./images/highlights/xbox/xbox_led.png",
         "icon": "./images/xbox/xbox_xbox_icon.png",
         "displayName": "Xbox",
         "options": {
@@ -352,6 +365,7 @@
     "back": "./images/playstation/backshell_standart_black_back.png",
     "parts": {
       "face shell": {
+        "highlightFront": "./images/highlights/ps/ps_front.png",
         "icon": "./images/playstation/ps_faceshell_icon.jpeg",
         "displayName": "Face Shell",
         "options": {
@@ -430,6 +444,8 @@
         }
       },
       "back shell": {
+        "highlightFront": "./images/highlights/ps/ps_backshell_front.png",
+        "highlightBack": "./images/highlights/ps/ps_back.png",
         "icon": "./images/playstation/ps_backshell_icon.jpeg",
         "displayName": "Back Shell",
         "options": {
@@ -484,6 +500,7 @@
         }
       },
       "buttons": {
+        "highlightFront": "./images/highlights/ps/ps_buttons.png",
         "icon": "./images/playstation/ps_buttons_icon.jpeg",
         "displayName": "Buttons",
         "options": {
@@ -530,6 +547,7 @@
         }
       },
       "left stick": {
+        "highlightFront": "./images/highlights/ps/ps_leftstick.png",
         "icon": "./images/playstation/ps_joystict_left_icon.jpeg",
         "displayName": "Left Thumbstick",
         "options": {
@@ -571,6 +589,7 @@
         }
       },
       "right stick": {
+        "highlightFront": "./images/highlights/ps/ps_rightstick.png",
         "icon": "./images/playstation/ps_joystict_right_icon.jpeg",
         "displayName": "Right Thumbstick",
         "options": {
@@ -612,6 +631,7 @@
         }
       },
       "d pad": {
+        "highlightFront": "./images/highlights/ps/ps_dpad.png",
         "icon": "./images/playstation/ps_lpad_icon.jpeg",
         "displayName": "D-pad",
         "options": {
@@ -658,6 +678,8 @@
         }
       },
       "rtltrblb": {
+        "highlightFront": "./images/highlights/ps/ps_rtlt_front.png",
+        "highlightBack": "./images/highlights/ps/ps_rtlt_back.png",
         "icon": "./images/playstation/ps_l1r1_icon.png",
         "displayName": "RTLTRBLB",
         "options": {
@@ -694,6 +716,7 @@
         }
       },
       "ps": {
+        "highlightFront": "./images/highlights/ps/ps_led.png",
         "icon": "./images/playstation/ps_ps_icon.png",
         "displayName": "Guide",
         "options": {
@@ -730,6 +753,7 @@
         }
       },
       "option selection": {
+        "highlightFront": "./images/highlights/ps/ps_startselect.png",
         "icon": "./images/playstation/ps_option_selection_icon.jpeg",
         "displayName": "Start/Back",
         "options": {
@@ -766,6 +790,7 @@
         }
       },
       "touchpad": {
+        "highlightFront": "./images/highlights/ps/ps_touchpad.png",
         "icon": "./images/playstation/ps_touchpad_icon.png",
         "displayName": "Touchpad",
         "options": {
