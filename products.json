@@ -15,6 +15,7 @@
         "displayName": "Face Shell",
         "options": {
           "standart": {
+            "tooltip": "Standard shell",
             "front": "./images/xbox/xbox_faceshell_standart_black_front.png",
             "icon": "./images/xbox/xbox_faceshell_standart_black_icon.png",
             "price": 0

@@ -10,7 +10,22 @@ export class OptionIcon extends Component {
     }
 
     connectedCallback() {
-        this.image = this.appendNew('img', {src: this.option.icon || '', alt: ''})
+        this.image = this.appendNew('div', {class: 'image'})
+        this.image.style.backgroundImage = 'url(' + this.option.icon + ')'
+        this.tooltip = this.image.appendNew('div', {class: 'tooltip'})
+        this.tooltip.innerText = this.option.tooltip || this.option.name
+
+        this.image.onmouseenter = () => {
+            const w = this.tooltip.offsetWidth
+            const h = this.tooltip.offsetHeight
+
+            const x = this.offsetLeft - w / 2 + this.offsetWidth / 2
+            const y = this.offsetTop - h - 10
+
+
+            this.tooltip.style.left = x + 'px'
+            this.tooltip.style.top = y + 'px'
+        }
     }
 }
 
