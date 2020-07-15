@@ -36,19 +36,35 @@ export class PartSelector extends Responsive(Component) {
             back: this.containers.back.appendNew('div')
         }
 
+        this.highlights = {
+            front: this.containers.front.appendNew('img', {alt: ''}),
+            back: this.containers.back.appendNew('img', {alt: ''})
+        }
+
         this.modificationsText = this.appendNew('div')
 
         this.containers.front.onclick = e => this.click(e, 'front')
         this.containers.back.onclick = e => this.click(e, 'back')
+
+        this.containers.front.onmousemove = e => this.hover(e, 'front')
+        this.containers.back.onmousemove = e => this.hover(e, 'back')
     }
 
     onMobile() {
         super.onMobile();
+        this.containers.front.onmousemove = () => {}
+        this.containers.back.onmousemove = () => {}
     }
 
     onDesktop() {
         super.onDesktop();
         this.zoomOut()
+        this.containers.front.onmousemove = e => this.hover(e, 'front')
+        this.containers.back.onmousemove = e => this.hover(e, 'back')
+        this.onmouseleave = () => {
+            this.highlights.front.src = ''
+            this.highlights.back.src = ''
+        }
     }
 
     dataLoadedCallback() {
@@ -78,7 +94,7 @@ export class PartSelector extends Responsive(Component) {
             modificationsCount === 0 ? 'Click on a part to modify' : 'modification'.times(modificationsCount)
     }
 
-    click(e, part) {
+    getSelectedPart(e, part) {
         const t = e.target
 
         let width, height, x, y
@@ -98,7 +114,7 @@ export class PartSelector extends Responsive(Component) {
         }
 
         // Restrict to actual image
-        if (x < 0 || x > 1 || y < 0 || y > 1) return
+        if (x < 0 || x > 1 || y < 0 || y > 1) return null
 
         // Get the clicked part, based on bounds polygons
         let clickedPart
@@ -126,7 +142,25 @@ export class PartSelector extends Responsive(Component) {
             }
         })
 
-        if (!clickedPart || !this.configuration.product.parts[clickedPart]) return
+        if (!clickedPart || !this.configuration.product.parts[clickedPart]) return null
+
+        return clickedPart
+    }
+
+    hover(e, part) {
+        const hoveredPart = this.getSelectedPart(e, part)
+
+        if (!hoveredPart) return
+
+        const p = this.configuration.product.parts[hoveredPart]
+        const {highlightFront: front, highlightBack: back} = p
+
+        this.highlights.front.src = front || ''
+        this.highlights.back.src = back || ''
+    }
+
+    click(e, part) {
+        const clickedPart = this.getSelectedPart(e, part)
 
         if (this.mobileView) {
             const front = bounds.front[clickedPart]
@@ -156,7 +190,7 @@ export class PartSelector extends Responsive(Component) {
 
     onPartSelected(part) {
         E['main-page'].hidden = this.mobileView
-        E['cart-icon'].hidden =  this.mobileView
+        E['cart-icon'].hidden = this.mobileView
         E['order-button'].hidden = this.mobileView
         E['editor'].setAttribute('data-open', '')
         E['editor'].selectPart(part)
