@@ -13,6 +13,12 @@ export class PartSelector extends Responsive(Component) {
         this.zoomedIn = false
 
         updateEvent.subscribe(() => this.dataLoadedCallback())
+        window.addEventListener('load', () => {
+            this.onResize()
+        })
+        window.addEventListener('resize', () => {
+            this.onResize()
+        })
     }
 
     connectedCallback() {
@@ -249,5 +255,12 @@ export class PartSelector extends Responsive(Component) {
         const imageHeight = this.bases.front.naturalHeight
 
         this.aspect = imageWidth / imageHeight
+    }
+
+    onResize() {
+        const b = E['order-buttons']
+        const top = b.offsetTop
+
+        this.style.bottom = 'calc(100% - ' + top + 'px + 25px)'
     }
 }

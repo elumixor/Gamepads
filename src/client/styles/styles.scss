@@ -199,6 +199,7 @@ app-option-icon {
       padding: 10px;
       transition: left 0s, top 0s, opacity .3s ease-out;
     }
+
     &:hover > .tooltip {
       opacity: 1;
     }
@@ -213,7 +214,7 @@ app-part-selector {
   display: block;
   text-align: center;
   left: 10%;
-  height: $configurator-height;
+  bottom: calc(13px + 8rem);
 
   & > div:not(:last-child) {
     height: calc(50% - .5rem);
