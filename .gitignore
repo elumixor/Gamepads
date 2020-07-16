@@ -6,3 +6,4 @@ sensitive
 *.css.map
 .DS_Store
 *.zip
+attachments/cart.json

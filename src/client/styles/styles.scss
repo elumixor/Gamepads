@@ -216,7 +216,7 @@ app-part-selector {
   height: $configurator-height;
 
   & > div:not(:last-child) {
-    height: 50%;
+    height: calc(50% - .5rem);
     position: relative;
 
     > img {
@@ -240,10 +240,14 @@ app-part-selector {
       position: relative;
     }
 
-    &:last-child {
+    > div:last-child {
       top: 15px;
       position: relative;
     }
+  }
+
+  > :last-child {
+    @include text-center-line(1rem)
   }
 
   &:not([data-mobile]) {
@@ -398,6 +402,15 @@ app-main-page {
   position: absolute;
   bottom: 13px;
   right: 13px;
+
+  &[data-mobile] {
+    left: 13px;
+    justify-content: space-around;
+
+    > * {
+      flex-grow: 1;
+    }
+  }
 }
 
 app-order-button {
@@ -414,6 +427,10 @@ app-order-button {
 
   > .money {
     margin: 0 10px;
+  }
+
+  > * {
+    flex-grow: 1;
   }
 
   &[data-mobile] {
@@ -634,10 +651,11 @@ app-editor {
       position: fixed;
       left: 0;
       top: 0;
-      height: 100%;
+      bottom: 0;
       width: 100%;
       //background: linear-gradient(#ffffff00 16vh, #ffffff30 30vh, #ffffff94 76vh, white 90vh);
-      background: linear-gradient(#ffffff00 16vh, #ffffff30 30vh, #00000094 76vh, black 90vh);
+      background: linear-gradient(#ffffff00 16vh, #ffffff30 30vh, #00000094 76vh, black calc(1rem + 0.11rem * 2 + 50px));
+      //background: red;
 
       > .parts-container {
         > app-icon {

@@ -12,10 +12,12 @@ const responsive = [...document.querySelectorAll('[data-responsive]')]
 util.responsiveElement(() => {
         responsive.forEach(n => n.onMobile())
         E['links-container'].setAttribute('data-mobile', '')
+        E['order-buttons'].setAttribute('data-mobile', '')
     },
     () => {
         responsive.forEach(n => n.onDesktop())
         E['links-container'].removeAttribute('data-mobile')
+        E['order-buttons'].removeAttribute('data-mobile')
     })
 
 ;(async function initialize() {
