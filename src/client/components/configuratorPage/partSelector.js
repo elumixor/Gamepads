@@ -150,7 +150,11 @@ export class PartSelector extends Responsive(Component) {
     hover(e, part) {
         const [hoveredPart, _] = this.getSelectedPart(e, part)
 
-        if (!hoveredPart) return
+        if (!hoveredPart) {
+            this.highlights.front.src = ''
+            this.highlights.back.src = ''
+            return
+        }
 
         const p = this.configuration.product.parts[hoveredPart]
         const {highlightFront: front, highlightBack: back} = p
@@ -161,6 +165,7 @@ export class PartSelector extends Responsive(Component) {
 
     click(e, part) {
         const [clickedPart, bounds] = this.getSelectedPart(e, part)
+        if (!clickedPart) return
 
         if (this.mobileView) {
             const front = bounds.front[clickedPart]
