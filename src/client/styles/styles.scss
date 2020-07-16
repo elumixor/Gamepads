@@ -636,7 +636,6 @@ app-editor {
     > app-part-options {
       display: block;
       overflow-y: scroll;
-      height: calc(100vh - 10vh - 150px - 30px - #{$confirm-cancel-size} - 2rem);
     }
   }
 
@@ -655,7 +654,7 @@ app-editor {
       bottom: 0;
       width: 100%;
       //background: linear-gradient(#ffffff00 16vh, #ffffff30 30vh, #ffffff94 76vh, white 90vh);
-      background: linear-gradient(#ffffff00 16vh, #ffffff30 30vh, #00000094 76vh, black calc(1rem + 0.11rem * 2 + 50px));
+      background: linear-gradient(#ffffff00 16vh, #ffffff30 30vh, black 50vh);
       //background: red;
 
       > .parts-container {
@@ -687,7 +686,7 @@ app-editor {
         width: 100%;
         overflow-y: scroll;
         //background: linear-gradient(0deg, #ffffff, #bfbfbf63 41%, #8888882b);
-        background: linear-gradient(0deg, #000000, #000000ad);
+        background: linear-gradient(0deg, #000000 35%, #000000ad);
 
         > app-part-options {
           > div {
