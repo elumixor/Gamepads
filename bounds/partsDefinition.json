@@ -28,7 +28,8 @@
       "rtltrblb": "#F98FB5",
       "ps": "#54FF04",
       "option selection": "#15A4C4",
-      "touchpad": "#00FF85"
+      "touchpad": "#00FF85",
+      "back shell": "white"
     },
     "back": {
       "back shell": "white",
