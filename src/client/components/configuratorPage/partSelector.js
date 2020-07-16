@@ -114,7 +114,7 @@ export class PartSelector extends Responsive(Component) {
         }
 
         // Restrict to actual image
-        if (x < 0 || x > 1 || y < 0 || y > 1) return null
+        if (x < 0 || x > 1 || y < 0 || y > 1) return [null, null]
 
         // Get the clicked part, based on bounds polygons
         let clickedPart
@@ -122,9 +122,9 @@ export class PartSelector extends Responsive(Component) {
 
         if (part === 'front') {
             bounds.front.iterate((partName, bounds) => {
-                if (clickedPart) return
+                if (clickedPart) return [null, null]
 
-                if (!bounds) return
+                if (!bounds) return [null, null]
 
                 const point = [x, y]
                 if (bounds.some(b => pointInPolygon(point, b))) {
@@ -132,9 +132,9 @@ export class PartSelector extends Responsive(Component) {
                 }
             })
         } else bounds.back.iterate((partName, bounds) => {
-            if (clickedPart) return
+            if (clickedPart) return [null, null]
 
-            if (!bounds) return
+            if (!bounds) return [null, null]
 
             const point = [x, y]
             if (bounds.some(b => pointInPolygon(point, b))) {
@@ -142,13 +142,13 @@ export class PartSelector extends Responsive(Component) {
             }
         })
 
-        if (!clickedPart || !this.configuration.product.parts[clickedPart]) return null
+        if (!clickedPart || !this.configuration.product.parts[clickedPart]) return [null, null]
 
-        return clickedPart
+        return [clickedPart, bounds]
     }
 
     hover(e, part) {
-        const hoveredPart = this.getSelectedPart(e, part)
+        const [hoveredPart, _] = this.getSelectedPart(e, part)
 
         if (!hoveredPart) return
 
@@ -160,7 +160,7 @@ export class PartSelector extends Responsive(Component) {
     }
 
     click(e, part) {
-        const clickedPart = this.getSelectedPart(e, part)
+        const [clickedPart, bounds] = this.getSelectedPart(e, part)
 
         if (this.mobileView) {
             const front = bounds.front[clickedPart]
