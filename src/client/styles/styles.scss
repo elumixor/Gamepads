@@ -214,10 +214,10 @@ app-part-selector {
   display: block;
   text-align: center;
   left: 10%;
-  bottom: calc(13px + 8rem);
+  bottom: 500px;
 
   & > div:not(:last-child) {
-    height: calc(50% - .5rem);
+    height: calc(50% - 1rem);
     position: relative;
 
     > img {
@@ -248,7 +248,7 @@ app-part-selector {
   }
 
   > :last-child {
-    @include text-center-line(1rem)
+    @include text-center-line(2rem)
   }
 
   &:not([data-mobile]) {
