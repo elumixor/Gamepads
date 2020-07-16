@@ -10,6 +10,10 @@ export class MainPage extends Responsive(Component) {
 
         this.isOpen = true
         api.dataLoadedEvent.subscribe(products => this.dataLoadedCallback(products))
+        api.changeEvent.subscribe(obj => {
+            for (const panel of this.productPanels.values) panel.style.backgroundColor = 'var(--background-dark)'
+            this.productPanels[obj.product.name].style.backgroundColor = 'var(--accent-dark)'
+        })
     }
 
     connectedCallback() {
@@ -27,6 +31,7 @@ export class MainPage extends Responsive(Component) {
         })
 
         this.panels = this.appendNew('div', {class: 'panels'})
+        this.productPanels = {}
     }
 
     onMobile() {
@@ -52,8 +57,8 @@ export class MainPage extends Responsive(Component) {
         })()
 
         products.values.forEach(product => {
-            const panel = this.panels.appendNew('div')
-            panel.style.backgroundColor = dynamicColors.next().value
+            const panel = this.productPanels[product.name] = this.panels.appendNew('div')
+            panel.style.backgroundColor = 'var(--background-dark)'
 
             const t1 = panel.appendNew('div')
             t1.innerText = product.textBefore
