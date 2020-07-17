@@ -107,6 +107,7 @@
         "displayName": "Battery Pack",
         "options": {
           "black": {
+            "back": "./images/xbox/xbox_baterry_pack_black_back.png",
             "icon": "./images/xbox/xbox_backshell_standart_black_icon.png",
             "price": 0
           },
@@ -349,6 +350,11 @@
           "standart": {
             "front": "./images/xbox/xbox_xboxbutton_front.png",
             "icon": "./images/xbox/xbox_startselect_starndart_icon.png",
+            "price": 0
+          },
+          "white": {
+            "front": "./images/xbox/xxbox_xboxbutton_white_front.png",
+            "icon": "./images/xbox/xbox_xboxbutton_white_icon.png",
             "price": 0
           }
         }
@@ -701,6 +707,12 @@
             "back": "./images/playstation/l1l2r1r2_vampire_red_back.png",
             "icon": "./images/playstation/l1l2r1r2_vampire_red_icon.png",
             "price": 4
+          },
+          "chrome silver": {
+            "front": "./images/playstation/l1l2r1r2_chrome_silver_front.png",
+            "back": "./images/playstation/l1l2r1r2_chrome_silver_back.png",
+            "icon": "./images/playstation/l1l2r1r2_chrome_silver_icon.png",
+            "price": 6
           },
           "chrome gold": {
             "front": "./images/playstation/l1l2r1r2_chrome_gold_front.png",
