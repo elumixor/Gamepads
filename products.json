@@ -353,7 +353,7 @@
             "price": 0
           },
           "white": {
-            "front": "./images/xbox/xxbox_xboxbutton_white_front.png",
+            "front": "./images/xbox/xbox_xboxbutton_white_front.png",
             "icon": "./images/xbox/xbox_xboxbutton_white_icon.png",
             "price": 0
           }
