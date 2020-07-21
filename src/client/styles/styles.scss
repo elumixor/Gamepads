@@ -745,14 +745,14 @@ app-part-options {
       margin: 10px 0;
 
       .money { // money label
-        width: 70px;
+        width: 100px;
         text-align: left;
         text-shadow: 0 1px 5px #0000007a;
       }
 
       span:last-child { // options group
         padding: 0 5px;
-        width: calc(100% - 80px);
+        width: calc(100% - 110px);
         white-space: nowrap;
         /* display: inline-block; */
         overflow-x: scroll;
@@ -856,7 +856,7 @@ app-cart-item {
   margin: 25px 0;
 
   > .money {
-    width: 100px;
+    width: 150px;
     text-align: center;
   }
 
@@ -876,7 +876,7 @@ app-counter {
   text-align: center;
   font-size: 0.75rem;
 
-  @media screen and (max-width: 350px) {
+  @media screen and (max-width: 400px) {
     width: 30px;
   }
 

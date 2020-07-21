@@ -35,5 +35,23 @@
       "back shell": "white",
       "rtltrblb": "#F98FB5"
     }
+  },
+  "airpods": {
+    "front": {
+      "left": "black",
+      "right": "red"
+    },
+    "back": {
+      "case": "black"
+    }
+  },
+  "airpods pro": {
+    "front": {
+      "left": "black",
+      "right": "red"
+    },
+    "back": {
+      "case": "black"
+    }
   }
 }
