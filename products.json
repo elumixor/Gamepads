@@ -828,74 +828,74 @@
     "textBefore": "",
     "textAfter": "",
     "price": 184.99,
-    "sendInPrice": 9.99,
+    "sendInPrice": 0,
     "icon": "",
     "front": "./images/Airpods 1-2/shadoow_front.png",
     "back": "./images/Airpods 1-2/shadoow_back.png",
     "parts": {
-      "case": {
-        "highlightBack": "./images/highlights/airpods/case.png",
-        "icon": "",
-        "displayName": "Case",
-        "options": {
-          "White Glossy": {
-            "back": "./images/Airpods 1-2/case/1_white_glossy_back.png",
-            "icon": "",
-            "price": 0
-          },
-          "Black Glossy": {
-            "back": "./images/Airpods 1-2/case/1_black_glossy_back.png",
-            "icon": "",
-            "price": 24.99
-          },
-          "Green Glossy": {
-            "back": "./images/Airpods 1-2/case/1_green_glossy_back.png",
-            "icon": "",
-            "price": 24.99
-          }
-        }
-      },
       "left": {
         "highlightFront": "./images/highlights/airpods/left.png",
-        "icon": "",
+        "icon": "./images/Airpods 1-2/l_pod_icon.png",
         "displayName": "Left Pod",
         "options": {
           "White Glossy": {
             "front": "./images/Airpods 1-2/left/2_left_white_glossy_front.png",
-            "icon": "",
+            "icon": "./images/Airpods 1-2/white_icon.png",
             "price": 0
           },
           "Black Glossy": {
             "front": "./images/Airpods 1-2/left/2_left_black_glossy_front.png",
-            "icon": "",
-            "price": 19.99
+            "icon": "./images/Airpods 1-2/black_icon.png",
+            "price": 20
           },
           "Green Glossy": {
             "front": "./images/Airpods 1-2/left/2_left_green_glossy_front.png",
-            "icon": "",
-            "price": 19.99
+            "icon": "./images/Airpods 1-2/green_icon.png",
+            "price": 20
           }
         }
       },
       "right": {
         "highlightFront": "./images/highlights/airpods/right.png",
-        "icon": "",
+        "icon": "./images/Airpods 1-2/r_pod_icon.png",
         "displayName": "Right Pod",
         "options": {
           "White Glossy": {
             "front": "./images/Airpods 1-2/right/2_right_white_glossy_front.png",
-            "icon": "",
+            "icon": "./images/Airpods 1-2/white_icon.png",
             "price": 0
           },
           "Black Glossy": {
             "front": "./images/Airpods 1-2/right/2_right_black_glossy_front.png",
-            "icon": "",
-            "price": 19.99
+            "icon": "./images/Airpods 1-2/black_icon.png",
+            "price": 20
           },
           "Green Glossy": {
             "front": "./images/Airpods 1-2/right/2_right_green_glossy_front.png",
-            "icon": "",
-            "price": 19.99
+            "icon": "./images/Airpods 1-2/green_icon.png",
+            "price": 20
+          }
+        }
+      },
+      "case": {
+        "highlightBack": "./images/highlights/airpods/case.png",
+        "icon": "./images/Airpods 1-2/case_icon.png",
+        "displayName": "Case",
+        "options": {
+          "White Glossy": {
+            "back": "./images/Airpods 1-2/case/1_white_glossy_back.png",
+            "icon": "./images/Airpods 1-2/white_icon.png",
+            "price": 0
+          },
+          "Black Glossy": {
+            "back": "./images/Airpods 1-2/case/1_black_glossy_back.png",
+            "icon": "./images/Airpods 1-2/black_icon.png",
+            "price": 25
+          },
+          "Green Glossy": {
+            "back": "./images/Airpods 1-2/case/1_green_glossy_back.png",
+            "icon": "./images/Airpods 1-2/green_icon.png",
+            "price": 25
           }
         }
       }
@@ -906,74 +906,74 @@
     "textBefore": "",
     "textAfter": "",
     "price": 234.99,
-    "sendInPrice": 9.99,
+    "sendInPrice": 0,
     "icon": "",
     "front": "./images/Airpods Pro/backgroud_front.png",
     "back": "./images/Airpods Pro/backgroud_back.png",
     "parts": {
-      "case": {
-        "highlightBack": "./images/highlights/airpods pro/case.png",
-        "icon": "",
-        "displayName": "Case",
-        "options": {
-          "White Glossy": {
-            "back": "./images/Airpods Pro/case/1_white_back.png",
-            "icon": "",
-            "price": 0
-          },
-          "Black Glossy": {
-            "back": "./images/Airpods Pro/case/1_black_glossy_back.png",
-            "icon": "",
-            "price": 24.99
-          },
-          "Green Glossy": {
-            "back": "./images/Airpods Pro/case/1_green_glossy_back.png",
-            "icon": "",
-            "price": 24.99
-          }
-        }
-      },
       "left": {
         "highlightFront": "./images/highlights/airpods pro/left.png",
-        "icon": "",
+        "icon": "./images/Airpods Pro/l_pod_icon.png",
         "displayName": "Left Pod",
         "options": {
           "White Glossy": {
             "front": "./images/Airpods Pro/left/2_left_white_glossy_front.png",
-            "icon": "",
+            "icon": "./images/Airpods Pro/white_icon.png",
             "price": 0
           },
           "Black Glossy": {
             "front": "./images/Airpods Pro/left/2_left_black_glossy_front.png",
-            "icon": "",
-            "price": 19.99
+            "icon": "./images/Airpods Pro/black_icon.png",
+            "price": 20
           },
           "Green Glossy": {
             "front": "./images/Airpods Pro/left/2_left_green_glossy_front.png",
-            "icon": "",
-            "price": 19.99
+            "icon": "./images/Airpods Pro/green_icon.png",
+            "price": 20
           }
         }
       },
       "right": {
         "highlightFront": "./images/highlights/airpods pro/right.png",
-        "icon": "",
+        "icon": "./images/Airpods Pro/r_pod_icon.png",
         "displayName": "Right Pod",
         "options": {
           "White Glossy": {
             "front": "./images/Airpods Pro/right/2_right_white_glossy_front.png",
-            "icon": "",
+            "icon": "./images/Airpods Pro/white_icon.png",
             "price": 0
           },
           "Black Glossy": {
             "front": "./images/Airpods Pro/right/2_right_black_glossy_front.png",
-            "icon": "",
-            "price": 19.99
+            "icon": "./images/Airpods Pro/black_icon.png",
+            "price": 20
           },
           "Green Glossy": {
             "front": "./images/Airpods Pro/right/2_right_green_glossy_front.png",
-            "icon": "",
-            "price": 19.99
+            "icon": "./images/Airpods Pro/green_icon.png",
+            "price": 20
+          }
+        }
+      },
+      "case": {
+        "highlightBack": "./images/highlights/airpods pro/case.png",
+        "icon": "./images/Airpods Pro/case_icon.png",
+        "displayName": "Case",
+        "options": {
+          "White Glossy": {
+            "back": "./images/Airpods Pro/case/1_white_back.png",
+            "icon": "./images/Airpods Pro/white_icon.png",
+            "price": 0
+          },
+          "Black Glossy": {
+            "back": "./images/Airpods Pro/case/1_black_glossy_back.png",
+            "icon": "./images/Airpods Pro/black_icon.png",
+            "price": 25
+          },
+          "Green Glossy": {
+            "back": "./images/Airpods Pro/case/1_green_glossy_back.png",
+            "icon": "./images/Airpods Pro/green_icon.png",
+            "price": 25
           }
         }
       }
