@@ -30,6 +30,7 @@ const PORT = process.env.PORT || 5000
 const app = new express();
 
 app.use(express.static('./src/client'))
+app.use(express.static('.'))
 app.use('/images', express.static('./images'))
 app.use('/bounds', express.static('./bounds'))
 app.use(express.json());
