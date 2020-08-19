@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "build": "sass ./src/client/styles/styles.scss ./src/client/styles/styles.css",
-    "start": "npm run build && node src/server/main.js"
+    "start": "node src/server/main.js",
+    "startDev": "npm run build && node src/server/main.js"
   },
   "dependencies": {
     "express": "^4.17.1",

@@ -25,7 +25,8 @@ function updateBounds() {
 updateProducts()
 updateBounds()
 
-const PORT = process.env.PORT || 5000
+// const PORT = process.env.PORT || 5000
+// const PORT = process.env.PORT || 5000
 
 const app = new express();
 
@@ -55,4 +56,4 @@ app.post('/order', function (request, response) {
     sendMail(request.body)
 });
 
-app.listen(PORT)
+app.listen(process.env.APP_PORT, process.env.APP_IP)
