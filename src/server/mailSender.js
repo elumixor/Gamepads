@@ -6,23 +6,16 @@ const {login, password, from, to} = require('../../sensitive/mailCredentials.jso
 const nodemailer = require('nodemailer');
 
 // Create two transporters to workaround the issue whre both email used the same email html layout
-const transporter1 = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
+const mailOptions = {
+    host: 'mail.netangels.ru',
     auth: {
         user: login,
         pass: password
     }
-});
+}
 
-const transporter2 = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    auth: {
-        user: login,
-        pass: password
-    }
-});
+const transporter1 = nodemailer.createTransport(mailOptions);
+const transporter2 = nodemailer.createTransport(mailOptions);
 
 function sendToCustomLab(email) {
     // Configure view
