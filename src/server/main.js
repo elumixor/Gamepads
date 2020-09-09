@@ -56,4 +56,4 @@ app.post('/order', function (request, response) {
     sendMail(request.body)
 });
 
-app.listen(process.env.APP_PORT, process.env.APP_IP)
+app.listen(process.env.APP_PORT || 5000, process.env.APP_IP)

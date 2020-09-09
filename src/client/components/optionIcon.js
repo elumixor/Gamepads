@@ -2,11 +2,12 @@ import {currentConfiguration as C} from "../api.js"
 import {Component} from "./component.js"
 
 export class OptionIcon extends Component {
-    constructor(partName, option) {
+    constructor(partName, option, scrollContainer) {
         super();
 
         this.onclick = () => C().selectOption(partName, option)
         this.option = option
+        this.scrollContainer = scrollContainer
     }
 
     connectedCallback() {
@@ -19,7 +20,7 @@ export class OptionIcon extends Component {
             const w = this.tooltip.offsetWidth
             const h = this.tooltip.offsetHeight
 
-            const x = this.offsetLeft - w / 2 + this.offsetWidth / 2
+            const x = this.offsetLeft - w / 2 + this.offsetWidth / 2 - this.scrollContainer.scrollLeft
             const y = this.offsetTop - h - 10
 
 

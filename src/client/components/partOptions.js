@@ -32,7 +32,7 @@ export class PartOptions extends Component {
 
                 const optionsRoot = priceRoot.appendNew('span')
                 options.forEach(option => optionsRoot.appendChild(
-                    new OptionIcon(this.selectedPart.name, option)))
+                    new OptionIcon(this.selectedPart.name, option, optionsRoot)))
             })
         })
     }
