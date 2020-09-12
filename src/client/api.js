@@ -150,7 +150,7 @@ export function saveToCart(configuration) {
     new Configuration(products[configuration.product.name]).select()
 }
 
-export function sendOrder(email) {
+export function sendOrder(userData) {
     const c = cart.map(configuration => {
         const parts = configuration.product.parts
 
@@ -165,6 +165,6 @@ export function sendOrder(email) {
             count: configuration.count
         }
     })
-    util.post('order', {cart: c, email})
+    util.post('order', {cart: c, userData})
     cart.length = 0
 }

@@ -36,7 +36,8 @@ function sendToCustomLab(email) {
             subject: 'New order - CustomLab',
             template: 'index',
             attachments: [
-                {filename: 'cart.json', path: './attachments/cart.json'}
+                {filename: 'cart.json', path: './attachments/cart.json'},
+                {filename: 'userData.json', path: './attachments/userData.json'}
             ],
             context: {email}
         },
@@ -76,13 +77,14 @@ function sendToClient(email) {
 }
 
 async function sendMail(order) {
-    const email = order.email
+    const {userData, cart} = order
+    const {email} = userData
 
     // Write attachment file
-    fs.writeFileSync('./attachments/cart.json', JSON.stringify(order.cart))
+    fs.writeFileSync('./attachments/cart.json', JSON.stringify(cart))
+    fs.writeFileSync('./attachments/userData.json', JSON.stringify(userData))
 
     sendToCustomLab(email)
-    // sendToClient(email)
 }
 
 module.exports = {sendMail}

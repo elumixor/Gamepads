@@ -10,35 +10,35 @@ Object.defineProperty(Array.prototype, 'remove', {
         }
 
         --this.length
-    }
+    },
 })
 
-Object.defineProperty(Array.prototype, "sum", {
+Object.defineProperty(Array.prototype, 'sum', {
     get: function () {
         return this.reduce((a, b) => a + b, 0)
-    }
-});
+    },
+})
 
-Object.defineProperty(Array.prototype, "max", {
+Object.defineProperty(Array.prototype, 'max', {
     value: function () {
         return this.reduce((a, b) => Math.max(a, b), -Infinity)
     },
-    writable: false
-});
+    writable: false,
+})
 
 Object.defineProperty(String.prototype, 'times', {
     value: function (count) {
         const suffix = count === 11 || count % 10 !== 1 ? 's' : ''
         return `${count} ${this}${suffix}`
-    }
+    },
 })
 
-Object.defineProperty(Array.prototype, "min", {
+Object.defineProperty(Array.prototype, 'min', {
     value: function () {
         return this.reduce((a, b) => Math.min(a, b), Infinity)
     },
-    writable: false
-});
+    writable: false,
+})
 
 Object.defineProperty(Object.prototype, 'iterate', {
     value: function (callback) {
@@ -48,26 +48,37 @@ Object.defineProperty(Object.prototype, 'iterate', {
             }
         }
     },
-    writable: false
-});
+    writable: false,
+})
 
 Object.defineProperty(Object.prototype, 'values', {
     get: function () {
         return Object.values(this)
     },
-});
+})
 
 Object.defineProperty(Object.prototype, 'keys', {
     get: function () {
         return Object.keys(this)
     },
-});
+})
+
+Object.defineProperty(Event.prototype, 'isAbove', {
+    value: function (element) {
+        const t = element.offsetTop
+        const b = element.offsetHeight + t
+        const l = element.offsetLeft
+        const r = element.offsetWidth + l
+
+        return this.x >= l && this.x <= r && this.y >= t && this.y <= b
+    },
+})
 
 Object.defineProperty(Object.prototype, 'map', {
     value: function (callback) {
         return Object.entries(this).map(entry => callback(entry[0], entry[1]))
     },
-});
+})
 
 Object.defineProperty(Object.prototype, 'keyOf', {
     value: function (v) {
@@ -75,50 +86,50 @@ Object.defineProperty(Object.prototype, 'keyOf', {
             if (this.hasOwnProperty(k) && this[k] === v) return k
         }
     },
-});
+})
 
 Object.defineProperty(Object.prototype, 'toArray', {
     get: function () {
         return Object.entries(this)
-    }
-});
+    },
+})
 
 Object.defineProperty(Object.prototype, 'length', {
     get: function () {
         return Object.entries(this).length
-    }
-});
+    },
+})
 
 Object.defineProperty(Object.prototype, 'first', {
     get: function () {
         return this.values[0]
-    }
-});
+    },
+})
 
 Object.defineProperty(Array.prototype, 'empty', {
     get: function () {
         return this.length === 0
-    }
-});
+    },
+})
 Object.defineProperty(Array.prototype, 'count', {
     value: function (predicate) {
         return this.reduce(function (n, val) {
             return n + predicate(val)
-        }, 0);
-    }
-});
+        }, 0)
+    },
+})
 
 Object.defineProperty(Array.prototype, 'contains', {
     value: function (el) {
         return this.indexOf(el) >= 0
     },
-    writable: false
-});
+    writable: false,
+})
 
 Object.defineProperty(String.prototype, 'capitalize', {
     get: function () {
-        return this.charAt(0).toUpperCase() + this.slice(1);
-    }
+        return this.charAt(0).toUpperCase() + this.slice(1)
+    },
 })
 
 Object.defineProperty(Node.prototype, 'appendNew', {
@@ -127,8 +138,8 @@ Object.defineProperty(Node.prototype, 'appendNew', {
         if (attributes)
             attributes.iterate((key, value) => element.setAttribute(key, value))
         return element
-    }
-});
+    },
+})
 
 Math.clamp = (a, min = 0, max = 1) => {
     return Math.min(max, Math.max(a, min))
@@ -136,8 +147,8 @@ Math.clamp = (a, min = 0, max = 1) => {
 
 Object.defineProperty(Node.prototype, 'removeChildren', {
     value: function () {
-        while (this.firstChild) this.removeChild(this.lastChild);
-    }
+        while (this.firstChild) this.removeChild(this.lastChild)
+    },
 })
 
 
@@ -151,48 +162,48 @@ const baseUrl = document.baseURI
 
 export async function get(path) {
     return await new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", `${baseUrl}${path}`, true);
+        const xhr = new XMLHttpRequest()
+        xhr.open('GET', `${baseUrl}${path}`, true)
 
         xhr.onload = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    resolve(xhr.responseText);
+                    resolve(xhr.responseText)
                 } else {
-                    reject(xhr.statusText);
+                    reject(xhr.statusText)
                 }
             }
-        };
+        }
         xhr.onerror = function (e) {
-            reject(xhr.statusText);
-        };
-        xhr.send(null);
+            reject(xhr.statusText)
+        }
+        xhr.send(null)
     })
 }
 
 export async function post(path, data) {
     return await new Promise((resolve) => {
         const xhr = new XMLHttpRequest()
-        xhr.open('POST', `${baseUrl}${path}`, true);
-        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        xhr.open('POST', `${baseUrl}${path}`, true)
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
 
         // send the collected data as JSON
-        xhr.send(JSON.stringify(data));
+        xhr.send(JSON.stringify(data))
 
         xhr.onloadend = function () {
             resolve()
-        };
+        }
     })
 }
 
 export async function buildDom(filePath) {
     const xmlString = await util.get(filePath)
-    const doc = new DOMParser().parseFromString(xmlString, "text/xml")
+    const doc = new DOMParser().parseFromString(xmlString, 'text/xml')
     const element = doc.firstChild
     const ids = {}
 
     walkDOM(element, node => {
-        if (node.hasAttribute("id"))
+        if (node.hasAttribute('id'))
             ids[node.id] = node
     })
 
@@ -217,7 +228,7 @@ addEventListener('resize', () => {
 })
 
 export function isMobile() {
-    return _isMobile;
+    return _isMobile
 }
 
 export function responsiveElement(onMobileCallback, onDesktopCallback) {

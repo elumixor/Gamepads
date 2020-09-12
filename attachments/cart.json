@@ -1,15 +1,1 @@
-[
-  {
-    "product": "xbox",
-    "basePrice": 59.99,
-    "selectedOptions": [
-      {
-        "part": "face shell",
-        "option": "weed",
-        "price": 14
-      }
-    ],
-    "totalPrice": "€ 73.99",
-    "count": 1
-  }
-]
+[{"product":"xbox","basePrice":59.99,"selectedOptions":[],"totalPrice":"€ 59.99","count":1},{"product":"xbox","basePrice":59.99,"selectedOptions":[],"totalPrice":"€ 59.99","count":1}]

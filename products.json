@@ -1,5 +1,6 @@
 {
   "xbox": {
+    "category": "gamepads",
     "displayName": "XBOX ONE",
     "textBefore": "",
     "textAfter": "",
@@ -362,6 +363,7 @@
     }
   },
   "playstation": {
+    "category": "gamepads",
     "displayName": "Playstation 4",
     "textBefore": "",
     "textAfter": "",
@@ -824,6 +826,7 @@
     }
   },
   "airpods": {
+    "category": "airpods",
     "displayName": "Air Pods",
     "textBefore": "",
     "textAfter": "",
@@ -902,6 +905,7 @@
     }
   },
   "Airpods_Pro": {
+    "category": "airpods",
     "displayName": "Air Pods Pro",
     "textBefore": "",
     "textAfter": "",

@@ -9,3 +9,4 @@ export class Component extends HTMLElement {
 }
 
 customElements.define('app-component', Component)
+
