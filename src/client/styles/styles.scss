@@ -79,7 +79,7 @@ $confirm-cancel-size: calc(1rem + 0.11rem * 2 + 50px);
 }
 
 html {
-  font-size: min(calc(1em + 1vw), 26px);
+  font-size: min(calc(.9em + 1vw), 24px);
   font-family: 'Courier New', serif;
   font-weight: $weight-light;
 }
@@ -371,7 +371,6 @@ app-main-page {
   &:not([open]) {
     display: inline-block;
     z-index: 100;
-    position: relative;
     overflow: initial;
 
     @include top-icon;
@@ -929,7 +928,8 @@ app-counter {
   }
 
   & > span {
-    @include padding-h(10px);
+    width: 50%;
+    text-align: center;
     &[data-mobile] {
       display: none;
     }
@@ -937,10 +937,10 @@ app-counter {
   }
 
   & > #gamepads {
-
   }
 
   & > #airpods {
+
     color: $disabled-light;
     letter-spacing: -0.075em;
     font-size: 0.9em;
