@@ -1,10 +1,10 @@
 {
   "xbox": {
-    "category": "gamepads",
     "displayName": "XBOX ONE",
+    "category": "gamepads",
     "textBefore": "",
     "textAfter": "",
-    "price": 59.99,
+    "price": 51.99,
     "sendInPrice": 9.99,
     "icon": "./images/xbox/logo.png",
     "front": "./images/xbox/xbox_faceshell_standart_black_front.png",
@@ -16,52 +16,52 @@
         "displayName": "Face Shell",
         "options": {
           "standart": {
-            "tooltip": "Standard shell",
+            "tooltip": "Standard Black",
             "front": "./images/xbox/xbox_faceshell_standart_black_front.png",
             "icon": "./images/xbox/xbox_faceshell_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "front": "./images/xbox/xbox_faceshell_standart_white_front.png",
             "icon": "./images/xbox/xbox_faceshell_standart_white_icon.png",
             "price": 0
           },
-          "wood": {
+          "Soft Touch - Wood": {
             "front": "./images/xbox/xbox_faceshell_wood_front.png",
             "icon": "./images/xbox/xbox_faceshell_wood_icon.png",
             "price": 14
           },
-          "scary party": {
+          "Soft Touch - Scary Party": {
             "front": "./images/xbox/xbox_faceshell_it_front.png",
             "icon": "./images/xbox/xbox_faceshell_it_icon.png",
             "price": 14
           },
-          "joker": {
+          "Soft Touch - Joker": {
             "front": "./images/xbox/xbox_faceshell_joker_front.png",
             "icon": "./images/xbox/xbox_faceshell_joker_icon.png",
             "price": 14
           },
-          "hahaha": {
+          "Glossy - Ha-Ha-Ha": {
             "front": "./images/xbox/xbox_faceshell_joker_hahaha_front.png",
             "icon": "./images/xbox/xbox_faceshell_joker_hahaha_icon.png",
             "price": 14
           },
-          "why so serious": {
+          "Soft Touch - Why so serious?": {
             "front": "./images/xbox/xbox_faceshell_joker_whysoserious_front.png",
             "icon": "./images/xbox/xbox_faceshell_joker_whysoserious_icon.png",
             "price": 14
           },
-          "weed": {
+          "Soft Touch - Weed": {
             "front": "./images/xbox/xbox_faceshell_weed_front.png",
             "icon": "./images/xbox/xbox_faceshell_weed_icon.png",
             "price": 14
           },
-          "werewolves": {
+          "Soft Touch - Werewolves": {
             "front": "./images/xbox/xbox_faceshell_werevolfes_front.png",
             "icon": "./images/xbox/xbox_faceshell_werevolfes_icon.png",
             "price": 14
           },
-          "money": {
+          "Glossy - Big Money": {
             "front": "./images/xbox/xbox_faceshell_money_front.png",
             "icon": "./images/xbox/xbox_faceshell_money_icon.png",
             "price": 14
@@ -73,12 +73,12 @@
         "icon": "./images/xbox/xbox_backshell_icon.jpeg",
         "displayName": "Back Side",
         "options": {
-          "standart": {
+          "Standart Black": {
             "back": "./images/xbox/xbox_backshell_standart_black_back.png",
             "icon": "./images/xbox/xbox_backshell_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "Standart White": {
             "back": "./images/xbox/xbox_backshell_standart_white_back.png",
             "icon": "./images/xbox/xbox_backshell_standart_white_icon.png",
             "price": 0
@@ -90,12 +90,12 @@
         "icon": "./images/xbox/xbox_siderails_icon.png",
         "displayName": "Side Rails",
         "options": {
-          "black": {
+          "Standart Black": {
             "back": "./images/xbox/xbox_siderails_black_back.png",
             "icon": "./images/xbox/xbox_siderails_black_icon.png",
             "price": 0
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "back": "./images/xbox/xbox_siderails_gold_back.png",
             "icon": "./images/xbox/xbox_siderails_gold_icon.png",
             "price": 9
@@ -107,12 +107,12 @@
         "icon": "./images/xbox/xbox_baterry_icon.png",
         "displayName": "Battery Pack",
         "options": {
-          "black": {
+          "Standart Black": {
             "back": "./images/xbox/xbox_baterry_pack_black_back.png",
             "icon": "./images/xbox/xbox_backshell_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "Standart White": {
             "back": "./images/xbox/xbox_baterry_pack_back.png",
             "icon": "./images/xbox/xbox_baterry_pack_icon.png",
             "price": 0
@@ -124,27 +124,27 @@
         "icon": "./images/xbox/xbox_buttons_icon.jpeg",
         "displayName": "Buttons",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/xbox/xbox_buttons_standart_front.png",
             "icon": "./images/xbox/xbox_buttons_standart_icon.png",
             "price": 0
           },
-          "black": {
+          "Black": {
             "front": "./images/xbox/xbox_buttons_black_letters_front.png",
             "icon": "./images/xbox/xbox_buttons_black_letters_icon.png",
             "price": 4
           },
-          "white": {
+          "White": {
             "front": "./images/xbox/xbox_buttons_soft_white_front.png",
             "icon": "./images/xbox/xbox_buttons_soft_white_icon.png",
             "price": 3
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/xbox/xbox_buttons_chrome_gold_front.png",
             "icon": "./images/xbox/xbox_buttons_chrome_gold_icon.png",
             "price": 5
           },
-          "chrome red": {
+          "Chrome Red": {
             "front": "./images/xbox/xbox_buttons_chrome_red_front.png",
             "icon": "./images/xbox/xbox_buttons_chrome_red_icon.png",
             "price": 5
@@ -156,32 +156,32 @@
         "icon": "./images/xbox/xbox_joystick_left_icon.jpeg",
         "displayName": "Left Thumbstick",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/xbox/xbox_joystick_left_standart_black_front.png",
             "icon": "./images/xbox/xbox_joystick_left_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "front": "./images/xbox/xbox_joystick_left_white_front.png",
             "icon": "./images/xbox/xbox_joystick_left_white_icon.png",
             "price": 2
           },
-          "chrome red": {
+          "Chrome Red": {
             "front": "./images/xbox/xbox_joystick_left_chrome_red_front.png",
             "icon": "./images/xbox/xbox_joystick_left_chrome_red_icon.png",
             "price": 3
           },
-          "chrome blue": {
+          "Chrome Blue": {
             "front": "./images/xbox/xbox_joystick_left_chrome_blue_front.png",
             "icon": "./images/xbox/xbox_joystick_left_chrome_blue_icon.png",
             "price": 3
           },
-          "metal gold": {
+          "Metal Gold": {
             "front": "./images/xbox/xbox_joystick_left_metal_gold_front.png",
             "icon": "./images/xbox/xbox_joystick_left_metal_gold_icon.png",
             "price": 6
           },
-          "bullet gold": {
+          "Bullet Gold": {
             "front": "./images/xbox/xbox_joystick_left_bullet_gold_front.png",
             "icon": "./images/xbox/xbox_joystick_left_bullet_gold_icon.png",
             "price": 6
@@ -193,32 +193,32 @@
         "icon": "./images/xbox/xbox_joystick_right_icon.jpeg",
         "displayName": "Right Thumbstick",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/xbox/xbox_joystick_right_standart_black_front.png",
             "icon": "./images/xbox/xbox_joystick_right_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "front": "./images/xbox/xbox_joystick_right_white_front.png",
             "icon": "./images/xbox/xbox_joystick_right_white_icon.png",
             "price": 2
           },
-          "chrome red": {
+          "Chrome Red": {
             "front": "./images/xbox/xbox_joystick_right_chrome_red_front.png",
             "icon": "./images/xbox/xbox_joystick_right_chrome_red_icon.png",
             "price": 3
           },
-          "chrome blue": {
+          "Chrome Rlue": {
             "front": "./images/xbox/xbox_joystick_right_chrome_blue_front.png",
             "icon": "./images/xbox/xbox_joystick_right_chrome_blue_icon.png",
             "price": 3
           },
-          "metal gold": {
+          "Metal Gold": {
             "front": "./images/xbox/xbox_joystick_right_metal_gold_front.png",
             "icon": "./images/xbox/xbox_joystick_right_metal_gold_icon.png",
             "price": 6
           },
-          "bullet gold": {
+          "Bullet Gold": {
             "front": "./images/xbox/xbox_joystick_right_bullet_gold_front.png",
             "icon": "./images/xbox/xbox_joystick_right_bullet_gold_icon.png",
             "price": 6
@@ -230,27 +230,27 @@
         "icon": "./images/xbox/xbox_lpad_icon.jpeg",
         "displayName": "D-pad",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/xbox/xbox_lpad_standart_front.png",
             "icon": "./images/xbox/xbox_lpad_standart_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "front": "./images/xbox/xbox_lpad_white_front.png",
             "icon": "./images/xbox/xbox_lpad_white_icon.png",
             "price": 3
           },
-          "chrome silver": {
+          "Chrome Silver": {
             "front": "./images/xbox/xbox_lpad_chrome_silver_front.png",
             "icon": "./images/xbox/xbox_lpad_chrome_silver_icon.png",
             "price": 5
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/xbox/xbox_lpad_chrome_gold_front.png",
             "icon": "./images/xbox/xbox_lpad_chrome_gold_icon.png",
             "price": 5
           },
-          "chrome red": {
+          "Chrome Red": {
             "front": "./images/xbox/xbox_lpad_chrome_red_front.png",
             "icon": "./images/xbox/xbox_lpad_chrome_red_icon.png",
             "price": 5
@@ -263,25 +263,25 @@
         "icon": "./images/xbox/xbox_l1r1_icon.png",
         "displayName": "Bumpers",
         "options": {
-          "black": {
+          "Standart Black": {
             "front": "./images/xbox/xbox_l1r1_standart_black_front.png",
             "back": "./images/xbox/xbox_l1r1_standart_black_back.png",
             "icon": "./images/xbox/xbox_l1r1_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "front": "./images/xbox/xbox_l1r1_white_front.png",
             "back": "./images/xbox/xbox_l1r1_white_back.png",
             "icon": "./images/xbox/xbox_l1r1_white_icon.png",
             "price": 3
           },
-          "chrome red": {
+          "Chrome Red": {
             "front": "./images/xbox/xbox_l1r1_chrome_red_front.png",
             "back": "./images/xbox/xbox_l1r1_chrome_red_back.png",
             "icon": "./images/xbox/xbox_l1r1_chrome_red_icon.png",
             "price": 4
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/xbox/xbox_l1r1_chrome_gold_front.png",
             "back": "./images/xbox/xbox_l1r1_chrome_gold_back.png",
             "icon": "./images/xbox/xbox_l1r1_chrome_gold_icon.png",
@@ -294,22 +294,22 @@
         "icon": "./images/xbox/xbox_l2r2_icon.png",
         "displayName": "RT LT",
         "options": {
-          "standart": {
+          "Standart Black": {
             "back": "./images/xbox/xbox_l2r2_standart_back.png",
             "icon": "./images/xbox/xbox_l2r2_standart_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "back": "./images/xbox/xbox_l2r2_white_back.png",
             "icon": "./images/xbox/xbox_l2r2_white_icon.png",
             "price": 2
           },
-          "chrome red": {
+          "Chrome Red": {
             "back": "./images/xbox/xbox_l2r2_chrome_red_back.png",
             "icon": "./images/xbox/xbox_l2r2_chrome_red_icon.png",
             "price": 3
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "back": "./images/xbox/xbox_l2r2_chrome_gold_back.png",
             "icon": "./images/xbox/xbox_l2r2_chrome_gold_icon.png",
             "price": 3
@@ -321,22 +321,22 @@
         "icon": "./images/xbox/xbox_option_selection_icon.jpeg",
         "displayName": "Start/Select",
         "options": {
-          "black": {
+          "Standart Black": {
             "front": "./images/xbox/xbox_startselect_starndart_front.png",
             "icon": "./images/xbox/xbox_startselect_starndart_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "front": "./images/xbox/xbox_startselect_white_front.png",
             "icon": "./images/xbox/xbox_startselect_white_icon.png",
             "price": 3
           },
-          "chrome red": {
+          "Chrome Red": {
             "front": "./images/xbox/xbox_startselect_chrome_red_front.png",
             "icon": "./images/xbox/xbox_startselect_chrome_red_icon.png",
             "price": 4
           },
-          "chorme gold": {
+          "Chorme Gold": {
             "front": "./images/xbox/xbox_startselect_chrome_gold_front.png",
             "icon": "./images/xbox/xbox_startselect_chrome_gold_icon.png",
             "price": 4
@@ -348,12 +348,12 @@
         "icon": "./images/xbox/xbox_xbox_icon.png",
         "displayName": "Xbox",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/xbox/xbox_xboxbutton_front.png",
             "icon": "./images/xbox/xbox_startselect_starndart_icon.png",
             "price": 0
           },
-          "white": {
+          "Standart White": {
             "front": "./images/xbox/xbox_xboxbutton_white_front.png",
             "icon": "./images/xbox/xbox_xboxbutton_white_icon.png",
             "price": 0
@@ -363,11 +363,11 @@
     }
   },
   "playstation": {
-    "category": "gamepads",
     "displayName": "Playstation 4",
+    "category": "gamepads",
     "textBefore": "",
     "textAfter": "",
-    "price": 59.99,
+    "price": 51.99,
     "sendInPrice": 9.99,
     "icon": "./images/playstation/logo.png",
     "front": "./images/playstation/faceshell_standart_black_front.png",
@@ -378,73 +378,73 @@
         "icon": "./images/playstation/ps_faceshell_icon.jpeg",
         "displayName": "Face Shell",
         "options": {
-          "standart black": {
+          "Standart Black": {
             "front": "./images/playstation/faceshell_standart_black_front.png",
             "back": "./images/playstation/faceshell_standart_black_back.png",
             "icon": "./images/playstation/faceshell_standart_black_icon.png",
             "price": 0
           },
-          "standart white": {
+          "Standart White": {
             "front": "./images/playstation/faceshell_standart_white_front.png",
             "back": "./images/playstation/faceshell_standart_white_back.png",
             "icon": "./images/playstation/faceshell_standart_white_icon.png",
             "price": 0
           },
-          "wood": {
+          "Soft - Touch Wood": {
             "front": "./images/playstation/faceshell_wood_front.png",
             "back": "./images/playstation/faceshell_wood_back.png",
             "icon": "./images/playstation/faceshell_wood_icon.png",
             "price": 14
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/playstation/faceshell_chrome_fire_front.png",
             "back": "./images/playstation/faceshell_chrome_fire_back.png",
             "icon": "./images/playstation/faceshell_chrome_fire_icon.png",
             "price": 7
           },
-          "sparta": {
+          "Glossy - Sparta": {
             "front": "./images/playstation/faceshell_sparta_front.png",
             "back": "./images/playstation/faceshell_sparta_back.png",
             "icon": "./images/playstation/faceshell_sparta_icon.png",
             "price": 14
           },
-          "blue fire": {
+          "Soft Touch - Blue Fire": {
             "front": "./images/playstation/faceshell_fire_blue_front.png",
             "back": "./images/playstation/faceshell_fire_blue_back.png",
             "icon": "./images/playstation/faceshell_fire_blue_icon.png",
             "price": 14
           },
-          "pink flamingo": {
+          "Glossy - Pink Flamingo": {
             "front": "./images/playstation/faceshell_flamingo_pink_front.png",
             "back": "./images/playstation/faceshell_flamingo_pink_back.png",
             "icon": "./images/playstation/faceshell_flamingo_pink_icon.png",
             "price": 14
           },
-          "hahaha": {
+          "Glossy - Ha-Ha-Ha": {
             "front": "./images/playstation/faceshell_joker_hahaha_front.png",
             "back": "./images/playstation/faceshell_joker_hahaha_back.png",
             "icon": "./images/playstation/faceshell_joker_hahaha_icon.png",
             "price": 14
           },
-          "weed": {
+          "Glossy - Weed": {
             "front": "./images/playstation/faceshell_weed_front.png",
             "back": "./images/playstation/faceshell_weed_back.png",
             "icon": "./images/playstation/faceshell_weed_icon.png",
             "price": 14
           },
-          "resident evil": {
+          "Glossy - Resident Evil": {
             "front": "./images/playstation/faceshell_residentevil_front.png",
             "back": "./images/playstation/faceshell_residentevil_back.png",
             "icon": "./images/playstation/faceshell_residentevil_icon.png",
             "price": 14
           },
-          "money": {
+          "Glossy - Bengamins": {
             "front": "./images/playstation/faceshell_money_front.png",
             "back": "./images/playstation/faceshell_money_back.png",
             "icon": "./images/playstation/faceshell_money_icon.png",
             "price": 14
           },
-          "biohazar": {
+          "Soft Touch - Biohazard": {
             "front": "./images/playstation/faceshell_biohazar_front.png",
             "back": "./images/playstation/faceshell_biohazar_back.png",
             "icon": "./images/playstation/faceshell_biohazar_icon.png",
@@ -458,49 +458,49 @@
         "icon": "./images/playstation/ps_backshell_icon.jpeg",
         "displayName": "Back Shell",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/playstation/backshell_standart_black_front.png",
             "back": "./images/playstation/backshell_standart_black_back.png",
             "icon": "./images/playstation/backshell_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "Standart White": {
             "front": "./images/playstation/backshell_standart_white_front.png",
             "back": "./images/playstation/backshell_standart_white_back.png",
             "icon": "./images/playstation/backshell_standart_white_icon.png",
             "price": 0
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/playstation/backshell_chrome_gold_front.png",
             "back": "./images/playstation/backshell_chrome_gold_back.png",
             "icon": "./images/playstation/backshell_chrome_gold_icon.png",
             "price": 7
           },
-          "rubbered black": {
+          "Rubbered Black": {
             "front": "./images/playstation/backshell_rubbered_black_front.png",
             "back": "./images/playstation/backshell_rubbered_black_back.png",
             "icon": "./images/playstation/backshell_rubbered_black_icon.png",
             "price": 14
           },
-          "rubbered white": {
+          "Rubbered White": {
             "front": "./images/playstation/backshell_rubbered_white_front.png",
             "back": "./images/playstation/backshell_rubbered_white_back.png",
             "icon": "./images/playstation/backshell_rubbered_white_icon.png",
             "price": 14
           },
-          "rubbered red": {
+          "Rubbered Red": {
             "front": "./images/playstation/backshell_rubbered_red_front.png",
             "back": "./images/playstation/backshell_rubbered_red_back.png",
             "icon": "./images/playstation/backshell_rubbered_red_icon.png",
             "price": 14
           },
-          "rubbered green": {
+          "Rubbered Green": {
             "front": "./images/playstation/backshell_rubbered_green_front.png",
             "back": "./images/playstation/backshell_rubbered_green_back.png",
             "icon": "./images/playstation/backshell_rubbered_green_icon.png",
             "price": 14
           },
-          "rubbered blue": {
+          "Rubbered Blue": {
             "front": "./images/playstation/backshell_rubbered_blue_front.png",
             "back": "./images/playstation/backshell_rubbered_blue_back.png",
             "icon": "./images/playstation/backshell_rubbered_blue_icon.png",
@@ -513,42 +513,42 @@
         "icon": "./images/playstation/ps_buttons_icon.jpeg",
         "displayName": "Buttons",
         "options": {
-          "standart black": {
+          "Standart Black": {
             "front": "./images/playstation/buttons_standart_ps4_front.png",
             "icon": "./images/playstation/buttons_standart_ps4_icon.png",
             "price": 0
           },
-          "standart white": {
+          "Standart White": {
             "front": "./images/playstation/buttons_white_front.png",
             "icon": "./images/playstation/buttons_white_icon.png",
             "price": 3
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/playstation/buttons_chrome_gold_front.png",
             "icon": "./images/playstation/buttons_chrome_gold_icon.png",
             "price": 5
           },
-          "chrome blue": {
+          "Chrome Blue": {
             "front": "./images/playstation/buttons_chrome_blue_front.png",
             "icon": "./images/playstation/buttons_chrome_blue_icon.png",
             "price": 5
           },
-          "glossy red": {
+          "Glossy Red": {
             "front": "./images/playstation/buttons_glossy_red_front.png",
             "icon": "./images/playstation/buttons_glossy_red_icon.png",
             "price": 3
           },
-          "chrome silver": {
+          "Chrome Silver": {
             "front": "./images/playstation/buttons_chrome_silver_front.png",
             "icon": "./images/playstation/buttons_chrome_silver_icon.png",
             "price": 5
           },
-          "bullet silver": {
+          "Bullet Silver": {
             "front": "./images/playstation/buttons_bullets_silver_front.png",
             "icon": "./images/playstation/buttons_bullets_silver_icon.png",
             "price": 10
           },
-          "bullet gold": {
+          "Bullet Gold": {
             "front": "./images/playstation/buttons_bullets_gold_front.png",
             "icon": "./images/playstation/buttons_bullets_gold_icon.png",
             "price": 10
@@ -560,37 +560,37 @@
         "icon": "./images/playstation/ps_joystict_left_icon.jpeg",
         "displayName": "Left Thumbstick",
         "options": {
-          "standart black": {
+          "Standart Black": {
             "front": "./images/playstation/joystick_standart_left_front.png",
             "icon": "./images/playstation/joystick_standart_left_icon.png",
             "price": 0
           },
-          "black white": {
+          "Black-White": {
             "front": "./images/playstation/joystick_left_black_white_front.png",
             "icon": "./images/playstation/joystick_left_black_white_icon.png",
             "price": 2
           },
-          "white": {
+          "White": {
             "front": "./images/playstation/joystick_left_white_front.png",
             "icon": "./images/playstation/joystick_left_white_icon.png",
             "price": 2
           },
-          "black chrome red": {
+          "Black-Chrome Red": {
             "front": "./images/playstation/joystick_left_black_red_front.png",
             "icon": "./images/playstation/joystick_left_black_red_icon.png",
             "price": 3
           },
-          "black chrome gold": {
+          "Black-Chrome Gold": {
             "front": "./images/playstation/joystick_left_black_gold_front.png",
             "icon": "./images/playstation/joystick_left_black_gold_icon.png",
             "price": 3
           },
-          "bullet gold": {
+          "Bullet Gold": {
             "front": "./images/playstation/joystick_left_bullet_gold_front.png",
             "icon": "./images/playstation/joystick_left_bullet_gold_icon.png",
             "price": 6
           },
-          "metal gold": {
+          "Metal Gold": {
             "front": "./images/playstation/joystick_left_metal_gold_front.png",
             "icon": "./images/playstation/joystick_left_metal_gold_icon.png",
             "price": 6
@@ -602,37 +602,37 @@
         "icon": "./images/playstation/ps_joystict_right_icon.jpeg",
         "displayName": "Right Thumbstick",
         "options": {
-          "standart black": {
+          "Standart Black": {
             "front": "./images/playstation/joystick_standart_right_front.png",
             "icon": "./images/playstation/joystick_standart_right_icon.png",
             "price": 0
           },
-          "black white": {
+          "Black-White": {
             "front": "./images/playstation/joystick_right_black_white_front.png",
             "icon": "./images/playstation/joystick_right_black_white_icon.png",
             "price": 2
           },
-          "white": {
+          "White": {
             "front": "./images/playstation/joystick_right_white_front.png",
             "icon": "./images/playstation/joystick_right_white_icon.png",
             "price": 2
           },
-          "black chrome red": {
+          "Black-Chrome Red": {
             "front": "./images/playstation/joystick_right_black_red_front.png",
             "icon": "./images/playstation/joystick_right_black_red_icon.png",
             "price": 3
           },
-          "black chrome gold": {
+          "Black-Chrome Gold": {
             "front": "./images/playstation/joystick_right_black_gold_front.png",
             "icon": "./images/playstation/joystick_right_black_gold_icon.png",
             "price": 3
           },
-          "bullet gold": {
+          "Bullet Gold": {
             "front": "./images/playstation/joystick_right_bullet_gold_front.png",
             "icon": "./images/playstation/joystick_right_bullet_gold_icon.png",
             "price": 6
           },
-          "metal gold": {
+          "Metal Gold": {
             "front": "./images/playstation/joystick_right_metal_gold_front.png",
             "icon": "./images/playstation/joystick_right_metal_gold_icon.png",
             "price": 6
@@ -644,42 +644,42 @@
         "icon": "./images/playstation/ps_lpad_icon.jpeg",
         "displayName": "D-pad",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/playstation/lpad_standart_black_front.png",
             "icon": "./images/playstation/lpad_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "front": "./images/playstation/lpad_standart_white_front.png",
             "icon": "./images/playstation/lpad_standart_white_icon.png",
             "price": 3
           },
-          "glossy red": {
+          "Glossy Red": {
             "front": "./images/playstation/lpad_glossy_red_front.png",
             "icon": "./images/playstation/lpad_glossy_red_icon.png",
             "price": 3
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/playstation/lpad_chrome_gold_front.png",
             "icon": "./images/playstation/lpad_chrome_gold_icon.png",
             "price": 5
           },
-          "chrome silver": {
+          "Chrome Silver": {
             "front": "./images/playstation/lpad_chrome_silver_front.png",
             "icon": "./images/playstation/lpad_chrome_silver_icon.png",
             "price": 5
           },
-          "chrome blue": {
+          "Chrome Blue": {
             "front": "./images/playstation/lpad_chrome_blue_front.png",
             "icon": "./images/playstation/lpad_chrome_blue_icon.png",
             "price": 5
           },
-          "metal gold": {
+          "Metal Gold": {
             "front": "./images/playstation/lpad_metal_gold_front.png",
             "icon": "./images/playstation/lpad_metal_gold_icon.png",
             "price": 6
           },
-          "metal red": {
+          "Metal Red": {
             "front": "./images/playstation/lpad_metal_red_front.png",
             "icon": "./images/playstation/lpad_metal_red_icon.png",
             "price": 6
@@ -692,37 +692,37 @@
         "icon": "./images/playstation/ps_l1r1_icon.png",
         "displayName": "RTLTRBLB",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/playstation/l1l2r1r2_standart_black_front.png",
             "back": "./images/playstation/l1l2r1r2_standart_black_back.png",
             "icon": "./images/playstation/l1l2r1r2_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "front": "./images/playstation/l1l2r1r2_standart_white_front.png",
             "back": "./images/playstation/l1l2r1r2_standart_white_back.png",
             "icon": "./images/playstation/l1l2r1r2_standart_white_icon.png",
             "price": 4
           },
-          "vampire red": {
+          "Vampire Red": {
             "front": "./images/playstation/l1l2r1r2_vampire_red_front.png",
             "back": "./images/playstation/l1l2r1r2_vampire_red_back.png",
             "icon": "./images/playstation/l1l2r1r2_vampire_red_icon.png",
             "price": 4
           },
-          "chrome silver": {
+          "Chrome Silver": {
             "front": "./images/playstation/l1l2r1r2_chrome_silver_front.png",
             "back": "./images/playstation/l1l2r1r2_chrome_silver_back.png",
             "icon": "./images/playstation/l1l2r1r2_chrome_silver_icon.png",
             "price": 6
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/playstation/l1l2r1r2_chrome_gold_front.png",
             "back": "./images/playstation/l1l2r1r2_chrome_gold_back.png",
             "icon": "./images/playstation/l1l2r1r2_chrome_gold_icon.png",
             "price": 6
           },
-          "chrome blue": {
+          "Chrome Blue": {
             "front": "./images/playstation/l1l2r1r2_chrome_blue_front.png",
             "back": "./images/playstation/l1l2r1r2_chrome_blue_back.png",
             "icon": "./images/playstation/l1l2r1r2_chrome_blue_icon.png",
@@ -735,32 +735,32 @@
         "icon": "./images/playstation/ps_ps_icon.png",
         "displayName": "Guide",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/playstation/ps_standart_black_front.png",
             "icon": "./images/playstation/ps_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "front": "./images/playstation/ps_white_front.png",
             "icon": "./images/playstation/ps_white_icon.png",
             "price": 2
           },
-          "chrome silver": {
+          "Chrome Silver": {
             "front": "./images/playstation/ps_chrome_silver_front.png",
             "icon": "./images/playstation/ps_chrome_silver_icon.png",
             "price": 3
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/playstation/ps_chrome_gold_front.png",
             "icon": "./images/playstation/ps_chrome_gold_icon.png",
             "price": 3
           },
-          "chrome blue": {
+          "Chrome Blue": {
             "front": "./images/playstation/ps_chrome_blue_front.png",
             "icon": "./images/playstation/ps_chrome_blue_icon.png",
             "price": 3
           },
-          "chrome red": {
+          "Chrome Red": {
             "front": "./images/playstation/ps_chrome_red_front.png",
             "icon": "./images/playstation/ps_chrome_red_icon.png",
             "price": 3
@@ -772,32 +772,32 @@
         "icon": "./images/playstation/ps_option_selection_icon.jpeg",
         "displayName": "Start/Back",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/playstation/option_selection_standart_black_front.png",
             "icon": "./images/playstation/option_selection_standart_black_icon.png",
             "price": 0
           },
-          "white": {
+          "White": {
             "front": "./images/playstation/option_selection_standart_white_front.png",
             "icon": "./images/playstation/option_selection_standart_white_icon.png",
             "price": 3
           },
-          "glossy red": {
+          "Glossy Red": {
             "front": "./images/playstation/option_selection_chrome_red_front.png",
             "icon": "./images/playstation/option_selection_chrome_red_icon.png",
             "price": 3
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/playstation/option_selection_chrome_gold_front.png",
             "icon": "./images/playstation/option_selection_chrome_gold_icon.png",
             "price": 4
           },
-          "chrome silver": {
+          "Chrome Silver": {
             "front": "./images/playstation/option_selection_chrome_silver_front.png",
             "icon": "./images/playstation/option_selection_chrome_silver_icon.png",
             "price": 4
           },
-          "chrome blue": {
+          "Chrome Blue": {
             "front": "./images/playstation/option_selection_chrome_blue_front.png",
             "icon": "./images/playstation/option_selection_chrome_blue_icon.png",
             "price": 4
@@ -809,13 +809,13 @@
         "icon": "./images/playstation/ps_touchpad_icon.png",
         "displayName": "Touchpad",
         "options": {
-          "standart": {
+          "Standart Black": {
             "front": "./images/playstation/touchpad_standart_black_front.png",
             "back": "./images/playstation/touchpad_standart_black_back.png",
             "icon": "./images/playstation/touchpad_standart_black_icon.png",
             "price": 0
           },
-          "chrome gold": {
+          "Chrome Gold": {
             "front": "./images/playstation/touchpad_chrome_gold_front.png",
             "back": "./images/playstation/touchpad_chrome_gold_back.png",
             "icon": "./images/playstation/touchpad_chrome_gold_icon.png",
@@ -826,11 +826,11 @@
     }
   },
   "airpods": {
-    "category": "airpods",
     "displayName": "Air Pods",
+    "category": "airpods",
     "textBefore": "",
     "textAfter": "",
-    "price": 184.99,
+    "price": 185,
     "sendInPrice": 0,
     "icon": "",
     "front": "./images/Airpods_1-2/shadoow_front.png",
@@ -905,11 +905,11 @@
     }
   },
   "Airpods_Pro": {
-    "category": "airpods",
     "displayName": "Air Pods Pro",
+    "category": "airpods",
     "textBefore": "",
     "textAfter": "",
-    "price": 234.99,
+    "price": 235,
     "sendInPrice": 0,
     "icon": "",
     "front": "./images/Airpods_Pro/backgroud_front.png",
